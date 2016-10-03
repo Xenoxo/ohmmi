@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
+import { TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
 
 import MyScene from './MyScene';
 
@@ -50,7 +50,16 @@ class TextInputBox extends Component {
 class ohmmi extends Component {
   render() {
     return (
-      <Text>This is the main page where things will go</Text>
+    	<View style={{flex:1,flexDirection: 'column',borderWidth:0, alignItems:'center', justifyContent:'center'}}>
+	    	<View style={{padding:10}}>
+	    		<Text style={styles.header}>This is where main page things will go</Text>
+	    	</View>
+	    	<TouchableNativeFeedback>
+		    	<View style={{borderWidth:1, padding:10}}>
+		      	<Text>This is a button</Text>
+		      </View>
+	      </TouchableNativeFeedback>
+      </View>
     )
   }
 }
@@ -60,7 +69,7 @@ const styles = StyleSheet.create({
 		color: '#DC3522',
 		fontFamily: 'roboto',
 		fontSize: 30,
-		marginLeft: 10,
+		textAlign: 'center',
 	},
 });
 
