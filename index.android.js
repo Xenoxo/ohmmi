@@ -3,27 +3,72 @@ import { TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet
 
 import MyScene from './MyScene';
 
+import MeditationTimerScene from './MeditationTimerScene';
 
+class ohmmi extends Component {
+  render() {
+    return (
+				<Navigator
+					initialRoute={{ title:'Homescene', index:0 }}
+					renderScene={(route, navigator) =>
+						<MeditationTimerScene
+							title={route.title}
+							routeIndex={route.index}
+							onForward={ () => {
+								const nextIndex = route.index + 1;
+								navigator.push({
+									title:'Scene ' + nextIndex,
+									index: nextIndex,
+								})
+							}}
 
-class Greetings extends Component {
-	render(){
-		return (
-			<Text style={this.props.style}>Hello {this.props.name}</Text>
-		);
-	}
+							onBack={ () => {
+	              if (route.index > 0) {
+	                navigator.pop();
+	              }
+							}}							
+						/>
+					}
+				/>
+    )
+  }
 }
 
-class Box extends Component {
-	render(){
-		return <View style={{width: 75, height: 50, backgroundColor: 'darkblue'}} />
-	}
-}
+const styles = StyleSheet.create({
+	header: {
+		color: '#DC3522',
+		fontFamily: 'roboto',
+		fontSize: 30,
+		textAlign: 'center',
+	},
+});
 
-class BigBox extends Component {
-	render(){
-		return <View style={{width: 75, height: 50, backgroundColor: 'powderblue'}} />
-	}
-}
+
+
+AppRegistry.registerComponent('ohmmi', () => ohmmi);
+
+
+
+/*
+    	<View style={{flex:1,flexDirection: 'column',borderWidth:0, alignItems:'center', justifyContent:'center'}}>
+	    	<View style={{padding:10}}>
+	    		<Text style={styles.header}>This is where main page things will go</Text>
+	    	</View>
+	    	<TouchableNativeFeedback>
+		    	<View style={{borderWidth:1, padding:10, margin:10}}>
+		      	<Text>This is a button</Text>
+		      </View>
+	      </TouchableNativeFeedback>				
+	      <TouchableNativeFeedback>
+		    	<View style={{borderWidth:1, padding:10, margin:10}}>
+		      	<Text>This is a button</Text>
+		      </View>
+	      </TouchableNativeFeedback>
+      </View>
+
+     */
+
+/*
 
 class TextInputBox extends Component {
 	constructor(props) {
@@ -47,32 +92,23 @@ class TextInputBox extends Component {
 	}
 }
 
-class ohmmi extends Component {
-  render() {
-    return (
-    	<View style={{flex:1,flexDirection: 'column',borderWidth:0, alignItems:'center', justifyContent:'center'}}>
-	    	<View style={{padding:10}}>
-	    		<Text style={styles.header}>This is where main page things will go</Text>
-	    	</View>
-	    	<TouchableNativeFeedback>
-		    	<View style={{borderWidth:1, padding:10}}>
-		      	<Text>This is a button</Text>
-		      </View>
-	      </TouchableNativeFeedback>
-      </View>
-    )
-  }
+class Greetings extends Component {
+	render(){
+		return (
+			<Text style={this.props.style}>Hello {this.props.name}</Text>
+		);
+	}
 }
 
-const styles = StyleSheet.create({
-	header: {
-		color: '#DC3522',
-		fontFamily: 'roboto',
-		fontSize: 30,
-		textAlign: 'center',
-	},
-});
+class Box extends Component {
+	render(){
+		return <View style={{width: 75, height: 50, backgroundColor: 'darkblue'}} />
+	}
+}
 
-
-
-AppRegistry.registerComponent('ohmmi', () => ohmmi);
+class BigBox extends Component {
+	render(){
+		return <View style={{width: 75, height: 50, backgroundColor: 'powderblue'}} />
+	}
+}
+*/
