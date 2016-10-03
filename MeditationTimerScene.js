@@ -12,20 +12,32 @@ export default class MeditationTimerScene extends Component {
     return (
       <View>
         <Text>The prop title is {this.props.title}</Text>
+        { this.props.routeIndex == 0 ? (
         <TouchableNativeFeedback onPress={this.props.onForward}>
           <View style={{borderWidth:1, padding:10, margin:10}}>
             <Text>Go forward</Text>
           </View>
-        </TouchableNativeFeedback>
+        </TouchableNativeFeedback>) : <Text></Text>}
+
+        { this.props.routeIndex != 0 ? (
+          <TouchableNativeFeedback onPress={this.props.onBack}>
+            <View style={{borderWidth:1, padding:10, margin:10}}>
+              <Text>Go back</Text>
+            </View>
+          </TouchableNativeFeedback> ) : <Text></Text>}
         
-        <TouchableNativeFeedback onPress={this.props.onBack}>
-          <View style={{borderWidth:1, padding:10, margin:10}}>
-            <Text>Go back</Text>
-          </View>
-        </TouchableNativeFeedback>
+
+
         
         <Text>The is the meditation timer scene</Text>
       </View>
     )
   }
 }
+
+/*{ if (this.props.routeIndex > 0) {}}
+
+{ this.props.routeIndex == 0 ? (<Text>{this.props.routeIndex}</Text>) : '' }        
+
+
+*/
