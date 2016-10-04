@@ -2,13 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { TouchableNativeFeedback, View, Text, TouchableHighlight } from 'react-native';
 
 export default class MeditationTimerScene extends Component {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    routeIndex: PropTypes.number.isRequired,
-    onForward: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-  }
 
+  componentWillReceiveProps(){
+    console.log("hey");
+  }
 
 
   render() {
@@ -36,6 +33,13 @@ export default class MeditationTimerScene extends Component {
         <Text>The is text on the bottom</Text>
       </View>
     )
+  }
+
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    routeIndex: PropTypes.number.isRequired,
+    onForward: PropTypes.func.isRequired,
+    onBack: PropTypes.func.isRequired,
   }
 }
 
