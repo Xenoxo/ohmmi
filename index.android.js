@@ -19,19 +19,28 @@ class ohmmi extends Component {
   beginTimer(){
    }
 
-  resetCount(timerID){
-  	if (timerID != null){
-  		clearInterval(timerID);
-  	}
-  	// return this.setState({ counter: 0});
-  	// return console.log("why me");
-  };
-
-	componentWillMount(){
+  startCount(timerID){
    let setIntervalID = setInterval(() => {
       this.setState({ counter: this.state.counter+1 });
     }, 1000);
    this.setState({ setIntervalID: setIntervalID });
+  };
+
+  stopCount(timerID){
+  	if (timerID != null){
+  		clearInterval(timerID);
+  	}
+  };
+
+  resetCount(timerID){
+  	if (timerID != null){
+  		clearInterval(timerID);
+			this.setState({ counter: 1 });
+  	}
+  };
+
+	componentWillMount(){
+
 	}
 
   componentWillReceiveProps(props){
@@ -68,12 +77,22 @@ class ohmmi extends Component {
 									}}							
 								/>
 					<Text>The is text on the bottom</Text>
+            <TouchableNativeFeedback onPress={this.startCount.bind(this, this.state.setIntervalID)}>
+              <View style={{borderWidth:1, padding:10, margin:10}}>
+                <Text>Start</Text>
+              </View>
+            </TouchableNativeFeedback> 					
+            <TouchableNativeFeedback onPress={this.stopCount.bind(this, this.state.setIntervalID)}>
+              <View style={{borderWidth:1, padding:10, margin:10}}>
+                <Text>Stops</Text>
+              </View>
+            </TouchableNativeFeedback>
             <TouchableNativeFeedback onPress={this.resetCount.bind(this, this.state.setIntervalID)}>
               <View style={{borderWidth:1, padding:10, margin:10}}>
-                <Text>resets</Text>
+                <Text>Reset</Text>
               </View>
-            </TouchableNativeFeedback>   
-          </View>				
+            </TouchableNativeFeedback>            
+          </View>
 					}
 				/>
     )
@@ -92,69 +111,3 @@ const styles = StyleSheet.create({
 
 
 AppRegistry.registerComponent('ohmmi', () => ohmmi);
-
-
-
-/*
-    	<View style={{flex:1,flexDirection: 'column',borderWidth:0, alignItems:'center', justifyContent:'center'}}>
-	    	<View style={{padding:10}}>
-	    		<Text style={styles.header}>This is where main page things will go</Text>
-	    	</View>
-	    	<TouchableNativeFeedback>
-		    	<View style={{borderWidth:1, padding:10, margin:10}}>
-		      	<Text>This is a button</Text>
-		      </View>
-	      </TouchableNativeFeedback>				
-	      <TouchableNativeFeedback>
-		    	<View style={{borderWidth:1, padding:10, margin:10}}>
-		      	<Text>This is a button</Text>
-		      </View>
-	      </TouchableNativeFeedback>
-      </View>
-
-     */
-
-/*
-
-class TextInputBox extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {text:''};
-	}
-
-	render(){
-		return (
-			<View style={{padding:10}}>
-				<TextInput
-					style={{height:40}}
-					placeholder="Type here!"
-					onChangeText={(text)=> this.setState({text})}
-				/>
-				<Text>
-					{this.state.text}
-				</Text>
-			</View>
-		)
-	}
-}
-
-class Greetings extends Component {
-	render(){
-		return (
-			<Text style={this.props.style}>Hello {this.props.name}</Text>
-		);
-	}
-}
-
-class Box extends Component {
-	render(){
-		return <View style={{width: 75, height: 50, backgroundColor: 'darkblue'}} />
-	}
-}
-
-class BigBox extends Component {
-	render(){
-		return <View style={{width: 75, height: 50, backgroundColor: 'powderblue'}} />
-	}
-}
-*/
