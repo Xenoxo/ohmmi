@@ -1,26 +1,42 @@
 import React, { Component } from 'react';
 import { TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
-
+import TimerMixin from 'react-timer-mixin';
 import MyScene from './MyScene';
 
 import MeditationTimerScene from './MeditationTimerScene';
 
 class ohmmi extends Component {
-
+	mixins: [TimerMixin]
   constructor(props) {
     super(props);
     this.state = {
     	theTime: "not needed",
     	counter:1,
+    	setIntervalID: null,
     };
+  };
 
-    setInterval(() => {
+  beginTimer(){
+   }
+
+  resetCount(timerID){
+  	if (timerID != null){
+  		clearInterval(timerID);
+  	}
+  	// return this.setState({ counter: 0});
+  	// return console.log("why me");
+  };
+
+	componentWillMount(){
+   let setIntervalID = setInterval(() => {
       this.setState({ counter: this.state.counter+1 });
-    }, 1000);  
-  }
+    }, 1000);
+   this.setState({ setIntervalID: setIntervalID });
+	}
 
-  thedate(){  
-  }
+  componentWillReceiveProps(props){
+    // console.log(props);
+  };
 
   render() {
     return (
@@ -30,25 +46,34 @@ class ohmmi extends Component {
 				    Navigator.SceneConfigs.FloatFromBottom}				
 					
 					renderScene={(route, navigator) =>
-						<MeditationTimerScene
-							counter={this.state.counter}
-							timenow={this.state.theTime}
-							title={route.title}
-							routeIndex={route.index}
-							onForward={ () => {
-								const nextIndex = route.index + 1;
-								navigator.push({
-									title:'Scene ' + nextIndex,
-									index: nextIndex,
-								})
-							}}
+						<View>
+							<Text>Counter = {this.state.counter} The prop date is {this.props.timenow} title is {this.props.title}</Text>
+								<MeditationTimerScene
+									counter={this.state.counter}
+									timenow={this.state.theTime}
+									title={route.title}
+									routeIndex={route.index}
+									onForward={ () => {
+										const nextIndex = route.index + 1;
+										navigator.push({
+											title:'Scene ' + nextIndex,
+											index: nextIndex,
+										})
+									}}
 
-							onBack={ () => {
-	              if (route.index > 0) {
-	                navigator.pop();
-	              }
-							}}							
-						/>
+									onBack={ () => {
+			              if (route.index > 0) {
+			                navigator.pop();
+			              }
+									}}							
+								/>
+					<Text>The is text on the bottom</Text>
+            <TouchableNativeFeedback onPress={this.resetCount.bind(this, this.state.setIntervalID)}>
+              <View style={{borderWidth:1, padding:10, margin:10}}>
+                <Text>resets</Text>
+              </View>
+            </TouchableNativeFeedback>   
+          </View>				
 					}
 				/>
     )
