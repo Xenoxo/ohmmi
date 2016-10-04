@@ -11,7 +11,7 @@ class ohmmi extends Component {
     super(props);
     this.state = {
     	theTime: "not needed",
-    	counter:1,
+    	counter:0,
     	setIntervalID: null,
     };
   };
@@ -34,8 +34,8 @@ class ohmmi extends Component {
 
   resetCount(timerID){
   	if (timerID != null){
-  		clearInterval(timerID);
-			this.setState({ counter: 1 });
+  		this.stopCount(timerID);
+			this.setState({ counter: 0 });
   	}
   };
 
