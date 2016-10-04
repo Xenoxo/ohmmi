@@ -2,3 +2,6 @@ Start with tutorial to get basics.
 
 Start from complete scratch - avoid using libraries and such. Need to understand the basics.
 
+
+
+    "start": "node node_modules/react-native/local-cli/cli.js start"
