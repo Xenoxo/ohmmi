@@ -10,11 +10,12 @@ class ohmmi extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    	theTime: null,
+    	theTime: "not needed",
+    	counter:1,
     };
 
     setInterval(() => {
-      this.setState({ theTime: Date.now() });
+      this.setState({ counter: this.state.counter+1 });
     }, 1000);  
   }
 
@@ -30,6 +31,7 @@ class ohmmi extends Component {
 					
 					renderScene={(route, navigator) =>
 						<MeditationTimerScene
+							counter={this.state.counter}
 							timenow={this.state.theTime}
 							title={route.title}
 							routeIndex={route.index}

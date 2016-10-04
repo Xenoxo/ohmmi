@@ -15,7 +15,7 @@ export default class MeditationTimerScene extends Component {
     var date = Date.now();
     return (
       <View>
-        <Text>The prop date is {this.props.timenow} title is {this.props.title}</Text>
+        <Text>Counter = {this.props.counter} The prop date is {this.props.timenow} title is {this.props.title}</Text>
         
         { this.props.routeIndex == 0 ? (
           <TouchableNativeFeedback onPress={this.props.onForward}>
