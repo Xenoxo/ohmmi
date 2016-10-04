@@ -6,12 +6,31 @@ import MyScene from './MyScene';
 import MeditationTimerScene from './MeditationTimerScene';
 
 class ohmmi extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    	theTime: null,
+    };
+
+    setInterval(() => {
+      this.setState({ theTime: Date.now() });
+    }, 1000);  
+  }
+
+  thedate(){  
+  }
+
   render() {
     return (
 				<Navigator
 					initialRoute={{ title:'Homescene', index:0 }}
+				  configureScene={(route, routeStack) =>
+				    Navigator.SceneConfigs.FloatFromBottom}				
+					
 					renderScene={(route, navigator) =>
 						<MeditationTimerScene
+							timenow={this.state.theTime}
 							title={route.title}
 							routeIndex={route.index}
 							onForward={ () => {
