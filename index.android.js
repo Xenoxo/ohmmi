@@ -9,8 +9,9 @@ class ohmmi extends Component {
   constructor(props){
     super(props);
     this.animationValue = new Animated.Value(0)
+    this.springValue = new Animated.Value(0)
     this.state = {
-      dynamicText:'Click here to animate',
+      dynamicText:'Click here to spin',
     }
   }
 
@@ -21,8 +22,17 @@ class ohmmi extends Component {
 
   componentWillMount(){
   }
-
-  animate(){
+  spring(){
+    this.springValue.setValue();
+    Animated.spring(
+      this.springValue,
+      {
+        toValue:1,
+        friction:1
+      }
+    ).start();
+  }
+  spin(){
     this.animationValue.setValue(0);
     Animated.timing(
       this.animationValue,
@@ -31,7 +41,7 @@ class ohmmi extends Component {
         duration:1000,
         easing:Easing.linear,
       }
-    ).start(()=> this.animate());
+    ).start(()=> this.spin());
   }
 
   render() {
@@ -39,10 +49,16 @@ class ohmmi extends Component {
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
   });
+  const spring = this.animationValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0,1 ]
+  });
     return (
 		<View style={styles.container}>
       <Animated.View style={[styles.hand,{transform:[{rotate:spin}] }]}/>
-      <Text style={styles.header} onPress={this.animate.bind(this)}>{this.state.dynamicText}</Text>
+      <Text style={styles.header} onPress={this.spin.bind(this)}>{this.state.dynamicText}</Text>
+      <Animated.View style={[styles.ball,{transform:[{scale:spring}] }]}/>
+      <Text style={styles.header} onPress={this.spring.bind(this)}>bounce</Text>
     </View>
     )
   }
@@ -57,8 +73,8 @@ const styles = StyleSheet.create({
   },
   ball: {
     backgroundColor: '#DC3522',
-    width: 25,
-    height: 70,
+    width: 45,
+    height: 45,
     borderRadius:50
   },
   hand: {
