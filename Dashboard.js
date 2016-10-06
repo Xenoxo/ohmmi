@@ -70,28 +70,3 @@ export default class Dashboard extends Component {
   //   onBack: PropTypes.func.isRequired,
   // }
 }
-
-      // <View>
-      //   <Text>Counter = {this.state.counter} The prop date is {this.props.timenow} title is {this.props.title}</Text>
-      //   <Text>Timer buttons</Text>
-      //   <TouchableNativeFeedback onPress={this.startCount.bind(this, this.state.setIntervalID)}>
-      //     <View style={{borderWidth:1, padding:10, margin:10}}>
-      //       <Text>Start</Text>
-      //     </View>
-      //   </TouchableNativeFeedback>          
-      //   <TouchableNativeFeedback onPress={this.stopCount.bind(this, this.state.setIntervalID)}>
-      //     <View style={{borderWidth:1, padding:10, margin:10}}>
-      //       <Text>Stops</Text>
-      //     </View>
-      //   </TouchableNativeFeedback>
-      //   <TouchableNativeFeedback onPress={this.resetCount.bind(this, this.state.setIntervalID)}>
-      //     <View style={{borderWidth:1, padding:10, margin:10}}>
-      //       <Text>Reset</Text>
-      //     </View>
-      //   </TouchableNativeFeedback>
-      //   <TouchableNativeFeedback onPress={() => this.props.navigator.push({title:'Scene2'})}>
-      //     <View>
-      //       <Text>Go to scene2</Text>
-      //      </View>
-      //   </TouchableNativeFeedback>                 
-      // </View>
