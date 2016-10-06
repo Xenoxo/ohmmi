@@ -1,20 +1,48 @@
 import React, { Component } from 'react';
-import { Animated, TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
+import {Easing, Animated, TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
 
 import MeditationTimerScene from './MeditationTimerScene';
 import AnimationStation from './AnimationStation';
 import Dashboard from './Dashboard';
 
 class ohmmi extends Component {
+  constructor(props){
+    super(props);
+    this.animationValue = new Animated.Value(0)
+    this.state = {
+      dynamicText:'Click here to animate',
+    }
+  }
+
 
   componentWillReceiveProps(props){
     // console.log(props);
   };
 
+  componentWillMount(){
+  }
+
+  animate(){
+    this.animationValue.setValue(0);
+    Animated.timing(
+      this.animationValue,
+      {
+        toValue:1,
+        duration:1000,
+        easing:Easing.linear,
+      }
+    ).start(()=> this.animate());
+  }
+
   render() {
+  const spin = this.animationValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg']
+  });
     return (
 		<View style={styles.container}>
-      <View style={styles.ball}></View>
+      <Animated.View style={[styles.hand,{transform:[{rotate:spin}] }]}/>
+      <Text style={styles.header} onPress={this.animate.bind(this)}>{this.state.dynamicText}</Text>
     </View>
     )
   }
@@ -29,15 +57,22 @@ const styles = StyleSheet.create({
   },
   ball: {
     backgroundColor: '#DC3522',
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 70,
     borderRadius:50
   },
+  hand: {
+    backgroundColor: '#DC3522',
+    width: 20,
+    height: 60
+  },
 	header: {
-		color: '#DC3522',
+		color: '#ffffa8',
 		fontFamily: 'roboto',
-		fontSize: 30,
+		fontSize: 20,
 		textAlign: 'center',
+    margin:15,
+
 	},
 });
 
