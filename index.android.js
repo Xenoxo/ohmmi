@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
+import { Animated, TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
 
 import MeditationTimerScene from './MeditationTimerScene';
 import AnimationStation from './AnimationStation';
@@ -11,29 +11,28 @@ class ohmmi extends Component {
     // console.log(props);
   };
 
-  navigatorRenderScene(route, navigator) {
-    _navigator = navigator;
-    switch (route.title) {
-      case 'Dashboard':
-        return (<Dashboard navigator={navigator}/>);
-      case 'AnimationStation':
-        return (<AnimationStation navigator={navigator} title="second" />);
-    }
-  }  
-
   render() {
     return (
-				<Navigator
-					initialRoute={{ title:'Dashboard', index:0 }}
-				  configureScene={(route, routeStack) =>
-				    Navigator.SceneConfigs.FloatFromBottom}
-					renderScene={this.navigatorRenderScene }
-				/>
+		<View style={styles.container}>
+      <View style={styles.ball}></View>
+    </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    backgroundColor:'#2C3E50',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  ball: {
+    backgroundColor: '#DC3522',
+    width: 30,
+    height: 30,
+    borderRadius:50
+  },
 	header: {
 		color: '#DC3522',
 		fontFamily: 'roboto',
