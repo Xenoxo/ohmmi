@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Aniimation, TouchableNativeFeedback, View, Text, TouchableHighlight } from 'react-native';
 
-import TimerMixin from 'react-timer-mixin';
-
 export default class Dashboard extends Component {
-  mixins: [TimerMixin]
+  
   constructor(props) {
     super(props);
     this.state = {

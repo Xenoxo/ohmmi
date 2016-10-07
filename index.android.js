@@ -5,25 +5,54 @@ import MeditationTimerScene from './MeditationTimerScene';
 import AnimationStation from './AnimationStation';
 import Dashboard from './Dashboard';
 
+import * as Progress from 'react-native-progress';
+
+import TimerMixin from 'react-timer-mixin';
+
 class ohmmi extends Component {
+  mixins: [TimerMixin];
+
   constructor(props){
     super(props);
     this.animationValue = new Animated.Value(0)
     this.springValue = new Animated.Value(0)
     this.state = {
       dynamicText:'Click here to spin',
+      percentage:0,
+      timerID:null,
     }
-  }
+  };
 
 
   componentWillReceiveProps(props){
     // console.log(props);
   };
 
+//
+//  Time passed in should be mapped to a 1/1000th scale which would determine the rate
+//
+
   componentWillMount(){
   }
+
+  startCount(){
+    let sec = 10;
+    let rate = 1.00/sec; //the amount of time passed should be calculated here
+    let theID = setInterval(()=>{
+      this.setState({percentage:this.state.percentage+rate});
+    },100);
+    this.setState({timerID:theID});
+  }
+
+  stopCount(){
+    clearInterval(this.state.timerID);
+    if (this.state.timerID !== null){
+      this.setState({timerID:null});
+    }
+  }
+
   spring(){
-    this.springValue.setValue();
+    this.springValue.setValue(0);
     Animated.spring(
       this.springValue,
       {
@@ -32,6 +61,7 @@ class ohmmi extends Component {
       }
     ).start();
   }
+
   spin(){
     this.animationValue.setValue(0);
     Animated.timing(
@@ -49,20 +79,36 @@ class ohmmi extends Component {
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg']
   });
-  const spring = this.animationValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0,1 ]
-  });
+  // const spring = this.animationValue.interpolate({
+  //   inputRange: [0, 1],
+  //   outputRange: [0,1 ]
+  // });
     return (
 		<View style={styles.container}>
       <Animated.View style={[styles.hand,{transform:[{rotate:spin}] }]}/>
       <Text style={styles.header} onPress={this.spin.bind(this)}>{this.state.dynamicText}</Text>
-      <Animated.View style={[styles.ball,{transform:[{scale:spring}] }]}/>
+      
+      <Animated.View style={[styles.ball,{transform:[{scale:this.springValue}] }]}/>
       <Text style={styles.header} onPress={this.spring.bind(this)}>bounce</Text>
+      
+      <Progress.Circle progress={this.state.percentage} size={60} color={'#DC3522'} borderWidth={0} animated={false}/>
+      
+      <TouchableNativeFeedback onPress={this.startCount.bind(this)}>
+        <View style={styles.button}>
+          <Text style={styles.header}>Start</Text>
+        </View>
+      </TouchableNativeFeedback>  
+      <TouchableNativeFeedback onPress={this.stopCount.bind(this)}>
+        <View style={styles.button}>
+          <Text style={styles.header}>Stop</Text>
+        </View>
+      </TouchableNativeFeedback>
+      
     </View>
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -77,6 +123,15 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius:50
   },
+  ball2: {
+    backgroundColor: '#DC3522',
+    width: 0,
+    height: 0,
+    borderRadius:50,
+    borderWidth:50,
+    borderColor:'white',
+
+  },  
   hand: {
     backgroundColor: '#DC3522',
     width: 20,
@@ -88,10 +143,26 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: 'center',
     margin:15,
-
 	},
+  button: {
+    borderWidth:2,
+    borderColor:"white",
+    margin:15,
+    borderRadius:25,
+    width:100,
+    height:100
+  },
+  buttonContainer: {
+    flex:2,
+    flexDirection:'row',
+    alignItems:'center',    
+  },
+  testText: {
+    backgroundColor:'green'
+  }  
 });
 
 
-
 AppRegistry.registerComponent('ohmmi', () => ohmmi);
+
+
