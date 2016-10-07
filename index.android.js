@@ -36,8 +36,8 @@ class ohmmi extends Component {
   }
 
   startCount(){
-    let sec = 10;
-    let rate = 1.00/sec; //the amount of time passed should be calculated here
+    let sec = 3;
+    let rate = 1.00/(sec*10); //the amount of time passed should be calculated here
     let theID = setInterval(()=>{
       this.setState({percentage:this.state.percentage+rate});
     },100);
@@ -45,8 +45,8 @@ class ohmmi extends Component {
   }
 
   stopCount(){
-    clearInterval(this.state.timerID);
     if (this.state.timerID !== null){
+      clearInterval(this.state.timerID);
       this.setState({timerID:null});
     }
   }
@@ -75,34 +75,27 @@ class ohmmi extends Component {
   }
 
   render() {
-  const spin = this.animationValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg']
-  });
-  // const spring = this.animationValue.interpolate({
+  // const spin = this.animationValue.interpolate({
   //   inputRange: [0, 1],
-  //   outputRange: [0,1 ]
+  //   outputRange: ['0deg', '360deg']
   // });
+
     return (
 		<View style={styles.container}>
-      <Animated.View style={[styles.hand,{transform:[{rotate:spin}] }]}/>
-      <Text style={styles.header} onPress={this.spin.bind(this)}>{this.state.dynamicText}</Text>
+
       
-      <Animated.View style={[styles.ball,{transform:[{scale:this.springValue}] }]}/>
-      <Text style={styles.header} onPress={this.spring.bind(this)}>bounce</Text>
+      <Progress.Circle progress={this.state.percentage} size={60} color={'#DC3522'} borderWidth={0} animated={true}/>
       
-      <Progress.Circle progress={this.state.percentage} size={60} color={'#DC3522'} borderWidth={0} animated={false}/>
-      
-      <TouchableNativeFeedback onPress={this.startCount.bind(this)}>
-        <View style={styles.button}>
-          <Text style={styles.header}>Start</Text>
-        </View>
-      </TouchableNativeFeedback>  
-      <TouchableNativeFeedback onPress={this.stopCount.bind(this)}>
-        <View style={styles.button}>
-          <Text style={styles.header}>Stop</Text>
-        </View>
-      </TouchableNativeFeedback>
+        <TouchableNativeFeedback onPress={this.startCount.bind(this)}>
+          <View style={styles.button}>
+            <Text style={styles.header}>Start</Text>
+          </View>
+        </TouchableNativeFeedback>  
+        <TouchableNativeFeedback onPress={this.stopCount.bind(this)}>
+          <View style={styles.button}>
+            <Text style={styles.header}>Stop</Text>
+          </View>
+        </TouchableNativeFeedback>
       
     </View>
     )
@@ -148,9 +141,7 @@ const styles = StyleSheet.create({
     borderWidth:2,
     borderColor:"white",
     margin:15,
-    borderRadius:25,
-    width:100,
-    height:100
+    borderRadius:10,
   },
   buttonContainer: {
     flex:2,
@@ -165,4 +156,12 @@ const styles = StyleSheet.create({
 
 AppRegistry.registerComponent('ohmmi', () => ohmmi);
 
+/*
+      <Animated.View style={[styles.hand,{transform:[{rotate:spin}] }]}/>
+      <Text style={styles.header} onPress={this.spin.bind(this)}>{this.state.dynamicText}</Text>
+      
+      <Animated.View style={[styles.ball,{transform:[{scale:this.springValue}] }]}/>
+      <Text style={styles.header} onPress={this.spring.bind(this)}>bounce</Text>
 
+
+*/
