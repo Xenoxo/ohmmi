@@ -134,7 +134,7 @@ export default class CountdownTimer extends Component {
     let percentage = (diff/this.state.originalTime)
     return (
       <View className='timer'>
-        <Progress.Circle progress={percentage} size={60} color={'#DC3522'} borderWidth={0} animated={false}/>
+        <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
       </View>
     );
