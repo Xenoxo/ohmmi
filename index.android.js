@@ -19,7 +19,9 @@ class ohmmi extends Component {
     this.state = {
       dynamicText:'Click here to spin',
       percentage:0,
+      timePassed:0,
       timerID:null,
+      timerID1:null,
     }
   };
 
@@ -36,18 +38,29 @@ class ohmmi extends Component {
   }
 
   startCount(){
-    let sec = 3;
-    let rate = 1.00/(sec*10); //the amount of time passed should be calculated here
+    let sec = 17;
+    let degTime = 360.0/sec; //the amount of time passed should be calculated here
+    let rate = (degTime.toPrecision(21))/3600.0;
     let theID = setInterval(()=>{
-      this.setState({percentage:this.state.percentage+rate});
+      this.setState({percentage:(this.state.percentage+rate)});
     },100);
+    
     this.setState({timerID:theID});
+
+    let theID1 = setInterval(()=>{
+      let d = new Date();
+      let s = d.getSeconds()%10;
+        this.setState({timePassed:this.state.timePassed+1});
+    },1000);
+    this.setState({timerID1:theID1});
   }
 
   stopCount(){
     if (this.state.timerID !== null){
       clearInterval(this.state.timerID);
+      clearInterval(this.state.timerID1);
       this.setState({timerID:null});
+      this.setState({timerID1:null});
     }
   }
 
@@ -83,8 +96,9 @@ class ohmmi extends Component {
     return (
 		<View style={styles.container}>
 
-      
-      <Progress.Circle progress={this.state.percentage} size={60} color={'#DC3522'} borderWidth={0} animated={true}/>
+      <Text style={styles.header}>{this.state.timePassed}</Text>      
+      <Text style={styles.header}>{(this.state.percentage).toFixed(10)}</Text>
+      <Progress.Circle progress={this.state.percentage} size={60} color={'#DC3522'} borderWidth={0} animated={false}/>
       
         <TouchableNativeFeedback onPress={this.startCount.bind(this)}>
           <View style={styles.button}>
