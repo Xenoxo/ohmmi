@@ -9,6 +9,8 @@ import * as Progress from 'react-native-progress';
 
 import TimerMixin from 'react-timer-mixin';
 
+import CountdownTimer from './CountdownTimer'
+
 class ohmmi extends Component {
   mixins: [TimerMixin];
 
@@ -38,7 +40,7 @@ class ohmmi extends Component {
   }
 
   startCount(){
-    let sec = 17;
+    let sec = 14;
     let degTime = 360.0/sec; //the amount of time passed should be calculated here
     let rate = (degTime.toPrecision(21))/3600.0;
     let theID = setInterval(()=>{
@@ -88,18 +90,17 @@ class ohmmi extends Component {
   }
 
   render() {
-  // const spin = this.animationValue.interpolate({
-  //   inputRange: [0, 1],
-  //   outputRange: ['0deg', '360deg']
-  // });
-
+    // const spin = this.animationValue.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: ['0deg', '360deg']
+    // });
     return (
 		<View style={styles.container}>
+      <CountdownTimer interval={50} initialTimeRemaining={15000} textStyle={styles.header}/>
 
       <Text style={styles.header}>{this.state.timePassed}</Text>      
       <Text style={styles.header}>{(this.state.percentage).toFixed(10)}</Text>
-      <Progress.Circle progress={this.state.percentage} size={60} color={'#DC3522'} borderWidth={0} animated={false}/>
-      
+
         <TouchableNativeFeedback onPress={this.startCount.bind(this)}>
           <View style={styles.button}>
             <Text style={styles.header}>Start</Text>
@@ -110,8 +111,7 @@ class ohmmi extends Component {
             <Text style={styles.header}>Stop</Text>
           </View>
         </TouchableNativeFeedback>
-      
-    </View>
+      </View>
     )
   }
 }
