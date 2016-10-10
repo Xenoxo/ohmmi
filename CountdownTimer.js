@@ -33,16 +33,21 @@ export default class CountdownTimer extends Component {
       timeoutId: null,
       prevTime: null,
       progress: 0,
-      originalTime: props.initialTimeRemaining
+      originalTime: props.initialTimeRemaining,
     }
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
     this.tick = this.tick.bind(this);
     this.isComponentMounted = false;
+    this.shouldPause = false;
   }
 
   isMounted() {
-    return this.isComponentMounted;
+  return this.isComponentMounted;    // if (this.state.shouldPause) {
+    
+    // } else {
+    //   return false;
+    // }
   }
 
   componentWillMount() {
@@ -50,9 +55,6 @@ export default class CountdownTimer extends Component {
 
   componentDidMount() {
     this.isComponentMounted = true;
-    // let initialTime = this.props.initialTimeRemaining;
-    // let rate = (1.0/initialTime);
-    // this.setState({tickRate:rate});
     this.tick();
   }
 
@@ -62,8 +64,7 @@ export default class CountdownTimer extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state.tickRate);
-    if ((!this.state.prevTime) && this.state.timeRemaining > 0 && this.isMounted()) {
+    if ((!this.state.prevTime) && this.state.timeRemaining > 0 && this.isMounted() && (!this.shouldPause)) {
       this.tick();
     }
   }
@@ -74,39 +75,41 @@ export default class CountdownTimer extends Component {
   }
 
   tick() {
-    var currentTime = Date.now();
-    var dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0;
-    var interval = this.props.interval;
+    if ( !this.shouldPause ) {
+      var currentTime = Date.now();
+      var dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0;
+      var interval = this.props.interval;
 
-    // correct for small variations in actual timeout time
-    var timeRemainingInInterval = (interval - (dt % interval));
-    var timeout = timeRemainingInInterval;
+      // correct for small variations in actual timeout time
+      var timeRemainingInInterval = (interval - (dt % interval));
+      var timeout = timeRemainingInInterval;
 
-    if (timeRemainingInInterval < (interval / 2.0)) {
-      timeout += interval;
-    }
+      if (timeRemainingInInterval < (interval / 2.0)) {
+        timeout += interval;
+      }
 
-    var timeRemaining = Math.max(this.state.timeRemaining - dt, 0);
-    var countdownComplete = (this.state.prevTime && timeRemaining <= 0);
+      var timeRemaining = Math.max(this.state.timeRemaining - dt, 0);
+      var countdownComplete = (this.state.prevTime && timeRemaining <= 0);
 
-    if (this.isMounted()) {
-      if (this.state.timeoutId) { clearTimeout(this.state.timeoutId); }
+      if (this.isMounted()) {
+        if (this.state.timeoutId) { clearTimeout(this.state.timeoutId); }
 
-      this.setState({
-        timeoutId: countdownComplete ? null : setTimeout(this.tick, timeout),
-        prevTime: currentTime,
-        timeRemaining: timeRemaining,
-        progress: (this.state.progress+this.state.tickRate)
-      });
-    }
+        this.setState({
+          timeoutId: countdownComplete ? null : setTimeout(this.tick, timeout),
+          prevTime: currentTime,
+          timeRemaining: timeRemaining,
+          progress: (this.state.progress+this.state.tickRate)
+        });
+      }
 
-    if (countdownComplete) {
-      if (this.props.completeCallback) { this.props.completeCallback(); }
-      return;
-    }
+      if (countdownComplete) {
+        if (this.props.completeCallback) { this.props.completeCallback(); }
+        return;
+      }
 
-    if (this.props.tickCallback) {
-      this.props.tickCallback(timeRemaining);
+      if (this.props.tickCallback) {
+        this.props.tickCallback(timeRemaining);
+      }
     }
   }
 
@@ -128,6 +131,15 @@ export default class CountdownTimer extends Component {
     return hours + ':' + minutes + ':' + seconds;
   }
 
+  pauseHandler () {
+    console.log(this.shouldPause);
+    this.shouldPause = !this.shouldPause;
+  }
+
+  stopHandler() {
+    console.log(this.shouldPause);
+  }
+
   render() {
     var timeRemaining = this.state.timeRemaining;
     let diff = this.state.originalTime - timeRemaining
@@ -136,12 +148,14 @@ export default class CountdownTimer extends Component {
       <View className='timer'>
         <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
-        <TouchableHighlight>
+        
+        <TouchableHighlight onPress={this.pauseHandler.bind(this)}>
           <View style={styles.button}>
             <Text style={styles.header}>Pause</Text>
           </View>
         </TouchableHighlight>
-        <TouchableHighlight>
+
+        <TouchableHighlight onPress={this.stopHandler.bind(this)}>
           <View style={styles.button}>
             <Text style={styles.header}>Stop</Text>
           </View>
