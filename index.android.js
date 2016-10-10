@@ -24,6 +24,7 @@ class ohmmi extends Component {
       timePassed:0,
       timerID:null,
       timerID1:null,
+      userSetTime: 120000,
     }
   };
 
@@ -96,21 +97,7 @@ class ohmmi extends Component {
     // });
     return (
 		<View style={styles.container}>
-      <CountdownTimer interval={50} initialTimeRemaining={120000} textStyle={styles.header}/>
-
-      <Text style={styles.header}>{this.state.timePassed}</Text>      
-      <Text style={styles.header}>{(this.state.percentage).toFixed(10)}</Text>
-
-        <TouchableNativeFeedback onPress={this.startCount.bind(this)}>
-          <View style={styles.button}>
-            <Text style={styles.header}>Start</Text>
-          </View>
-        </TouchableNativeFeedback>  
-        <TouchableNativeFeedback onPress={this.stopCount.bind(this)}>
-          <View style={styles.button}>
-            <Text style={styles.header}>Stop</Text>
-          </View>
-        </TouchableNativeFeedback>
+      <CountdownTimer interval={50} initialTimeRemaining={this.state.userSetTime} textStyle={styles.header}/>
       </View>
     )
   }

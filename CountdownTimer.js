@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text } from 'react-native';
+import {View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 
 import * as Progress from 'react-native-progress';
 
@@ -134,12 +134,73 @@ export default class CountdownTimer extends Component {
     let percentage = (diff/this.state.originalTime)
     return (
       <View className='timer'>
-        <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>
+        <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
+        <TouchableHighlight>
+          <View style={styles.button}>
+            <Text style={styles.header}>Pause</Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight>
+          <View style={styles.button}>
+            <Text style={styles.header}>Stop</Text>
+          </View>
+        </TouchableHighlight>        
       </View>
     );
   }
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    backgroundColor:'#2C3E50',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  ball: {
+    backgroundColor: '#DC3522',
+    width: 45,
+    height: 45,
+    borderRadius:50
+  },
+  ball2: {
+    backgroundColor: '#DC3522',
+    width: 0,
+    height: 0,
+    borderRadius:50,
+    borderWidth:50,
+    borderColor:'white',
+
+  },  
+  hand: {
+    backgroundColor: '#DC3522',
+    width: 20,
+    height: 60
+  },
+  header: {
+    color: '#ffffa8',
+    fontFamily: 'roboto',
+    fontSize: 20,
+    textAlign: 'center',
+    margin:15,
+  },
+  button: {
+    borderWidth:2,
+    borderColor:"white",
+    margin:15,
+    borderRadius:10,
+  },
+  buttonContainer: {
+    flex:2,
+    flexDirection:'row',
+    alignItems:'center',    
+  },
+  testText: {
+    backgroundColor:'green'
+  }  
+});
+
 
 CountdownTimer.propTypes =  {
   initialTimeRemaining: React.PropTypes.number.isRequired,
