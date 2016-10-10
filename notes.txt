@@ -1,5 +1,12 @@
 Next: get things going
 
+
+
+isMounted(...) is deprecated in plain JavaScript React classes. Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks.
+
+
+replaceState(...) is deprecated in plain JavaScript React classes. Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236).
+
  === Notes for future report ===
 
 Start with tutorial to get basics.

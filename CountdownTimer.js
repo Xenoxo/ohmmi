@@ -39,11 +39,11 @@ export default class CountdownTimer extends Component {
     this.getFormattedTime = this.getFormattedTime.bind(this);
     this.tick = this.tick.bind(this);
     this.isComponentMounted = false;
-    this.shouldPause = false;
+    this.shouldPause = true;
   }
 
   isMounted() {
-  return this.isComponentMounted;    // if (this.state.shouldPause) {
+    return this.isComponentMounted;    // if (this.state.shouldPause) {
     
     // } else {
     //   return false;
@@ -64,7 +64,7 @@ export default class CountdownTimer extends Component {
   }
 
   componentDidUpdate() {
-    if ((!this.state.prevTime) && this.state.timeRemaining > 0 && this.isMounted() && (!this.shouldPause)) {
+    if ((!this.state.prevTime) && (this.state.timeRemaining > 0 && this.isMounted())) {
       this.tick();
     }
   }
@@ -132,8 +132,10 @@ export default class CountdownTimer extends Component {
   }
 
   pauseHandler () {
-    console.log(this.shouldPause);
     this.shouldPause = !this.shouldPause;
+    if( !this.shouldPause ){
+      this.tick()
+    }
   }
 
   stopHandler() {
@@ -151,15 +153,15 @@ export default class CountdownTimer extends Component {
         
         <TouchableHighlight onPress={this.pauseHandler.bind(this)}>
           <View style={styles.button}>
-            <Text style={styles.header}>Pause</Text>
+            <Text style={styles.header}>Pause/Play</Text>
           </View>
         </TouchableHighlight>
 
         <TouchableHighlight onPress={this.stopHandler.bind(this)}>
           <View style={styles.button}>
-            <Text style={styles.header}>Stop</Text>
+            <Text style={styles.header}>Show</Text>
           </View>
-        </TouchableHighlight>        
+        </TouchableHighlight>
       </View>
     );
   }
