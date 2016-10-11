@@ -65,7 +65,6 @@ export default class Dashboard extends Component {
       this.setState({stopTimerProgress: num})
       if ( this.state.stopTimerProgress <= 0) {
         clearInterval(this.state.stoptimerId);
-        console.log("less than 0");
       }
     },500);
     this.setState({
