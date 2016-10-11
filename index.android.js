@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Easing, Animated, TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
 
 import MeditationTimerScene from './MeditationTimerScene';
-import AnimationStation from './AnimationStation';
 import Dashboard from './Dashboard';
 
 import * as Progress from 'react-native-progress';
@@ -24,7 +23,7 @@ class ohmmi extends Component {
       timePassed:0,
       timerID:null,
       timerID1:null,
-      userSetTime: 120000,
+      userSetTime: 60000,
     }
   };
 
@@ -97,12 +96,8 @@ class ohmmi extends Component {
     // });
     return (
 		<View style={styles.container}>
-      <CountdownTimer 
-        interval={50}
-        initialTimeRemaining={this.state.userSetTime}
-        textStyle={styles.header}
-      />
-      </View>
+      <Dashboard/>
+    </View>
     )
   }
 }
@@ -162,11 +157,11 @@ const styles = StyleSheet.create({
 AppRegistry.registerComponent('ohmmi', () => ohmmi);
 
 /*
-      <Animated.View style={[styles.hand,{transform:[{rotate:spin}] }]}/>
-      <Text style={styles.header} onPress={this.spin.bind(this)}>{this.state.dynamicText}</Text>
-      
-      <Animated.View style={[styles.ball,{transform:[{scale:this.springValue}] }]}/>
-      <Text style={styles.header} onPress={this.spring.bind(this)}>bounce</Text>
+        <CountdownTimer 
+        interval={50}
+        initialTimeRemaining={this.state.userSetTime}
+        textStyle={styles.header}
+      />
 
 
 */

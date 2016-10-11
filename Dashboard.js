@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { Aniimation, TouchableNativeFeedback, View, Text, TouchableHighlight } from 'react-native';
+import { StyleSheet, Aniimation, TouchableOpacity, View, Text, TouchableHighlight, TextInput } from 'react-native';
 
 export default class Dashboard extends Component {
   
+  // the dashboard scene handles all the user interaction on before the timer kicks off
+  /*
+    Navigation
+  */
+
   constructor(props) {
     super(props);
     this.state = {
@@ -35,28 +40,31 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View>
-        <Text>Counter = {this.state.counter} The prop date is {this.props.timenow} title is {this.props.title}</Text>
-        <Text>Timer buttons</Text>
-        <TouchableNativeFeedback onPress={this.startCount.bind(this, this.state.setIntervalID)}>
-          <View style={{borderWidth:1, padding:10, margin:10}}>
-            <Text>Start</Text>
-          </View>
-        </TouchableNativeFeedback>          
-        <TouchableNativeFeedback onPress={this.stopCount.bind(this, this.state.setIntervalID)}>
-          <View style={{borderWidth:1, padding:10, margin:10}}>
-            <Text>Stops</Text>
-          </View>
-        </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={this.resetCount.bind(this, this.state.setIntervalID)}>
-          <View style={{borderWidth:1, padding:10, margin:10}}>
-            <Text>Reset</Text>
-          </View>
-        </TouchableNativeFeedback>
-        <TouchableNativeFeedback onPress={() => this.props.navigator.push({title:'Scene2'})}>
-          <View>
-            <Text>Return home</Text>
+        <TextInput 
+          defaultValue={"How long is your session?"}
+        />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={this.startCount.bind(this, this.state.setIntervalID)}>
+            <View style={styles.circleButton}>
+              <Text style={styles.buttonText}>15</Text>
+            </View>
+          </TouchableOpacity>          
+          <TouchableOpacity onPress={this.stopCount.bind(this, this.state.setIntervalID)}>
+            <View style={styles.circleButton}>
+              <Text style={styles.buttonText}>30</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.resetCount.bind(this, this.state.setIntervalID)}>
+            <View style={styles.circleButton}>
+              <Text style={styles.buttonText}>60</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity onPress={() => this.props.navigator.push({title:'Scene2'})}>
+          <View style={styles.startButton}>
+            <Text style={styles.startButtonText}>Start</Text>
            </View>
-        </TouchableNativeFeedback>                 
+        </TouchableOpacity>
       </View>
     )
   }
@@ -68,3 +76,41 @@ export default class Dashboard extends Component {
   //   onBack: PropTypes.func.isRequired,
   // }
 }
+
+
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    flex:1,
+    flexDirection: 'row',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  circleButton: {
+    width:50,
+    height:50,
+    borderRadius:50,
+    backgroundColor:'#FF5722',
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  buttonText: {
+    color:"white",
+    opacity:.8
+  },
+  startButton: {
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    width:50,
+    height:50,
+    borderRadius:50,
+    opacity:.3,
+    backgroundColor:'#8BC34A',
+  },
+  startButtonText: {
+    color:"white",
+    // opacity:.8
+  },
+});
