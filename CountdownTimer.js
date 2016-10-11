@@ -33,7 +33,10 @@ export default class CountdownTimer extends Component {
       timeoutId: null,
       prevTime: null,
       originalTime: props.initialTimeRemaining,
-      adjustTime: true
+      adjustTime: true,
+
+      stopTimerProgress:0,
+      stoptimerId: null,
     }
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
@@ -140,8 +143,28 @@ export default class CountdownTimer extends Component {
     }
   }
 
-  stopHandler() {
-    // console.log(this.shouldPause);
+  pressOut() {
+    this.moveProgress(-1);
+  }
+
+  pressIn() {
+    this.moveProgress(1);
+  }
+
+  moveProgress(progress) {
+    clearInterval(this.state.stoptimerId);
+    let timerId = setInterval(()=>{
+      let num = this.state.stopTimerProgress + (progress * 0.05);
+      this.setState({stopTimerProgress: num})
+      if ( this.state.stopTimerProgress <= 0) {
+        clearInterval(this.state.stoptimerId);
+      } else if (this.state.stopTimerProgress >= 1) {
+        console.log("yay completed!");
+      }
+    },500);
+    this.setState({
+      stoptimerId: timerId,
+    })    
   }
 
   render() {
@@ -156,17 +179,11 @@ export default class CountdownTimer extends Component {
         <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
         
-        <TouchableOpacity onPress={this.pauseHandler.bind(this)}>
-          <View style={styles.button}>
-            <Text style={styles.header}>Pause/Play</Text>
-          </View>
+        <TouchableOpacity 
+          onPressIn={this.pressIn.bind(this)}
+          onPressOut={this.pressOut.bind(this)}>        
+          <Progress.Circle progress={this.state.stopTimerProgress} size={100} color={'silver'} thickness={5} borderWidth={0} animated={true}/>
         </TouchableOpacity>
-
-        <TouchableHighlight onPress={this.stopHandler.bind(this)}>
-          <View style={styles.button}>
-            <Text style={styles.header}>Show</Text>
-          </View>
-        </TouchableHighlight>
       </View>
     );
   }

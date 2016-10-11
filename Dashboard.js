@@ -15,8 +15,6 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stopTimerProgress:0,
-      stoptimerId: null,
       theTime: "not needed",
       counter:0,
       setIntervalID: null,
@@ -50,28 +48,6 @@ export default class Dashboard extends Component {
     // console.log("worked")
   }
 
-  pressOut() {
-    this.moveProgress(-1);
-  }
-
-  pressIn() {
-    this.moveProgress(1);
-  }
-
-  moveProgress(progress) {
-    clearInterval(this.state.stoptimerId);
-    let timerId = setInterval(()=>{
-      let num = this.state.stopTimerProgress + (progress * 0.05);
-      this.setState({stopTimerProgress: num})
-      if ( this.state.stopTimerProgress <= 0) {
-        clearInterval(this.state.stoptimerId);
-      }
-    },500);
-    this.setState({
-      stoptimerId: timerId,
-    })    
-  }
-
   render() {
     return (
       <View style={styles.container}>
@@ -103,17 +79,6 @@ export default class Dashboard extends Component {
           <View style={styles.startButton}>
             <Text style={styles.startButtonText}>Start</Text>
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          // onPress={() =>(console.log("pressed"))}
-          // onLongPress={this.longPress.bind(this)}
-          // delayLongPress={3000}
-          onPressIn={this.pressIn.bind(this)}
-          onPressOut={this.pressOut.bind(this)}
-
-          // delayLongPress={3}
-        >        
-          <Progress.Circle progress={this.state.stopTimerProgress} size={100} color={'silver'} thickness={5} borderWidth={0} animated={true}/>
         </TouchableOpacity>
       </View>
     )
