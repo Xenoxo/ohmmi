@@ -97,7 +97,11 @@ class ohmmi extends Component {
     // });
     return (
 		<View style={styles.container}>
-      <CountdownTimer interval={50} initialTimeRemaining={this.state.userSetTime} textStyle={styles.header}/>
+      <CountdownTimer 
+        interval={50}
+        initialTimeRemaining={this.state.userSetTime}
+        textStyle={styles.header}
+      />
       </View>
     )
   }

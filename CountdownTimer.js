@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import {View, Text, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native';
 
 import * as Progress from 'react-native-progress';
 
@@ -34,20 +34,19 @@ export default class CountdownTimer extends Component {
       prevTime: null,
       progress: 0,
       originalTime: props.initialTimeRemaining,
+      tempTime: null,
+      adjustTime: true
     }
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
     this.tick = this.tick.bind(this);
     this.isComponentMounted = false;
-    this.shouldPause = true;
+    this.shouldPause = false;
+    this.timeOnPause = 0;
   }
 
   isMounted() {
-    return this.isComponentMounted;    // if (this.state.shouldPause) {
-    
-    // } else {
-    //   return false;
-    // }
+    return this.isComponentMounted;
   }
 
   componentWillMount() {
@@ -59,12 +58,15 @@ export default class CountdownTimer extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.state.timeoutId) { clearTimeout(this.state.timeoutId); }
+    if (this.state.timeoutId && !this.shouldPause) { 
+      clearTimeout(this.state.timeoutId); 
+    }
     this.setState({prevTime: null, timeRemaining: newProps.initialTimeRemaining});
+    console.log("cwrp");
   }
 
   componentDidUpdate() {
-    if ((!this.state.prevTime) && (this.state.timeRemaining > 0 && this.isMounted())) {
+    if ((!this.state.prevTime) && (this.state.timeRemaining > 0) && this.isMounted() && !this.shouldPause) {
       this.tick();
     }
   }
@@ -76,19 +78,37 @@ export default class CountdownTimer extends Component {
 
   tick() {
     if ( !this.shouldPause ) {
-      var currentTime = Date.now();
-      var dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0;
-      var interval = this.props.interval;
+      // console.log("yo");
+
+      // let timePaused = 0;
+      // if (this.timeOnPause > 0){
+      //   timePaused = Date.now() - this.timeOnPause;
+      // }
+
+      // let currentTime = Date.now() - timePaused;
+
+      let currentTime = Date.now();
+      // var currentTime = this.timeOnPause ? this.timeOnPause : Date.now();
+      // console.log("prevTime "+this.state.prevTime+" currentTime "+currentTime);
+
+      var dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0; //gives me the difference in elapsed time
+      var interval = this.props.interval; // static 50
+      
+      // console.log("interval "+interval + " timeremainingInterval "+(interval - (dt % interval)));
 
       // correct for small variations in actual timeout time
       var timeRemainingInInterval = (interval - (dt % interval));
       var timeout = timeRemainingInInterval;
 
+      // console.log("timeremainingInterval "+ timeRemainingInInterval);
+      // console.log("interval="+interval+" dt="+dt);      
       if (timeRemainingInInterval < (interval / 2.0)) {
         timeout += interval;
       }
+      // console.log("timeout "+timeout);
+      let adjustTime = this.state.adjustTime ? dt : 0;
+      var timeRemaining = Math.max(this.state.timeRemaining - adjustTime, 0);
 
-      var timeRemaining = Math.max(this.state.timeRemaining - dt, 0);
       var countdownComplete = (this.state.prevTime && timeRemaining <= 0);
 
       if (this.isMounted()) {
@@ -134,8 +154,18 @@ export default class CountdownTimer extends Component {
   pauseHandler () {
     this.shouldPause = !this.shouldPause;
     if( !this.shouldPause ){
-      this.tick()
+      this.setState({adjustTime: true});
+      this.tick();
+      // this.timeOnPause = 0;
+      // this.setState({tempTime: null})
+    } else {
+      
+      this.timeOnPause = Date.now();
+      this.setState({adjustTime: false});
+
+      // console.log("from the else "+this.timeOnPause);
     }
+    console.log("timeonpause "+this.timeOnPause+" state of prevTime "+this.state.prevTime);
   }
 
   stopHandler() {
@@ -144,18 +174,22 @@ export default class CountdownTimer extends Component {
 
   render() {
     var timeRemaining = this.state.timeRemaining;
-    let diff = this.state.originalTime - timeRemaining
-    let percentage = (diff/this.state.originalTime)
+    
+    // used to calculate how much to increase the circle by
+    
+    let diff = this.state.originalTime - timeRemaining;
+    let percentage = (diff/this.state.originalTime);
+
     return (
       <View className='timer'>
         <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
         
-        <TouchableHighlight onPress={this.pauseHandler.bind(this)}>
+        <TouchableOpacity onPress={this.pauseHandler.bind(this)}>
           <View style={styles.button}>
             <Text style={styles.header}>Pause/Play</Text>
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
 
         <TouchableHighlight onPress={this.stopHandler.bind(this)}>
           <View style={styles.button}>
