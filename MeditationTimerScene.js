@@ -44,3 +44,13 @@ export default class MeditationTimerScene extends Component {
 
 
 */
+
+/*
+        <CountdownTimer 
+        interval={50}
+        initialTimeRemaining={this.state.userSetTime}
+        textStyle={styles.header}
+      />
+
+
+*/

@@ -39,7 +39,7 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <TextInput 
           defaultValue={"How long is your session?"}
         />
@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
         <TouchableOpacity onPress={() => this.props.navigator.push({title:'Scene2'})}>
           <View style={styles.startButton}>
             <Text style={styles.startButtonText}>Start</Text>
-           </View>
+          </View>
         </TouchableOpacity>
       </View>
     )
@@ -80,20 +80,25 @@ export default class Dashboard extends Component {
 
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  container: {
     flex:1,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  buttonContainer: {
+    flex:0,
     flexDirection: 'row',
     justifyContent:'center',
     alignItems:'center'
   },
   circleButton: {
-    width:50,
-    height:50,
-    borderRadius:50,
-    backgroundColor:'#FF5722',
     flex:1,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    width:55,
+    height:55,
+    borderRadius:50,
+    backgroundColor:'#FF5722',
   },
   buttonText: {
     color:"white",
@@ -103,14 +108,13 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:'center',
     alignItems:'center',
-    width:50,
-    height:50,
+    width:55,
+    height:55,
     borderRadius:50,
     opacity:.3,
     backgroundColor:'#8BC34A',
   },
   startButtonText: {
     color:"white",
-    // opacity:.8
   },
 });
