@@ -7,15 +7,9 @@ import Dashboard from './Dashboard';
 
 import * as Progress from 'react-native-progress';
 
-import TimerMixin from 'react-timer-mixin';
-
 class ohmmi extends Component {
-  mixins: [TimerMixin];
-
   constructor(props){
     super(props);
-    this.animationValue = new Animated.Value(0)
-    this.springValue = new Animated.Value(0)
     this.state = {}
   };
 

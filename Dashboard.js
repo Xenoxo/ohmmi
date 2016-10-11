@@ -1,41 +1,81 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Aniimation, TouchableOpacity, View, Text, TouchableHighlight, TextInput } from 'react-native';
 
+import * as Progress from 'react-native-progress';
+
+import TimerMixin from 'react-timer-mixin';
+
 export default class Dashboard extends Component {
   
   // the dashboard scene handles all the user interaction on before the timer kicks off
   /*
     Navigation
   */
-
+  mixins: [TimerMixin];
   constructor(props) {
     super(props);
     this.state = {
+      stopTimerProgress:0,
+      stoptimerId: null,
       theTime: "not needed",
       counter:0,
       setIntervalID: null,
     };
   };
 
-  startCount(timerID){
-   let setIntervalID = setInterval(() => {
-      this.setState({ counter: this.state.counter+1 });
-    }, 1000);
-   this.setState({ setIntervalID: setIntervalID });
-  };
+  // startCount(timerID){
+  //  let setIntervalID = setInterval(() => {
+  //     this.setState({ counter: this.state.counter+1 });
+  //   }, 1000);
+  //  this.setState({ setIntervalID: setIntervalID });
+  // };
 
-  stopCount(timerID){
-    if (timerID != null){
-      clearInterval(timerID);
-    }
-  };
+  // stopCount(timerID){
+  //   if (timerID != null){
+  //     clearInterval(timerID);
+  //   }
+  // };
 
-  resetCount(timerID){
-    if (timerID != null){
-      this.stopCount(timerID);
-      this.setState({ counter: 0 });
-    }
-  };
+  // resetCount(timerID){
+  //   if (timerID != null){
+  //     this.stopCount(timerID);
+  //     this.setState({ counter: 0 });
+  //   }
+  // };
+
+  longPress() {
+    // console.log("worked")
+  }
+
+  pressOut() {
+    clearInterval(this.state.stoptimerId);
+    let timerId = setInterval(()=>{
+      let num = this.state.stopTimerProgress - 0.05;
+      this.setState({stopTimerProgress: num})
+    },500);
+    this.setState({
+      stoptimerId: timerId,
+    })
+  }
+
+  pressIn() {
+    // console.log("you press in");
+    clearInterval(this.state.stoptimerId);
+    let timerId = setInterval(()=>{
+      let num = this.state.stopTimerProgress + 0.05;
+      this.setState({stopTimerProgress: num})
+    },500);
+    this.setState({
+      stoptimerId: timerId,
+    })
+  }
+
+  componentDidUpdate() {
+    
+  }
+
+  tick() {
+  }
 
   render() {
     return (
@@ -44,26 +84,41 @@ export default class Dashboard extends Component {
           defaultValue={"How long is your session?"}
         />
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this.startCount.bind(this, this.state.setIntervalID)}>
+          <TouchableOpacity>
             <View style={styles.circleButton}>
               <Text style={styles.buttonText}>15</Text>
             </View>
           </TouchableOpacity>          
-          <TouchableOpacity onPress={this.stopCount.bind(this, this.state.setIntervalID)}>
+          <TouchableOpacity>
             <View style={styles.circleButton}>
               <Text style={styles.buttonText}>30</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.resetCount.bind(this, this.state.setIntervalID)}>
+          <TouchableOpacity>
             <View style={styles.circleButton}>
               <Text style={styles.buttonText}>60</Text>
             </View>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => this.props.navigator.push({title:'meditationTimer'})}>
+        <TouchableOpacity 
+          onPress={() => this.props.navigator.push({title:'meditationTimer'})}
+          delayLongPress={3}
+
+        >
           <View style={styles.startButton}>
             <Text style={styles.startButtonText}>Start</Text>
           </View>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          // onPress={() =>(console.log("pressed"))}
+          // onLongPress={this.longPress.bind(this)}
+          // delayLongPress={3000}
+          onPressIn={this.pressIn.bind(this)}
+          onPressOut={this.pressOut.bind(this)}
+
+          // delayLongPress={3}
+        >        
+          <Progress.Circle progress={this.state.stopTimerProgress} size={100} color={'silver'} thickness={5} borderWidth={0} animated={true}/>
         </TouchableOpacity>
       </View>
     )
