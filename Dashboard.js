@@ -42,39 +42,35 @@ export default class Dashboard extends Component {
   //     this.setState({ counter: 0 });
   //   }
   // };
+  componentDidUpdate() {
+    
+  }
 
   longPress() {
     // console.log("worked")
   }
 
   pressOut() {
-    clearInterval(this.state.stoptimerId);
-    let timerId = setInterval(()=>{
-      let num = this.state.stopTimerProgress - 0.05;
-      this.setState({stopTimerProgress: num})
-    },500);
-    this.setState({
-      stoptimerId: timerId,
-    })
+    this.moveProgress(-1);
   }
 
   pressIn() {
-    // console.log("you press in");
+    this.moveProgress(1);
+  }
+
+  moveProgress(progress) {
     clearInterval(this.state.stoptimerId);
     let timerId = setInterval(()=>{
-      let num = this.state.stopTimerProgress + 0.05;
+      let num = this.state.stopTimerProgress + (progress * 0.05);
       this.setState({stopTimerProgress: num})
+      if ( this.state.stopTimerProgress <= 0) {
+        clearInterval(this.state.stoptimerId);
+        console.log("less than 0");
+      }
     },500);
     this.setState({
       stoptimerId: timerId,
-    })
-  }
-
-  componentDidUpdate() {
-    
-  }
-
-  tick() {
+    })    
   }
 
   render() {
