@@ -1,41 +1,41 @@
 import React, { Component, PropTypes } from 'react';
 import { TouchableNativeFeedback, View, Text, TouchableHighlight } from 'react-native';
 
-export default class MeditationTimerScene extends Component {
+import CountdownTimer from './CountdownTimer'
 
+export default class MeditationTimerScene extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      userSetTime: 10000,
+    }
+  }
+
+  timerDone() {
+    this.props.navigator.pop();
+  }
 
   render() {
     var date = Date.now();
     return (
       <View>
-        
-        { this.props.routeIndex == 0 ? (
-          <TouchableNativeFeedback onPress={this.props.onForward}>
-            <View style={{borderWidth:1, padding:10, margin:10}}>
-              <Text>Go forward</Text>
-            </View>
-          </TouchableNativeFeedback>) : <Text></Text>
-        }
-
-        { this.props.routeIndex != 0 ? (
-          <TouchableNativeFeedback onPress={this.props.onBack}>
-            <View style={{borderWidth:1, padding:10, margin:10}}>
-              <Text>Go back</Text>
-            </View>
-          </TouchableNativeFeedback> ) : <Text></Text>
-        }
-        
-     
+        <CountdownTimer 
+          interval={50}
+          initialTimeRemaining={this.state.userSetTime}
+          // textStyle={}
+          completeCallback={this.timerDone.bind(this)}
+        />
       </View>
     )
   }
 
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    routeIndex: PropTypes.number.isRequired,
-    onForward: PropTypes.func.isRequired,
-    onBack: PropTypes.func.isRequired,
-  }
+  // static propTypes = {
+  //   title: PropTypes.string.isRequired,
+  //   routeIndex: PropTypes.number.isRequired,
+  //   onForward: PropTypes.func.isRequired,
+  //   onBack: PropTypes.func.isRequired,
+  // }
+
 }
 
 /*{ if (this.props.routeIndex > 0) {}}
@@ -46,11 +46,7 @@ export default class MeditationTimerScene extends Component {
 */
 
 /*
-        <CountdownTimer 
-        interval={50}
-        initialTimeRemaining={this.state.userSetTime}
-        textStyle={styles.header}
-      />
+
 
 
 */

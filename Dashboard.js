@@ -60,7 +60,7 @@ export default class Dashboard extends Component {
             </View>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => this.props.navigator.push({title:'Scene2'})}>
+        <TouchableOpacity onPress={() => this.props.navigator.push({title:'meditationTimer'})}>
           <View style={styles.startButton}>
             <Text style={styles.startButtonText}>Start</Text>
           </View>

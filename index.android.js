@@ -9,8 +9,6 @@ import * as Progress from 'react-native-progress';
 
 import TimerMixin from 'react-timer-mixin';
 
-import CountdownTimer from './CountdownTimer'
-
 class ohmmi extends Component {
   mixins: [TimerMixin];
 
@@ -31,8 +29,8 @@ class ohmmi extends Component {
     switch (route.title) {
       case 'dashboard':
         return (<Dashboard navigator={navigator} title="dashboard"/>);
-      case 'second':
-        return (<Second navigator={navigator} title="second" />);
+      case 'meditationTimer':
+        return (<MeditationTimerScene navigator={navigator} title="meditationTimer" />);
     }
   }
 
