@@ -32,17 +32,14 @@ export default class CountdownTimer extends Component {
       timeRemaining: props.initialTimeRemaining,
       timeoutId: null,
       prevTime: null,
-      progress: 0,
       originalTime: props.initialTimeRemaining,
-      tempTime: null,
       adjustTime: true
     }
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
     this.tick = this.tick.bind(this);
     this.isComponentMounted = false;
-    this.shouldPause = false;
-    this.timeOnPause = 0;
+    this.shouldPause = false; // determines whether tick() fires, might be able to make it a state?
   }
 
   isMounted() {
@@ -62,7 +59,6 @@ export default class CountdownTimer extends Component {
       clearTimeout(this.state.timeoutId); 
     }
     this.setState({prevTime: null, timeRemaining: newProps.initialTimeRemaining});
-    console.log("cwrp");
   }
 
   componentDidUpdate() {
@@ -78,35 +74,19 @@ export default class CountdownTimer extends Component {
 
   tick() {
     if ( !this.shouldPause ) {
-      // console.log("yo");
-
-      // let timePaused = 0;
-      // if (this.timeOnPause > 0){
-      //   timePaused = Date.now() - this.timeOnPause;
-      // }
-
-      // let currentTime = Date.now() - timePaused;
-
       let currentTime = Date.now();
-      // var currentTime = this.timeOnPause ? this.timeOnPause : Date.now();
-      // console.log("prevTime "+this.state.prevTime+" currentTime "+currentTime);
 
       var dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0; //gives me the difference in elapsed time
-      var interval = this.props.interval; // static 50
-      
-      // console.log("interval "+interval + " timeremainingInterval "+(interval - (dt % interval)));
+      var interval = this.props.interval; // static number
 
       // correct for small variations in actual timeout time
       var timeRemainingInInterval = (interval - (dt % interval));
-      var timeout = timeRemainingInInterval;
-
-      // console.log("timeremainingInterval "+ timeRemainingInInterval);
-      // console.log("interval="+interval+" dt="+dt);      
+      var timeout = timeRemainingInInterval; 
       if (timeRemainingInInterval < (interval / 2.0)) {
         timeout += interval;
       }
-      // console.log("timeout "+timeout);
-      let adjustTime = this.state.adjustTime ? dt : 0;
+
+      let adjustTime = this.state.adjustTime ? dt : 0; // determines if timer just came out of a "pause"
       var timeRemaining = Math.max(this.state.timeRemaining - adjustTime, 0);
 
       var countdownComplete = (this.state.prevTime && timeRemaining <= 0);
@@ -118,7 +98,6 @@ export default class CountdownTimer extends Component {
           timeoutId: countdownComplete ? null : setTimeout(this.tick, timeout),
           prevTime: currentTime,
           timeRemaining: timeRemaining,
-          progress: (this.state.progress+this.state.tickRate)
         });
       }
 
@@ -156,27 +135,19 @@ export default class CountdownTimer extends Component {
     if( !this.shouldPause ){
       this.setState({adjustTime: true});
       this.tick();
-      // this.timeOnPause = 0;
-      // this.setState({tempTime: null})
     } else {
-      
-      this.timeOnPause = Date.now();
       this.setState({adjustTime: false});
-
-      // console.log("from the else "+this.timeOnPause);
     }
-    console.log("timeonpause "+this.timeOnPause+" state of prevTime "+this.state.prevTime);
   }
 
   stopHandler() {
-    console.log(this.shouldPause);
+    // console.log(this.shouldPause);
   }
 
   render() {
     var timeRemaining = this.state.timeRemaining;
     
     // used to calculate how much to increase the circle by
-    
     let diff = this.state.originalTime - timeRemaining;
     let percentage = (diff/this.state.originalTime);
 
