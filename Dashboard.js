@@ -20,6 +20,7 @@ export default class Dashboard extends Component {
       setIntervalID: null,
       buttonOpacity: 0.3,
       active: false,
+      textInputValue:null,
     };
   };
 
@@ -55,7 +56,8 @@ export default class Dashboard extends Component {
     this.setState({
       meditationDuration: milisecs,
       buttonOpacity:0.8,
-      active: true,      
+      active: true,
+      textInputValue: time+'',
     })
   }
 
@@ -71,8 +73,13 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput 
-          defaultValue={"How long is your session?"}
+        <TextInput
+          placeholder={'Choose below for session times or type here'}
+          value={this.state.textInputValue}
+          onChangeText={(text) => this.setState({textInputValue:text})}
+          onSubmitEditing={this.handleTimerButtonPress.bind(this, this.state.textInputValue)}
+          keyboardType={'numeric'}
+          blurOnSubmit={true}
         />
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 15)}>
