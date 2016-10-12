@@ -22,9 +22,9 @@ export default class MeditationTimerScene extends Component {
         <CountdownTimer 
           interval={50}
           initialTimeRemaining={this.state.userSetTime}
-          // textStyle={}
           completeCallback={this.timerDone.bind(this)}
-        />     
+        />
+        <Text>{this.props.timeAmount}</Text>
       </View>
     )
   }

@@ -22,9 +22,9 @@ class ohmmi extends Component {
     _navigator = navigator;
     switch (route.title) {
       case 'dashboard':
-        return (<Dashboard navigator={navigator} title="dashboard"/>);
+        return (<Dashboard navigator={navigator} title="dashboard" timeAmount={0}/>);
       case 'meditationTimer':
-        return (<MeditationTimerScene navigator={navigator} title="meditationTimer" />);
+        return (<MeditationTimerScene navigator={navigator} title="meditationTimer" timeAmount={route.passedInTime}/>);
     }
   }
   render() {

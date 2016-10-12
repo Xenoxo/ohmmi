@@ -15,7 +15,7 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      theTime: "not needed",
+      meditationDuration: 0,
       counter:0,
       setIntervalID: null,
     };
@@ -48,6 +48,12 @@ export default class Dashboard extends Component {
     // console.log("worked")
   }
 
+  handleTimerButtonPress(time){
+    //convert time to miliseconds
+    let milisecs = time * 60 * 1000;
+    this.setState({meditationDuration: milisecs})
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -55,7 +61,7 @@ export default class Dashboard extends Component {
           defaultValue={"How long is your session?"}
         />
         <View style={styles.buttonContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 15)}>
             <View style={styles.circleButton}>
               <Text style={styles.buttonText}>15</Text>
             </View>
@@ -72,9 +78,8 @@ export default class Dashboard extends Component {
           </TouchableOpacity>
         </View>
         <TouchableOpacity 
-          onPress={() => this.props.navigator.push({title:'meditationTimer'})}
+          onPress={() => this.props.navigator.push({title:'meditationTimer', passedInTime:1})}
           delayLongPress={3}
-
         >
           <View style={styles.startButton}>
             <Text style={styles.startButtonText}>Start</Text>
