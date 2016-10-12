@@ -27,7 +27,6 @@ class ohmmi extends Component {
         return (<MeditationTimerScene navigator={navigator} title="meditationTimer" />);
     }
   }
-
   render() {
     return (
       <Navigator

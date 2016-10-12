@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 
 //
 // Generic Countdown Timer UI component
+// With added changes to allow for 'pausing'
 //
 // https://github.com/uken/react-countdown-timer
 //
@@ -33,10 +34,9 @@ export default class CountdownTimer extends Component {
       timeoutId: null,
       prevTime: null,
       originalTime: props.initialTimeRemaining,
-      adjustTime: true,
-
-      stopTimerProgress:0,
-      stoptimerId: null,
+      adjustTime: true, // determines whether to account for delay, used to 'pause'
+      stopTimerProgress:0, // used by the stop button
+      stoptimerId: null, // used by the stop button
     }
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
@@ -47,9 +47,6 @@ export default class CountdownTimer extends Component {
 
   isMounted() {
     return this.isComponentMounted;
-  }
-
-  componentWillMount() {
   }
 
   componentDidMount() {
@@ -79,20 +76,20 @@ export default class CountdownTimer extends Component {
     if ( !this.shouldPause ) {
       let currentTime = Date.now();
 
-      var dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0; //gives me the difference in elapsed time
-      var interval = this.props.interval; // static number
+      let dt = this.state.prevTime ? (currentTime - this.state.prevTime) : 0; //gives the difference in elapsed time
+      let interval = this.props.interval; // static number
 
       // correct for small variations in actual timeout time
-      var timeRemainingInInterval = (interval - (dt % interval));
-      var timeout = timeRemainingInInterval; 
+      let timeRemainingInInterval = (interval - (dt % interval));
+      let timeout = timeRemainingInInterval; 
       if (timeRemainingInInterval < (interval / 2.0)) {
         timeout += interval;
       }
 
       let adjustTime = this.state.adjustTime ? dt : 0; // determines if timer just came out of a "pause"
-      var timeRemaining = Math.max(this.state.timeRemaining - adjustTime, 0);
+      let timeRemaining = Math.max(this.state.timeRemaining - adjustTime, 0);
 
-      var countdownComplete = (this.state.prevTime && timeRemaining <= 0);
+      let countdownComplete = (this.state.prevTime && timeRemaining <= 0);
 
       if (this.isMounted()) {
         if (this.state.timeoutId) { clearTimeout(this.state.timeoutId); }
@@ -120,11 +117,11 @@ export default class CountdownTimer extends Component {
       return this.props.formatFunc(milliseconds);
     }
 
-    var totalSeconds = Math.round(milliseconds / 1000);
+    let totalSeconds = Math.round(milliseconds / 1000);
 
-    var seconds = parseInt(totalSeconds % 60, 10);
-    var minutes = parseInt(totalSeconds / 60, 10) % 60;
-    var hours = parseInt(totalSeconds / 3600, 10);
+    let seconds = parseInt(totalSeconds % 60, 10);
+    let minutes = parseInt(totalSeconds / 60, 10) % 60;
+    let hours = parseInt(totalSeconds / 3600, 10);
 
     seconds = seconds < 10 ? '0' + seconds : seconds;
     minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -133,42 +130,33 @@ export default class CountdownTimer extends Component {
     return hours + ':' + minutes + ':' + seconds;
   }
 
-  pauseHandler () {
-    this.shouldPause = !this.shouldPause;
-    if( !this.shouldPause ){
-      this.setState({adjustTime: true});
-      this.tick();
-    } else {
-      this.setState({adjustTime: false});
-    }
-  }
-
-  pressOut() {
+  stopButtonOutHandler() {
     this.moveProgress(-1);
   }
 
-  pressIn() {
+  stopButtonInHandler() {
     this.moveProgress(1);
   }
 
   moveProgress(progress) {
     clearInterval(this.state.stoptimerId);
     let timerId = setInterval(()=>{
-      let num = this.state.stopTimerProgress + (progress * 0.05);
+      let num = this.state.stopTimerProgress + (progress * 0.015);
       this.setState({stopTimerProgress: num})
-      if ( this.state.stopTimerProgress <= 0) {
+      if ( this.state.stopTimerProgress <= 0) { //handles if the value goes below 0
         clearInterval(this.state.stoptimerId);
+        this.setState({stopTimerProgress: 0})
       } else if (this.state.stopTimerProgress >= 1) {
         console.log("yay completed!");
       }
-    },500);
+    },10);
     this.setState({
       stoptimerId: timerId,
     })    
-  }
+  }    
 
   render() {
-    var timeRemaining = this.state.timeRemaining;
+    let timeRemaining = this.state.timeRemaining;
     
     // used to calculate how much to increase the circle by
     let diff = this.state.originalTime - timeRemaining;
@@ -178,12 +166,11 @@ export default class CountdownTimer extends Component {
       <View className='timer'>
         <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
-        
         <TouchableOpacity 
-          onPressIn={this.pressIn.bind(this)}
-          onPressOut={this.pressOut.bind(this)}>        
+          onPressIn={this.stopButtonInHandler.bind(this)}
+          onPressOut={this.stopButtonOutHandler.bind(this)}>        
           <Progress.Circle progress={this.state.stopTimerProgress} size={100} color={'silver'} thickness={5} borderWidth={0} animated={true}/>
-        </TouchableOpacity>
+        </TouchableOpacity>        
       </View>
     );
   }

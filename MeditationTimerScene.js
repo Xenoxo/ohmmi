@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { TouchableNativeFeedback, View, Text, TouchableHighlight } from 'react-native';
+import { TouchableOpacity, TouchableNativeFeedback, View, Text, TouchableHighlight } from 'react-native';
 
-import CountdownTimer from './CountdownTimer'
+import CountdownTimer from './CountdownTimer';
 
 export default class MeditationTimerScene extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userSetTime: 10000,
+      userSetTime: 60000,
     }
   }
 
@@ -24,7 +24,7 @@ export default class MeditationTimerScene extends Component {
           initialTimeRemaining={this.state.userSetTime}
           // textStyle={}
           completeCallback={this.timerDone.bind(this)}
-        />
+        />     
       </View>
     )
   }
