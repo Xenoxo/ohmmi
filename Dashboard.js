@@ -18,6 +18,8 @@ export default class Dashboard extends Component {
       meditationDuration: 0,
       counter:0,
       setIntervalID: null,
+      buttonOpacity: 0.3,
+      active: false,
     };
   };
 
@@ -49,9 +51,21 @@ export default class Dashboard extends Component {
   }
 
   handleTimerButtonPress(time){
-    //convert time to miliseconds
     let milisecs = time * 60 * 1000;
-    this.setState({meditationDuration: milisecs})
+    this.setState({
+      meditationDuration: milisecs,
+      buttonOpacity:0.8,
+      active: true,      
+    })
+  }
+
+  handleStartButtonPress(){
+    if (this.state.active) {
+      this.props.navigator.push({
+        title:'meditationTimer',
+        passedInTime:this.state.meditationDuration
+      })
+    }
   }
 
   render() {
@@ -66,22 +80,22 @@ export default class Dashboard extends Component {
               <Text style={styles.buttonText}>15</Text>
             </View>
           </TouchableOpacity>          
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 30)}>
             <View style={styles.circleButton}>
               <Text style={styles.buttonText}>30</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 60)}>
             <View style={styles.circleButton}>
               <Text style={styles.buttonText}>60</Text>
             </View>
           </TouchableOpacity>
         </View>
         <TouchableOpacity 
-          onPress={() => this.props.navigator.push({title:'meditationTimer', passedInTime:1})}
+          onPress={this.handleStartButtonPress.bind(this)}
           delayLongPress={3}
         >
-          <View style={styles.startButton}>
+          <View style={[styles.startButton, {opacity: this.state.buttonOpacity}]}>
             <Text style={styles.startButtonText}>Start</Text>
           </View>
         </TouchableOpacity>
@@ -131,8 +145,7 @@ const styles = StyleSheet.create({
     width:55,
     height:55,
     borderRadius:50,
-    opacity:.3,
-    backgroundColor:'#8BC34A',
+    backgroundColor:'#8BC34A'
   },
   startButtonText: {
     color:"white",

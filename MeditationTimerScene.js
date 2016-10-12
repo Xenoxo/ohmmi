@@ -7,7 +7,7 @@ export default class MeditationTimerScene extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userSetTime: 14000,
+      userSetTime: this.props.timeAmount,
     }
   }
 
@@ -24,7 +24,7 @@ export default class MeditationTimerScene extends Component {
           initialTimeRemaining={this.state.userSetTime}
           completeCallback={this.timerDone.bind(this)}
         />
-        <Text>{this.props.timeAmount}</Text>
+        <Text>Time passed in {this.props.timeAmount}</Text>
       </View>
     )
   }
