@@ -37,16 +37,3 @@ export default class MeditationTimerScene extends Component {
   // }
 
 }
-
-/*{ if (this.props.routeIndex > 0) {}}
-
-{ this.props.routeIndex == 0 ? (<Text>{this.props.routeIndex}</Text>) : '' }        
-
-
-*/
-
-/*
-
-
-
-*/

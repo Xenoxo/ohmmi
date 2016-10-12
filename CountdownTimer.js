@@ -130,30 +130,15 @@ export default class CountdownTimer extends Component {
     return hours + ':' + minutes + ':' + seconds;
   }
 
-  stopButtonOutHandler() {
-    this.moveProgress(-1);
+  pauseHandler () {
+    this.shouldPause = !this.shouldPause;
+    if( !this.shouldPause ){
+      this.setState({adjustTime: true});
+      this.tick();
+    } else {
+      this.setState({adjustTime: false});
+    }
   }
-
-  stopButtonInHandler() {
-    this.moveProgress(1);
-  }
-
-  moveProgress(progress) {
-    clearInterval(this.state.stoptimerId);
-    let timerId = setInterval(()=>{
-      let num = this.state.stopTimerProgress + (progress * 0.015);
-      this.setState({stopTimerProgress: num})
-      if ( this.state.stopTimerProgress <= 0) { //handles if the value goes below 0
-        clearInterval(this.state.stoptimerId);
-        this.setState({stopTimerProgress: 0})
-      } else if (this.state.stopTimerProgress >= 1) {
-        console.log("yay completed!");
-      }
-    },10);
-    this.setState({
-      stoptimerId: timerId,
-    })    
-  }    
 
   render() {
     let timeRemaining = this.state.timeRemaining;
@@ -166,11 +151,9 @@ export default class CountdownTimer extends Component {
       <View className='timer'>
         <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
-        <TouchableOpacity 
-          onPressIn={this.stopButtonInHandler.bind(this)}
-          onPressOut={this.stopButtonOutHandler.bind(this)}>        
-          <Progress.Circle progress={this.state.stopTimerProgress} size={100} color={'silver'} thickness={5} borderWidth={0} animated={true}/>
-        </TouchableOpacity>        
+        <TouchableOpacity onPress={this.pauseHandler.bind(this)}>        
+          <Text>Pause</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -242,3 +225,37 @@ CountdownTimer.defaultProps = {
   tickCallback: null,
   completeCallback: null,
 };
+
+
+
+  // stopButtonOutHandler() {
+  //   this.moveProgress(-1);
+  // }
+
+  // stopButtonInHandler() {
+  //   this.moveProgress(1);
+  // }
+
+  // moveProgress(progress) {
+  //   clearInterval(this.state.stoptimerId);
+  //   let timerId = setInterval(()=>{
+  //     let num = this.state.stopTimerProgress + (progress * 0.015);
+  //     this.setState({stopTimerProgress: num})
+  //     if ( this.state.stopTimerProgress <= 0) { //handles if the value goes below 0
+  //       clearInterval(this.state.stoptimerId);
+  //       this.setState({stopTimerProgress: 0})
+  //     } else if (this.state.stopTimerProgress >= 1) {
+  //       console.log("yay completed!");
+  //     }
+  //   },10);
+  //   this.setState({
+  //     stoptimerId: timerId,
+  //   })    
+  // }    
+
+
+        // <TouchableOpacity 
+        //   onPressIn={this.stopButtonInHandler.bind(this)}
+        //   onPressOut={this.stopButtonOutHandler.bind(this)}>        
+        //   <Progress.Circle progress={this.state.stopTimerProgress} size={100} color={'silver'} thickness={5} borderWidth={0} animated={true}/>
+        // </TouchableOpacity>
