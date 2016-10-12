@@ -7,7 +7,7 @@ export default class MeditationTimerScene extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userSetTime: 60000,
+      userSetTime: 14000,
     }
   }
 

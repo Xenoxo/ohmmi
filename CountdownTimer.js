@@ -37,6 +37,7 @@ export default class CountdownTimer extends Component {
       adjustTime: true, // determines whether to account for delay, used to 'pause'
       stopTimerProgress:0, // used by the stop button
       stoptimerId: null, // used by the stop button
+      actionText: 'Pause',
     }
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
@@ -133,10 +134,16 @@ export default class CountdownTimer extends Component {
   pauseHandler () {
     this.shouldPause = !this.shouldPause;
     if( !this.shouldPause ){
-      this.setState({adjustTime: true});
+      this.setState({
+        adjustTime: true,
+        actionText: 'Pause'
+      });
       this.tick();
-    } else {
-      this.setState({adjustTime: false});
+    } else { // the case for pausing
+      this.setState({
+        adjustTime: false,
+        actionText: 'Resume'
+      });
     }
   }
 
@@ -151,8 +158,10 @@ export default class CountdownTimer extends Component {
       <View className='timer'>
         <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
         <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
-        <TouchableOpacity onPress={this.pauseHandler.bind(this)}>        
-          <Text>Pause</Text>
+        <TouchableOpacity
+          onPress={this.pauseHandler.bind(this)}
+          onLongPress={this.props.completeCallback.bind(this)}>
+          <Text>{this.state.actionText}</Text>
         </TouchableOpacity>
       </View>
     );
