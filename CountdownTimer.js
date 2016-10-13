@@ -37,7 +37,7 @@ export default class CountdownTimer extends Component {
       adjustTime: true, // determines whether to account for delay, used to 'pause'
       stopTimerProgress:0, // used by the stop button
       stoptimerId: null, // used by the stop button
-      actionText: 'Pause',
+      isPaused:false
     }
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
@@ -133,35 +133,39 @@ export default class CountdownTimer extends Component {
 
   pauseHandler () {
     this.shouldPause = !this.shouldPause;
-    if( !this.shouldPause ){
+    if( !this.shouldPause ){ //case for resuming
       this.setState({
         adjustTime: true,
-        actionText: 'Pause'
+        actionText: 'stop',
+        isPaused: false
       });
       this.tick();
     } else { // the case for pausing
       this.setState({
         adjustTime: false,
-        actionText: 'Resume'
+        actionText: 'resume',
+        isPaused: true
       });
     }
   }
 
   render() {
     let timeRemaining = this.state.timeRemaining;
-    
     // used to calculate how much to increase the circle by
     let diff = this.state.originalTime - timeRemaining;
     let percentage = (diff/this.state.originalTime);
-
     return (
-      <View className='timer'>
-        <Progress.Circle progress={percentage} size={100} color={'#DC3522'} thickness={10} borderWidth={0} animated={false}/>       
-        <Text style={this.props.textStyle}>{this.getFormattedTime(timeRemaining)}</Text>
+      <View style={styles.container}>
+        <Progress.Circle progress={percentage} size={200} color={'#0277BD'} thickness={30} borderWidth={0} animated={false}/>       
+          <Text>{this.getFormattedTime(timeRemaining)}</Text>
         <TouchableOpacity
           onPress={this.pauseHandler.bind(this)}
           onLongPress={this.props.completeCallback.bind(this)}>
-          <Text>{this.state.actionText}</Text>
+          <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
+            {
+              this.state.isPaused ? (<View style={styles.pause}></View>) : (<View style={styles.circleButton}></View>)
+            }
+          </View>
         </TouchableOpacity>
       </View>
     );
@@ -171,7 +175,6 @@ export default class CountdownTimer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor:'#2C3E50',
     justifyContent:'center',
     alignItems:'center'
   },
@@ -208,14 +211,21 @@ const styles = StyleSheet.create({
     margin:15,
     borderRadius:10,
   },
-  buttonContainer: {
-    flex:2,
-    flexDirection:'row',
-    alignItems:'center',    
+  circleButton: {
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    width:85,
+    height:85,
+    borderRadius:50,
+    margin:16
   },
-  testText: {
-    backgroundColor:'green'
-  }  
+  pause: {
+    width:50,
+    height:50,
+    backgroundColor:'white',
+    opacity: .8
+  }
 });
 
 

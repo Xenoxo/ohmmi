@@ -18,14 +18,11 @@ export default class MeditationTimerScene extends Component {
   render() {
     var date = Date.now();
     return (
-      <View>
         <CountdownTimer 
           interval={50}
           initialTimeRemaining={this.state.userSetTime}
           completeCallback={this.timerDone.bind(this)}
         />
-        <Text>Time passed in {this.props.timeAmount}</Text>
-      </View>
     )
   }
 
