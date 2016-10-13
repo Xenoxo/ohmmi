@@ -24,25 +24,6 @@ export default class Dashboard extends Component {
     };
   };
 
-  // startCount(timerID){
-  //  let setIntervalID = setInterval(() => {
-  //     this.setState({ counter: this.state.counter+1 });
-  //   }, 1000);
-  //  this.setState({ setIntervalID: setIntervalID });
-  // };
-
-  // stopCount(timerID){
-  //   if (timerID != null){
-  //     clearInterval(timerID);
-  //   }
-  // };
-
-  // resetCount(timerID){
-  //   if (timerID != null){
-  //     this.stopCount(timerID);
-  //     this.setState({ counter: 0 });
-  //   }
-  // };
   componentDidUpdate() {
     
   }
@@ -77,27 +58,32 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TextInput
-          placeholder={'Choose below for session times or type here'}
-          value={this.state.textInputValue}
-          onChangeText={(text) => this.setState({textInputValue:text})}
-          onSubmitEditing={this.handleTimerButtonPress.bind(this, this.state.textInputValue)}
-          keyboardType={'numeric'}
-          blurOnSubmit={true}
-        />
+        <Text>Choose below for session times or enter here</Text>
+        <View style={styles.textInputContainer}>
+          <TextInput
+            style={styles.textInput}
+            multiline={true}
+            // placeholder={'Choose below for session times or enter here'}
+            value={this.state.textInputValue}
+            onChangeText={(text) => this.setState({textInputValue:text})}
+            onSubmitEditing={this.handleTimerButtonPress.bind(this, this.state.textInputValue)}
+            keyboardType={'numeric'}
+            blurOnSubmit={true}
+          />
+        </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 15)}>
-            <View style={styles.circleButton}>
+            <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
               <Text style={styles.buttonText}>15</Text>
             </View>
           </TouchableOpacity>          
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 30)}>
-            <View style={styles.circleButton}>
+            <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
               <Text style={styles.buttonText}>30</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 60)}>
-            <View style={styles.circleButton}>
+            <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
               <Text style={styles.buttonText}>60</Text>
             </View>
           </TouchableOpacity>
@@ -106,8 +92,8 @@ export default class Dashboard extends Component {
           onPress={this.handleStartButtonPress.bind(this)}
           delayLongPress={3}
         >
-          <View style={[styles.startButton, {opacity: this.state.buttonOpacity}]}>
-            <Text style={styles.startButtonText}>Start</Text>
+          <View style={[styles.circleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
+            <Text style={styles.buttonText}>Start</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -128,37 +114,59 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    borderWidth: 4,
+    borderColor: 'black',
+  },
+  textInputContainer: {
+    flexDirection:'row',
+  },
+  textInput: {
+    flex:1,
+    textAlign:'center',
+    marginLeft:20,
+    marginRight:20,
+    fontSize:30
   },
   buttonContainer: {
     flex:0,
     flexDirection: 'row',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
   },
   circleButton: {
     flex:1,
     justifyContent:'center',
     alignItems:'center',
-    width:55,
-    height:55,
+    width:85,
+    height:85,
     borderRadius:50,
-    backgroundColor:'#FF5722',
+    margin:16
   },
   buttonText: {
     color:"white",
-    opacity:.8
-  },
-  startButton: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    width:55,
-    height:55,
-    borderRadius:50,
-    backgroundColor:'#8BC34A'
-  },
-  startButtonText: {
-    color:"white",
+    fontSize:30,
+    opacity:.9
   },
 });
+
+
+  // startCount(timerID){
+  //  let setIntervalID = setInterval(() => {
+  //     this.setState({ counter: this.state.counter+1 });
+  //   }, 1000);
+  //  this.setState({ setIntervalID: setIntervalID });
+  // };
+
+  // stopCount(timerID){
+  //   if (timerID != null){
+  //     clearInterval(timerID);
+  //   }
+  // };
+
+  // resetCount(timerID){
+  //   if (timerID != null){
+  //     this.stopCount(timerID);
+  //     this.setState({ counter: 0 });
+  //   }
+  // };
