@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, Aniimation, TouchableOpacity, View, Text, TouchableHighlight, TextInput } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, TouchableHighlight, TextInput } from 'react-native';
 
 import * as Progress from 'react-native-progress';
 
@@ -24,17 +24,6 @@ export default class Dashboard extends Component {
     };
   };
 
-  componentDidUpdate() {
-    
-  }
-
-  longPress() {
-    // console.log("worked")
-  }
-
-  componentWillMount() {
-  }
-
   handleTimerButtonPress(time){
     let milisecs = time * 60 * 1000;
     this.setState({
@@ -53,7 +42,6 @@ export default class Dashboard extends Component {
       })
     }
   }
-
 
   render() {
     return (
