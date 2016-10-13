@@ -51,6 +51,9 @@ export default class Dashboard extends Component {
     // console.log("worked")
   }
 
+  componentWillMount() {
+  }
+
   handleTimerButtonPress(time){
     let milisecs = time * 60 * 1000;
     this.setState({
@@ -69,6 +72,7 @@ export default class Dashboard extends Component {
       })
     }
   }
+
 
   render() {
     return (

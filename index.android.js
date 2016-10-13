@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Easing, Animated, TouchableNativeFeedback, Navigator, AppRegistry, Text, View, StyleSheet, TextInput } from 'react-native';
+import { Navigator, AppRegistry } from 'react-native';
+import * as firebase from 'firebase';
 
 import MeditationTimerScene from './MeditationTimerScene';
 
@@ -7,15 +8,22 @@ import Dashboard from './Dashboard';
 
 import * as Progress from 'react-native-progress';
 
+// Initialize Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDJHA0mf2tXvy-XRxqdjFZZCMYo6iKmjQQ",
+  authDomain: "ohmmi-d657e.firebaseapp.com",
+  databaseURL: "https://ohmmi-d657e.firebaseio.com",
+  storageBucket: "",
+  messagingSenderId: "850235245035"
+};
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+
 class ohmmi extends Component {
   constructor(props){
     super(props);
     this.state = {}
-  };
-
-
-  componentWillReceiveProps(props){
-    // console.log(props);
   };
   
   navigatorRenderScene(route, navigator) {
@@ -36,23 +44,6 @@ class ohmmi extends Component {
     )
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    backgroundColor:'#2C3E50',
-    justifyContent:'center',
-    alignItems:'center'
-  },
-	headertext: {
-		color: '#ffffa8',
-		fontFamily: 'roboto',
-		fontSize: 20,
-		textAlign: 'center',
-    margin:15,
-	} 
-});
 
 
 AppRegistry.registerComponent('ohmmi', () => ohmmi);
