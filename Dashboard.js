@@ -43,21 +43,33 @@ export default class Dashboard extends Component {
     }
   }
 
+  
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Choose below for session times or enter here</Text>
         <View style={styles.textInputContainer}>
           <TextInput
-            style={styles.textInput}
+            style={[styles.textInput, this.state.active ? styles.hugeText : styles.normalText]}
             multiline={true}
-            // placeholder={'Choose below for session times or enter here'}
+            placeholder={'Choose below for session \n times or enter here'}
             value={this.state.textInputValue}
-            onChangeText={(text) => this.setState({textInputValue:text})}
+            onChangeText={(text)=> {
+              this.setState({
+                textInputValue:text,
+                active:true,
+              });
+              if (text === ''){
+                this.setState({active:false});
+              }
+            }
+            }
             onSubmitEditing={this.handleTimerButtonPress.bind(this, this.state.textInputValue)}
             keyboardType={'numeric'}
             blurOnSubmit={true}
           />
+            {/* <Text>{this.state.textInputValue}</Text> 
+          </TextInput>*/}
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 15)}>
@@ -103,8 +115,7 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:'center',
     alignItems:'center',
-    borderWidth: 4,
-    borderColor: 'black',
+    // backgroundColor:'#E1F5FE',
   },
   textInputContainer: {
     flexDirection:'row',
@@ -114,7 +125,21 @@ const styles = StyleSheet.create({
     textAlign:'center',
     marginLeft:20,
     marginRight:20,
-    fontSize:30
+    fontSize:20,
+    // marginTop:0,
+    // marginBottom:0,
+    // fontWeight:'100',
+    // fontFamily:'Robot-thin',
+  },
+  hugeText: {
+    fontSize:90,
+    // padding:0,
+    // margin:0,
+  },
+  normalText: {
+    fontSize:25,
+    paddingBottom:25,
+    // paddingBottom:20
   },
   buttonContainer: {
     flex:0,
@@ -134,7 +159,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color:"white",
     fontSize:30,
-    opacity:.9
   },
 });
 

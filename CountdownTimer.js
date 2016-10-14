@@ -133,14 +133,14 @@ export default class CountdownTimer extends Component {
 
   pauseHandler () {
     this.shouldPause = !this.shouldPause;
-    if( !this.shouldPause ){ //case for resuming
+    if( !this.shouldPause ){ // when the timer is going
       this.setState({
         adjustTime: true,
         actionText: 'stop',
         isPaused: false
       });
       this.tick();
-    } else { // the case for pausing
+    } else { // when the timer is stopped
       this.setState({
         adjustTime: false,
         actionText: 'resume',
@@ -156,15 +156,20 @@ export default class CountdownTimer extends Component {
     let percentage = (diff/this.state.originalTime);
     return (
       <View style={styles.container}>
-        <Progress.Circle progress={percentage} size={200} color={'#0277BD'} thickness={30} borderWidth={0} animated={false}/>       
+        <Progress.Circle 
+          progress={percentage}
+          size={200} 
+          color={'#0277BD'} 
+          thickness={30} 
+          borderWidth={0} 
+          animated={false}
+        />       
           <Text>{this.getFormattedTime(timeRemaining)}</Text>
         <TouchableOpacity
           onPress={this.pauseHandler.bind(this)}
           onLongPress={this.props.completeCallback.bind(this)}>
           <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
-            {
-              this.state.isPaused ? (<View style={styles.pause}></View>) : (<View style={styles.circleButton}></View>)
-            }
+            {this.state.isPaused ? (<View style={styles.resume}></View>) : (<View style={styles.pause}></View>)}
           </View>
         </TouchableOpacity>
       </View>
@@ -176,7 +181,8 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    backgroundColor:'#E1F5FE'
   },
   ball: {
     backgroundColor: '#DC3522',
@@ -221,10 +227,27 @@ const styles = StyleSheet.create({
     margin:16
   },
   pause: {
-    width:50,
-    height:50,
+    width:45,
+    height:45,
     backgroundColor:'white',
     opacity: .8
+  },
+  resume: {
+    width: 0,
+    height: 0,
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: 25,
+    borderRightWidth: 25,
+    borderBottomWidth: 40,
+    marginLeft:15,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: 'white',
+    opacity: .8,
+    transform: [
+      {rotate: '90deg'}
+    ]
   }
 });
 
