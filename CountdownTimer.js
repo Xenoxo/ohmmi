@@ -175,6 +175,7 @@ export default class CountdownTimer extends Component {
             {this.state.isPaused ? (<View style={styles.resume}></View>) : (<View style={styles.pause}></View>)}
           </View>
         </TouchableOpacity>
+        <Text>Hold to go back</Text>
       </View>
     );
   }

@@ -21,17 +21,22 @@ export default class Dashboard extends Component {
       buttonOpacity: 0.3,
       active: false,
       textInputValue:null,
+      helpMessage:'(tap above to enter a custom amount)',
     };
   };
 
   handleTimerButtonPress(time){
-    let milisecs = time * 60 * 1000;
-    this.setState({
-      meditationDuration: milisecs,
-      buttonOpacity:0.8,
-      active: true,
-      textInputValue: time+'',
-    })
+    if (Number.isInteger(time)) {
+      let milisecs = time * 60 * 1000;
+      this.setState({
+        meditationDuration: milisecs,
+        buttonOpacity:0.8,
+        active: true,
+        textInputValue: time+'',
+      })
+    } else {
+
+    }
   }
 
   handleStartButtonPress(){
@@ -50,7 +55,7 @@ export default class Dashboard extends Component {
           <TextInput
             style={[styles.textInput, this.state.active ? styles.hugeText : styles.normalText]}
             multiline={true}
-            placeholder={'Choose below for session \n times or enter here'}
+            placeholder={'How long is this session?'}
             value={this.state.textInputValue}
             onChangeText={(text)=> {
               this.setState({
@@ -69,8 +74,9 @@ export default class Dashboard extends Component {
             {/* <Text>{this.state.textInputValue}</Text> 
           </TextInput>*/}
         </View>
+      <Text style={styles.helpMessage}>{this.state.helpMessage}</Text>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 15)}>
+          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
             <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
               <Text style={styles.buttonText}>10</Text>
             </View>
@@ -129,15 +135,18 @@ const styles = StyleSheet.create({
     // fontWeight:'100',
     // fontFamily:'Robot-thin',
   },
+  helpMessage: {
+    fontSize:10,
+    opacity:.54
+  },
   hugeText: {
     fontSize:90,
-    // padding:0,
-    // margin:0,
+    opacity:.87,
   },
   normalText: {
     fontSize:25,
-    paddingBottom:25,
-    // paddingBottom:20
+    fontWeight:'700',
+    opacity:.87
   },
   buttonContainer: {
     flex:0,
