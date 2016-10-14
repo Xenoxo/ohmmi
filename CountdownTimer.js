@@ -103,7 +103,10 @@ export default class CountdownTimer extends Component {
       }
 
       if (countdownComplete) {
-        if (this.props.completeCallback) { this.props.completeCallback(); }
+        if (this.props.completeCallback) { 
+          this.props.completedSound();
+          this.props.completeCallback();
+        }
         return;
       }
 

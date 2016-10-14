@@ -3,6 +3,8 @@ import { TouchableOpacity, TouchableNativeFeedback, View, Text, TouchableHighlig
 
 import CountdownTimer from './CountdownTimer';
 
+import Sound from 'react-native-sound'; //for the bell sound
+
 export default class MeditationTimerScene extends Component {
   constructor(props){
     super(props);
@@ -10,6 +12,17 @@ export default class MeditationTimerScene extends Component {
       userSetTime: this.props.timeAmount,
     }
   }
+
+  playSound() {
+    let s = new Sound('bell.wav','', (e) => {
+      if (e) {
+        console.log('error', e);
+      } else {
+        console.log('duration', s.getDuration());
+        s.play();
+      }
+    });
+  }    
 
   timerDone() {
     this.props.navigator.pop();
@@ -19,9 +32,10 @@ export default class MeditationTimerScene extends Component {
     var date = Date.now();
     return (
         <CountdownTimer 
-          interval={50}
+          interval={25}
           initialTimeRemaining={this.state.userSetTime}
           completeCallback={this.timerDone.bind(this)}
+          completedSound={this.playSound.bind(this)}
         />
     )
   }

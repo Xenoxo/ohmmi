@@ -43,8 +43,6 @@ export default class Dashboard extends Component {
     }
   }
 
-  
-
   render() {
     return (
       <View style={styles.container}>
@@ -74,7 +72,7 @@ export default class Dashboard extends Component {
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 15)}>
             <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
-              <Text style={styles.buttonText}>15</Text>
+              <Text style={styles.buttonText}>10</Text>
             </View>
           </TouchableOpacity>          
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 30)}>
