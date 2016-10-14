@@ -172,7 +172,13 @@ export default class CountdownTimer extends Component {
           onPress={this.pauseHandler.bind(this)}
           onLongPress={this.props.completeCallback.bind(this)}>
           <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
-            {this.state.isPaused ? (<View style={styles.resume}></View>) : (<View style={styles.pause}></View>)}
+            {this.state.isPaused ? (
+              <View style={styles.resume}></View>) : (
+              <View style={styles.pause}>
+                <View style={{width:15, height:45, backgroundColor:'white'}}></View>
+                <View style={{width:15}}></View>
+                <View style={{width:15, height:45, backgroundColor:'white'}}></View>              
+              </View>)}
           </View>
         </TouchableOpacity>
         <Text>Hold to go back</Text>
@@ -231,9 +237,12 @@ const styles = StyleSheet.create({
     margin:16
   },
   pause: {
+    flex:1,
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
     width:45,
     height:45,
-    backgroundColor:'white',
     opacity: .8
   },
   resume: {

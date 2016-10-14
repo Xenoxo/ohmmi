@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, TouchableHighlight, TextInput } from 'react-native';
+import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TouchableHighlight, TextInput } from 'react-native';
 
 import * as Progress from 'react-native-progress';
 
@@ -26,8 +26,8 @@ export default class Dashboard extends Component {
   };
 
   handleTimerButtonPress(time){
-    if (Number.isInteger(time)) {
-      let milisecs = time * 60 * 1000;
+    let milisecs = time * 60 * 1000;
+    if (Number.isInteger(milisecs)) {
       this.setState({
         meditationDuration: milisecs,
         buttonOpacity:0.8,
@@ -35,12 +35,13 @@ export default class Dashboard extends Component {
         textInputValue: time+'',
       })
     } else {
-
+      this.setState({buttonOpacity:0.3});
+      ToastAndroid.show('Please Enter A Whole Number', ToastAndroid.SHORT, ToastAndroid.CENTER);
     }
   }
 
   handleStartButtonPress(){
-    if (this.state.active) {
+    if (this.state.active && this.state.meditation !== 0) {
       this.props.navigator.push({
         title:'meditationTimer',
         passedInTime:this.state.meditationDuration
@@ -63,10 +64,12 @@ export default class Dashboard extends Component {
                 active:true,
               });
               if (text === ''){
-                this.setState({active:false});
+                this.setState({
+                  active:false,
+                  buttonOpacity:0.3
+                });
               }
-            }
-            }
+            }}
             onSubmitEditing={this.handleTimerButtonPress.bind(this, this.state.textInputValue)}
             keyboardType={'numeric'}
             blurOnSubmit={true}
@@ -94,7 +97,6 @@ export default class Dashboard extends Component {
         </View>
         <TouchableOpacity 
           onPress={this.handleStartButtonPress.bind(this)}
-          delayLongPress={3}
         >
           <View style={[styles.circleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
             <Text style={styles.buttonText}>Start</Text>
