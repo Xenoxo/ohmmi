@@ -41,7 +41,7 @@ export default class Dashboard extends Component {
   }
 
   handleStartButtonPress(){
-    if (this.state.active && this.state.meditation !== 0) {
+    if (this.state.active && this.state.meditationDuration !== 0) {
       this.props.navigator.push({
         title:'meditationTimer',
         passedInTime:this.state.meditationDuration
@@ -95,7 +95,9 @@ export default class Dashboard extends Component {
             </View>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity 
+
+        {/* Submit button */}
+        <TouchableOpacity
           onPress={this.handleStartButtonPress.bind(this)}
         >
           <View style={[styles.circleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
