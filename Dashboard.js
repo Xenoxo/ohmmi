@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TouchableHighlight, TextInput } from 'react-native';
+import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TouchableHighlight, TextInput, Keyboard } from 'react-native';
 
 import * as Progress from 'react-native-progress';
 
@@ -8,9 +8,6 @@ import TimerMixin from 'react-timer-mixin';
 export default class Dashboard extends Component {
   
   // the dashboard scene handles all the user interaction on before the timer kicks off
-  /*
-    Navigation
-  */
   mixins: [TimerMixin];
   constructor(props) {
     super(props);
@@ -24,6 +21,19 @@ export default class Dashboard extends Component {
       helpMessage:'(tap above to enter a custom amount)',
     };
   };
+  // can i see listeners on debug?
+
+  componentWillMount() { // registers when keyboard is hidden and considers the action a "time setting"
+    Keyboard.addListener('keyboardDidHide', (e) => {this._keyboardDidHide(e)});    
+  }
+
+  componentWillUnmount () {
+    Keyboard.removeListener('keyboardDidHide', (e) => {this._keyboardDidHide(e)});
+  }
+
+  _keyboardDidHide(e){
+    this.handleTimerButtonPress(this.state.textInputValue);
+  }
 
   handleTimerButtonPress(time){
     let milisecs = time * 60 * 1000;
@@ -51,6 +61,9 @@ export default class Dashboard extends Component {
     }
   }
 
+
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -68,7 +81,7 @@ export default class Dashboard extends Component {
               if (text.length === 0){
                 this.setState({
                   active:false,
-                  buttonOpacity:0.3
+                  buttonOpacity:0.3,
                 });
               }
             }}
@@ -175,6 +188,16 @@ const styles = StyleSheet.create({
   },
 });
 
+
+Dashboard.defaultProps = {
+      meditationDuration: 0,
+      counter:0,
+      setIntervalID: null,
+      buttonOpacity: 0.3,
+      active: false,
+      textInputValue:null,
+      helpMessage:'(tap above to enter a custom amount)'
+}
 
   // startCount(timerID){
   //  let setIntervalID = setInterval(() => {
