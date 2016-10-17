@@ -170,7 +170,8 @@ export default class CountdownTimer extends Component {
           <Text>{this.getFormattedTime(timeRemaining)}</Text>
         <TouchableOpacity
           onPress={this.pauseHandler.bind(this)}
-          onLongPress={this.props.completeCallback.bind(this)}>
+          onLongPress={this.props.completeCallback.bind(this)}
+          >
           <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
             {this.state.isPaused ? (
               <View style={styles.resume}></View>) : (

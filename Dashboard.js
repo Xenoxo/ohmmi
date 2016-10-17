@@ -35,17 +35,19 @@ export default class Dashboard extends Component {
   }
 
   handleTimerButtonPress(time){
-    let milisecs = time * 60 * 1000;
-    if (Number.isInteger(milisecs) && time.length !== 0 && time !==0) {
-      this.setState({
-        meditationDuration: milisecs,
-        buttonOpacity:0.8,
-        active: true,
-        textInputValue: time+'',
-      })
-    } else {
-      this.setState({buttonOpacity:0.3});
-      ToastAndroid.show('Please enter a whole number greater than zero.', ToastAndroid.LONG, ToastAndroid.CENTER);
+    if (time !== null){
+      let milisecs = time * 60 * 1000;
+      if (Number.isInteger(milisecs) && time.length !== 0 && time !==0) {
+        this.setState({
+          meditationDuration: milisecs,
+          buttonOpacity:0.8,
+          active: true,
+          textInputValue: time+'',
+        });
+      } else {
+        this.setState({buttonOpacity:0.3});
+        ToastAndroid.show('Please enter a whole number greater than zero.', ToastAndroid.LONG, ToastAndroid.CENTER);
+      }
     }
   }
 
