@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TouchableHighlight, TextInput, Keyboard } from 'react-native';
+import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TextInput, Keyboard } from 'react-native';
 
 import * as Progress from 'react-native-progress';
 
@@ -21,7 +21,6 @@ export default class Dashboard extends Component {
       helpMessage:'(tap above to enter a custom amount)',
     };
   };
-  // can i see listeners on debug?
 
   componentWillMount() { // registers when keyboard is hidden and considers the action a "time setting"
     Keyboard.addListener('keyboardDidHide', (e) => {this._keyboardDidHide(e)});    
@@ -187,17 +186,6 @@ const styles = StyleSheet.create({
     fontSize:30,
   },
 });
-
-
-Dashboard.defaultProps = {
-      meditationDuration: 0,
-      counter:0,
-      setIntervalID: null,
-      buttonOpacity: 0.3,
-      active: false,
-      textInputValue:null,
-      helpMessage:'(tap above to enter a custom amount)'
-}
 
   // startCount(timerID){
   //  let setIntervalID = setInterval(() => {
