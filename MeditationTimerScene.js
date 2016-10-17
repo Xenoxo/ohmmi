@@ -18,7 +18,7 @@ export default class MeditationTimerScene extends Component {
       if (e) {
         console.log('error', e);
       } else {
-        console.log('duration', s.getDuration());
+        // console.log('duration', s.getDuration());
         s.play();
       }
     });
