@@ -6,3 +6,7 @@ project(':RNSound').projectDir = new File(rootProject.projectDir, '../node_modul
 
 include ':react-native-idle-timer'
 project(':react-native-idle-timer').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-idle-timer/android')
+
+// below is for push notification
+include ':react-native-push-notification'
+project(':react-native-push-notification').projectDir = file('../node_modules/react-native-push-notification/android')
