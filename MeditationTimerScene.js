@@ -1,5 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { TouchableOpacity, TouchableNativeFeedback, View, Text, TouchableHighlight } from 'react-native';
+import { 
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  View,
+  Text,
+  TouchableHighlight 
+} from 'react-native';
 
 import CountdownTimer from './CountdownTimer';
 
@@ -19,10 +25,11 @@ export default class MeditationTimerScene extends Component {
         console.log('error', e);
       } else {
         // console.log('duration', s.getDuration());
+        s.setVolume(1);
         s.play();
       }
     });
-  }    
+  }
 
   timerDone() {
     this.props.navigator.pop();

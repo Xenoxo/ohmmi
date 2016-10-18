@@ -41,7 +41,7 @@ export default class Dashboard extends Component {
     if (time !== null){
       let milisecs = time * 60 * 1000;
       console.log(time);
-      if (Number.isInteger(milisecs) && time.length!==0 && time>=0 && time%1===0) {
+      if (Number.isInteger(milisecs) && time.length!==0 && time>=0 ) { //&& time%1===0
         this.setState({
           meditationDuration: milisecs,
           buttonOpacity:0.8,

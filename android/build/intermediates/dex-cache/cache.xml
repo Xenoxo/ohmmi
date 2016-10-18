@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/ohmmi/react-native-idle-timer/unspecified/jars/classes.jar"
+        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/ohmmi/RNSound/unspecified/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="58a0793a61b3262f02c3df6e006cc722b1c08735">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-90314082d07a1a628aee7775e3fe52eb732df7fb.jar" />
+        sha1="a640a6a0645e5fea1b124c31ecdea5cccd8d43d0">
+        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-c48f3ee21f57d741891dd245122b24dd303e1cff.jar" />
     </item>
 
 </items>
