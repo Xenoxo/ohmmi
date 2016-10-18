@@ -58,12 +58,15 @@ export default class MeditationTimerScene extends Component {
   componentDidMount(){
     PushNotification.localNotificationSchedule({
       id: '1',
-      message: "My Notification Message", // (required)
+      title: "Congratulations",
+      message: "You've completed the session :)",
       date: new Date(Date.now() + (this.props.timeAmount)), // in miliseconds
       playSound: true, // (optional) default: true
-      soundName: 'bell.wav'
+      soundName: 'bell.wav',
+      ticker: "My Notification Ticker", // (optional)
     });
   }
+
   componentWillUnmount(){
     PushNotification.cancelLocalNotifications({id: '1'});
   }
@@ -82,7 +85,6 @@ export default class MeditationTimerScene extends Component {
 
   timerDone() {    
     this.props.navigator.pop();
-
   }
 
   render() {
