@@ -22,7 +22,7 @@ export default class Dashboard extends Component {
     };
   };
 
-  componentWillMount() { // registers when keyboard is hidden and considers the action a "time setting"
+  componentDidMount() { // registers when keyboard is hidden and considers the action a "time setting"
     Keyboard.addListener('keyboardDidHide', (e) => {this._keyboardDidHide(e)});    
     console.log("meditationDuration "+this.state.meditationDuration);
   }
@@ -36,6 +36,7 @@ export default class Dashboard extends Component {
   }
 
   handleTimerButtonPress(time){
+
     this.setState({ meditationDuration: 0 }); // always resets meditationDuration for button press, submitting, or keyboardHide
     if (time !== null){
       let milisecs = time * 60 * 1000;
