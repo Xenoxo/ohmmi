@@ -103,8 +103,7 @@ export default class CountdownTimer extends Component {
       }
 
       if (countdownComplete) {
-        if (this.props.completeCallback) { 
-          // this.props.completedSound();
+        if (this.props.completeCallback) {
           this.props.completeCallback();
         }
         return;
@@ -167,7 +166,7 @@ export default class CountdownTimer extends Component {
           borderWidth={0} 
           animated={false}
         />       
-          <Text>{this.getFormattedTime(timeRemaining)}</Text>
+        <Text>{this.getFormattedTime(timeRemaining)}</Text>
         <TouchableOpacity
           onPress={this.pauseHandler.bind(this)}
           onLongPress={this.props.completeCallback.bind(this)}

@@ -12,9 +12,39 @@ import CountdownTimer from './CountdownTimer';
 import Sound from 'react-native-sound'; //for the bell sound
 
 var PushNotification = require('react-native-push-notification');
+PushNotification.configure({
 
+    // (optional) Called when Token is generated (iOS and Android)
+    // onRegister: function(token) {
+    //     console.log( 'TOKEN:', token );
+    // },
 
+    // (required) Called when a remote or local notification is opened or received
+    onNotification: function(notification) {
+        console.log( 'NOTIFICATION:', notification );
+    },
 
+    // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications) 
+    // senderID: "YOUR GCM SENDER ID",
+
+    // IOS ONLY (optional): default: all - Permissions to register.
+    // permissions: {
+    //     alert: true,
+    //     badge: true,
+    //     sound: true
+    // },
+
+    // Should the initial notification be popped automatically
+    // default: true
+    popInitialNotification: true,
+
+    /**
+      * (optional) default: true
+      * - Specified if permissions (ios) and token (android and ios) will requested or not,
+      * - if not, you must call PushNotificationsHandler.requestPermissions() later
+      */
+    // requestPermissions: true,
+});
 
 
 export default class MeditationTimerScene extends Component {
@@ -25,8 +55,17 @@ export default class MeditationTimerScene extends Component {
     }
   }
 
-  componentWillMount(){
-
+  componentDidMount(){
+    PushNotification.localNotificationSchedule({
+      id: '1',
+      message: "My Notification Message", // (required)
+      date: new Date(Date.now() + (this.props.timeAmount)), // in miliseconds
+      playSound: true, // (optional) default: true
+      soundName: 'bell.wav'
+    });
+  }
+  componentWillUnmount(){
+    PushNotification.cancelLocalNotifications({id: '1'});
   }
 
   playSound() {
@@ -43,6 +82,7 @@ export default class MeditationTimerScene extends Component {
 
   timerDone() {    
     this.props.navigator.pop();
+
   }
 
   render() {

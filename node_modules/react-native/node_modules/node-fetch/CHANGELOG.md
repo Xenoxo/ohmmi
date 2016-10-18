@@ -5,7 +5,17 @@ Changelog
 
 # 1.x release
 
-## v1.6.1 (master)
+## v1.6.3
+
+- Enhance: error handling document to explain `FetchError` design
+- Fix: support `form-data` 2.x releases (requires `form-data` >= 2.1.0)
+
+## v1.6.2
+
+- Enhance: minor document update
+- Fix: response.json() returns empty object on 204 no-content response instead of throwing a syntax error
+
+## v1.6.1
 
 - Fix: if `res.body` is a non-stream non-formdata object, we will call `body.toString` and send it as a string
 - Fix: `counter` value is incorrectly set to `follow` value when wrapping Request instance
@@ -22,7 +32,7 @@ Changelog
 
 ## v1.5.3
 
-- Fix: handles 204 and 304 responses when body is empty but content-encoding is gzip/deflate
+- Fix: handle 204 and 304 responses when body is empty but content-encoding is gzip/deflate
 - Fix: allow resolving response and cloned response in any order
 - Fix: avoid setting `content-length` when `form-data` body use streams
 - Fix: send DELETE request with content-length when body is present

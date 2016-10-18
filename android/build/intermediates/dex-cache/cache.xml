@@ -2,53 +2,18 @@
 <items version="2" >
 
     <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/ohmmi/react-native-push-notification/unspecified/jars/classes.jar"
+        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.35.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="5a3a19972bb85799319991024a32b3f491451893">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-dfa9c5674a81d9e6f33c58d3ae7710cfa7c52969.jar" />
+        sha1="cdc91752c90040ec7871c44963c63c751b1fa94b">
+        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-182864bb6b7019d18ca679bd338664784a1e761f.jar" />
     </item>
     <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/ohmmi/RNSound/unspecified/jars/classes.jar"
+        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.35.0/jars/libs/infer-annotations-1.5.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="c58df4ed83271717eab0a416f1e5106041f3ed10">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-c48f3ee21f57d741891dd245122b24dd303e1cff.jar" />
-    </item>
-    <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="dcb5b75baf05d92e61d5706737200ee55949f97b">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-fa0ffa33546f9a801011a4cc12ff856f19bfb86e.jar" />
-    </item>
-    <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-2f5bb2a73563178b0623a4871a359daf1bc724de.jar" />
-    </item>
-    <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-bfd4d12d9885f183324ebdeeb209d83c3b83fa5f.jar" />
-    </item>
-    <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/me.leolin/ShortcutBadger/1.1.8/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="531c33d3697000a05e9493a2d0f09ba41fa114d3">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-27cf73df2755fccb263d0ebf229255a9b1db282b.jar" />
-    </item>
-    <item
-        jar="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
-        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/classes-f916b552940cea0988be75966cdde40651f18900.jar" />
+        sha1="db2c76df02d034e8d49bca2a69af788a787b46b2">
+        <dex dex="/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/pre-dexed/debug/infer-annotations-1.5-190359707408ed86c9f2302cfb56f36cbb7937d8.jar" />
     </item>
 
 </items>

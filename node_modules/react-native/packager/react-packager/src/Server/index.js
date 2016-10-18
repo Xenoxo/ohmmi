@@ -150,6 +150,14 @@ const bundleOpts = declareOpts({
   resolutionResponse: {
     type: 'object',
   },
+  generateSourceMaps: {
+    type: 'boolean',
+    required: false,
+  },
+  assetPlugins: {
+    type: 'array',
+    default: [],
+  },
 });
 
 const dependencyOpts = declareOpts({
@@ -219,8 +227,9 @@ class Server {
       : new FileWatcher(watchRootConfigs, {useWatchman: true});
 
     this._assetServer = new AssetServer({
-      projectRoots: opts.projectRoots,
       assetExts: opts.assetExts,
+      fileWatcher: this._fileWatcher,
+      projectRoots: opts.projectRoots,
     });
 
     const bundlerOpts = Object.create(opts);
@@ -483,12 +492,17 @@ class Server {
   }
 
   _processAssetsRequest(req, res) {
-    const urlObj = url.parse(req.url, true);
+    const urlObj = url.parse(decodeURI(req.url), true);
     const assetPath = urlObj.pathname.match(/^\/assets\/(.+)$/);
-    const assetEvent = Activity.startEvent(`processing asset request ${assetPath[1]}`);
+    const assetEvent = Activity.startEvent('Processing asset request', {asset: assetPath[1]});
     this._assetServer.get(assetPath[1], urlObj.query.platform)
       .then(
-        data => res.end(this._rangeRequestMiddleware(req, res, data, assetPath)),
+        data => {
+          // Tell clients to cache this for 1 year.
+          // This is safe as the asset url contains a hash of the asset.
+          res.setHeader('Cache-Control', 'max-age=31536000');
+          res.end(this._rangeRequestMiddleware(req, res, data, assetPath));
+        },
         error => {
           console.error(error.stack);
           res.writeHead('404');
@@ -510,6 +524,16 @@ class Server {
         const deps = bundleDeps.get(bundle);
         const {dependencyPairs, files, idToIndex, outdated} = deps;
         if (outdated.size) {
+          const updateExistingBundleEventId =
+            Activity.startEvent(
+              'Updating existing bundle',
+              {
+                outdatedModules: outdated.size,
+              },
+              {
+                telemetric: true,
+              },
+            );
           debug('Attempt to update existing bundle');
           const changedModules =
             Array.from(outdated, this.getModuleForPath, this);
@@ -565,6 +589,7 @@ class Server {
 
                 bundle.invalidateSource();
                 debug('Successfully updated existing bundle');
+                Activity.endEvent(updateExistingBundleEventId);
                 return bundle;
             });
           }).catch(e => {
@@ -610,7 +635,15 @@ class Server {
       return;
     }
 
-    const startReqEventId = Activity.startEvent('request:' + req.url);
+    const startReqEventId = Activity.startEvent(
+      'Requesting bundle',
+      {
+        url: req.url,
+      },
+      {
+        telemetric: true,
+      },
+    );
     const options = this._getOptionsFromUrl(req.url);
     debug('Getting bundle for request');
     const building = this._useCachedOrUpdateOrCreateBundle(options);
@@ -661,7 +694,13 @@ class Server {
   }
 
   _symbolicate(req, res) {
-    const startReqEventId = Activity.startEvent('symbolicate');
+    const startReqEventId = Activity.startEvent(
+      'Symbolicating',
+      null,
+      {
+        telemetric: true,
+      },
+    );
     new Promise.resolve(req.rawBody).then(body => {
       const stack = JSON.parse(body).stack;
 
@@ -762,9 +801,6 @@ class Server {
   _getOptionsFromUrl(reqUrl) {
     // `true` to parse the query param as an object.
     const urlObj = url.parse(reqUrl, true);
-    // node v0.11.14 bug see https://github.com/facebook/react-native/issues/218
-    urlObj.query = urlObj.query || {};
-
     const pathname = decodeURIComponent(urlObj.pathname);
 
     // Backwards compatibility. Options used to be as added as '.' to the
@@ -784,11 +820,16 @@ class Server {
     const platform = urlObj.query.platform ||
       getPlatformExtension(pathname);
 
+    const assetPlugin = urlObj.query.assetPlugin;
+    const assetPlugins = Array.isArray(assetPlugin) ?
+      assetPlugin :
+      (typeof assetPlugin === 'string') ? [assetPlugin] : [];
+
     return {
       sourceMapUrl: url.format(sourceMapUrlObj),
       entryFile: entryFile,
       dev: this._getBoolOptionFromQuery(urlObj.query, 'dev', true),
-      minify: this._getBoolOptionFromQuery(urlObj.query, 'minify'),
+      minify: this._getBoolOptionFromQuery(urlObj.query, 'minify', false),
       hot: this._getBoolOptionFromQuery(urlObj.query, 'hot', false),
       runModule: this._getBoolOptionFromQuery(urlObj.query, 'runModule', true),
       inlineSourceMap: this._getBoolOptionFromQuery(
@@ -802,11 +843,13 @@ class Server {
         'entryModuleOnly',
         false,
       ),
+      generateSourceMaps: this._getBoolOptionFromQuery(urlObj.query, 'babelSourcemap'),
+      assetPlugins,
     };
   }
 
   _getBoolOptionFromQuery(query, opt, defaultVal) {
-    if (query[opt] == null && defaultVal != null) {
+    if (query[opt] == null) {
       return defaultVal;
     }
 
