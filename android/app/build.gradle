@@ -140,7 +140,7 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     
     compile project(':RNSound') // for playing sound
-    compile project(':react-native-idle-timer') // for delaying screen shutoff
+    //compile project(':react-native-idle-timer') // for delaying screen shutoff
 }
 
 // Run this once to be able to run the application with BUCK

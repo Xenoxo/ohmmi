@@ -10,7 +10,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
 import com.zmxv.RNSound.RNSoundPackage; // for playing sound
-import com.marcshilling.idletimer.IdleTimerPackage; // for timer delay
+// import com.marcshilling.idletimer.IdleTimerPackage; // for timer delay
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,8 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-          new RNSoundPackage(), // for sound
-          new IdleTimerPackage()
+          new RNSoundPackage() // for sound
+          // new IdleTimerPackage()
       );
     }
   };
