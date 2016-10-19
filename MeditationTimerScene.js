@@ -1,62 +1,26 @@
 import React, { Component, PropTypes } from 'react';
-import { 
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  View,
-  Text,
-  TouchableHighlight 
-} from 'react-native';
-
 import CountdownTimer from './CountdownTimer';
-
 import Sound from 'react-native-sound'; //for the bell sound
-
-var PushNotification = require('react-native-push-notification');
-PushNotification.configure({
-
-    // (optional) Called when Token is generated (iOS and Android)
-    // onRegister: function(token) {
-    //     console.log( 'TOKEN:', token );
-    // },
-
-    // (required) Called when a remote or local notification is opened or received
-    onNotification: function(notification) {
-        console.log( 'NOTIFICATION:', notification );
-    },
-
-    // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications) 
-    // senderID: "YOUR GCM SENDER ID",
-
-    // IOS ONLY (optional): default: all - Permissions to register.
-    // permissions: {
-    //     alert: true,
-    //     badge: true,
-    //     sound: true
-    // },
-
-    // Should the initial notification be popped automatically
-    // default: true
-    popInitialNotification: true,
-
-    /**
-      * (optional) default: true
-      * - Specified if permissions (ios) and token (android and ios) will requested or not,
-      * - if not, you must call PushNotificationsHandler.requestPermissions() later
-      */
-    // requestPermissions: true,
-});
-
+import PushNotification from 'react-native-push-notification';
 
 export default class MeditationTimerScene extends Component {
   constructor(props){
     super(props);
     this.state = {
       userSetTime: this.props.timeAmount,
-    }
+    };
+
+    // configures push notification
+    PushNotification.configure({
+        onNotification: function(notification) {
+            console.log( 'NOTIFICATION:', notification );
+        },
+        popInitialNotification: true
+    });    
   }
 
   componentDidMount(){
-    PushNotification.localNotificationSchedule({
+    PushNotification.localNotificationSchedule({ //starts off the push notification
       id: '1',
       title: "Congratulations",
       message: "You've completed the session :)",
@@ -68,7 +32,7 @@ export default class MeditationTimerScene extends Component {
   }
 
   componentWillUnmount(){
-    PushNotification.cancelLocalNotifications({id: '1'});
+    PushNotification.cancelLocalNotifications({id: '1'}); //cancels push notification when screen switches
   }
 
   playSound() {
@@ -76,7 +40,6 @@ export default class MeditationTimerScene extends Component {
       if (e) {
         console.log('error', e);
       } else {
-        // console.log('duration', s.getDuration());
         s.setVolume(1);
         s.play();
       }
@@ -98,6 +61,7 @@ export default class MeditationTimerScene extends Component {
         />
     )
   }
+}
 
   // static propTypes = {
   //   title: PropTypes.string.isRequired,
@@ -106,4 +70,4 @@ export default class MeditationTimerScene extends Component {
   //   onBack: PropTypes.func.isRequired,
   // }
 
-}
+  

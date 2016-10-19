@@ -140,7 +140,6 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     
     compile project(':RNSound') // for playing sound
-    //compile project(':react-native-idle-timer') // for delaying screen shutoff
 
     compile project(':react-native-push-notification')
     compile ('com.google.android.gms:play-services-gcm:8.1.0') {

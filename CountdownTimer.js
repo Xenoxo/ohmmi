@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableHighlight, TouchableOpacity, StyleSheet } from 'react-native';
-
+import {View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Progress from 'react-native-progress';
+import TimerMixin from 'react-timer-mixin';
 
-//
-// Generic Countdown Timer UI component
-// With added changes to allow for 'pausing'
-//
-// https://github.com/uken/react-countdown-timer
 //
 // props:
 //   - initialTimeRemaining: Number
@@ -35,7 +30,6 @@ export default class CountdownTimer extends Component {
       prevTime: null,
       originalTime: props.initialTimeRemaining,
       adjustTime: true, // determines whether to account for delay, used to 'pause'
-      stopTimerProgress:0, // used by the stop button
       stoptimerId: null, // used by the stop button
       isPaused:false
     }
@@ -280,37 +274,3 @@ CountdownTimer.defaultProps = {
   tickCallback: null,
   completeCallback: null,
 };
-
-
-
-  // stopButtonOutHandler() {
-  //   this.moveProgress(-1);
-  // }
-
-  // stopButtonInHandler() {
-  //   this.moveProgress(1);
-  // }
-
-  // moveProgress(progress) {
-  //   clearInterval(this.state.stoptimerId);
-  //   let timerId = setInterval(()=>{
-  //     let num = this.state.stopTimerProgress + (progress * 0.015);
-  //     this.setState({stopTimerProgress: num})
-  //     if ( this.state.stopTimerProgress <= 0) { //handles if the value goes below 0
-  //       clearInterval(this.state.stoptimerId);
-  //       this.setState({stopTimerProgress: 0})
-  //     } else if (this.state.stopTimerProgress >= 1) {
-  //       console.log("yay completed!");
-  //     }
-  //   },10);
-  //   this.setState({
-  //     stoptimerId: timerId,
-  //   })    
-  // }    
-
-
-        // <TouchableOpacity 
-        //   onPressIn={this.stopButtonInHandler.bind(this)}
-        //   onPressOut={this.stopButtonOutHandler.bind(this)}>        
-        //   <Progress.Circle progress={this.state.stopTimerProgress} size={100} color={'silver'} thickness={5} borderWidth={0} animated={true}/>
-        // </TouchableOpacity>

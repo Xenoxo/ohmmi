@@ -10,7 +10,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
 import com.zmxv.RNSound.RNSoundPackage; // for playing sound
-// import com.marcshilling.idletimer.IdleTimerPackage; // for timer delay
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage; //for push notification
 
 import java.util.Arrays;
@@ -30,7 +29,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new RNSoundPackage(), // for sound
           new ReactNativePushNotificationPackage()
-          // new IdleTimerPackage()
       );
     }
   };

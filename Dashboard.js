@@ -1,68 +1,60 @@
 import React, { Component, PropTypes } from 'react';
 import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TextInput, Keyboard } from 'react-native';
 
-import * as Progress from 'react-native-progress';
-
-import TimerMixin from 'react-timer-mixin';
-
+// the dashboard scene handles all the user interaction on before the timer kicks off
 export default class Dashboard extends Component {
-  
-  // the dashboard scene handles all the user interaction on before the timer kicks off
-  mixins: [TimerMixin];
   constructor(props) {
     super(props);
     this.state = {
       meditationDuration: 0, // in miliseconds
-      counter:0,
       setIntervalID: null,
       buttonOpacity: 0.3,
       active: false,
-      textInputValue:null,
-      helpMessage:'(tap above to enter a custom amount)',
+      textInputValue: null,
     };
-  };
-
-  componentDidMount() { // registers when keyboard is hidden for any reason and considers the action a "time setting"
-    Keyboard.addListener('keyboardDidHide', (e) => {this._keyboardDidHide(e)});    
   }
 
-  componentWillUnmount () {
-    Keyboard.removeListener('keyboardDidHide', (e) => {this._keyboardDidHide(e)});
+  // registers when keyboard is hidden for any reason and considers the action a "time setting"
+  componentDidMount() {
+    Keyboard.addListener('keyboardDidHide', (e) => { this._keyboardDidHide(e); });
   }
 
-  _keyboardDidHide(e){
+  componentWillUnmount() {
+    Keyboard.removeListener('keyboardDidHide', (e) => { this._keyboardDidHide(e); });
+  }
+
+  _keyboardDidHide() {
     this.handleTimerButtonPress(this.state.textInputValue);
   }
 
-  handleTimerButtonPress(time){
-    this.setState({ meditationDuration: 0 }); // always resets meditationDuration for button press, submitting, or keyboardHide
-    if (time !== null){
-      let milisecs = time * 60 * 1000;
-      if (Number.isInteger(milisecs) && time.length!==0 && time>0 ) { //&& time%1===0
+  handleTimerButtonPress(time) {
+    // always resets meditationDuration for button press, submitting, or keyboardHide
+    this.setState({ meditationDuration: 0 });
+    if (time !== null) {
+      const milisecs = time * 60 * 1000;
+      if (Number.isInteger(milisecs) && time.length !== 0 && time > 0) { //&& time%1===0
         this.setState({
           meditationDuration: milisecs,
-          buttonOpacity:0.8,
+          buttonOpacity: 0.8,
           active: true,
           textInputValue: time+'',
         });
       } else {
-      this.setState({
-        buttonOpacity:0.3,
-        active: false
-      });
-      ToastAndroid.show('Please enter a whole number greater than zero.', ToastAndroid.LONG, ToastAndroid.CENTER);
+        this.setState({
+          buttonOpacity: 0.3,
+          active: false,
+        });
+        ToastAndroid.show('Please enter a whole number greater than zero.', ToastAndroid.LONG, ToastAndroid.CENTER);
       }
     }
   }
 
-  handleStartButtonPress(){
+  handleStartButtonPress() {
     if (this.state.active && this.state.meditationDuration !== 0) {
       this.props.navigator.push({
-        title:'meditationTimer',
-        passedInTime:this.state.meditationDuration
-      })
-    } else {
-     // this._invalidInput();
+        title: 'meditationTimer',
+        passedInTime: this.state.meditationDuration,
+      });
     }
   }
 
@@ -91,7 +83,7 @@ export default class Dashboard extends Component {
             blurOnSubmit={true}
           />
         </View>
-      <Text style={styles.helpMessage}>{this.state.helpMessage}</Text>
+      <Text style={styles.helpMessage}>(tap above to enter a custom amount)</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
             <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
@@ -135,75 +127,50 @@ export default class Dashboard extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    // backgroundColor:'#E1F5FE',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   textInputContainer: {
-    flexDirection:'row',
+    flexDirection: 'row',
   },
   textInput: {
-    flex:1,
-    textAlign:'center',
-    marginLeft:20,
-    marginRight:20,
-    fontSize:20,
-    // marginTop:0,
-    // marginBottom:0,
-    // fontWeight:'100',
-    // fontFamily:'Robot-thin',
+    flex: 1,
+    textAlign: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+    fontSize: 20,
   },
   helpMessage: {
-    fontSize:10,
-    opacity:.54
+    fontSize: 10,
+    opacity: 0.54,
   },
   hugeText: {
-    fontSize:90,
-    opacity:.87,
+    fontSize: 90,
+    opacity: 0.87,
   },
   normalText: {
-    fontSize:25,
-    fontWeight:'700',
-    opacity:.87
+    fontSize: 25,
+    fontWeight: '700',
+    opacity: 0.87,
   },
   buttonContainer: {
-    flex:0,
+    flex: 0,
     flexDirection: 'row',
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   circleButton: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    width:85,
-    height:85,
-    borderRadius:50,
-    margin:16
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 85,
+    height: 85,
+    borderRadius: 50,
+    margin: 16,
   },
   buttonText: {
-    color:"white",
-    fontSize:30,
+    color: 'white',
+    fontSize: 30,
   },
 });
-
-  // startCount(timerID){
-  //  let setIntervalID = setInterval(() => {
-  //     this.setState({ counter: this.state.counter+1 });
-  //   }, 1000);
-  //  this.setState({ setIntervalID: setIntervalID });
-  // };
-
-  // stopCount(timerID){
-  //   if (timerID != null){
-  //     clearInterval(timerID);
-  //   }
-  // };
-
-  // resetCount(timerID){
-  //   if (timerID != null){
-  //     this.stopCount(timerID);
-  //     this.setState({ counter: 0 });
-  //   }
-  // };
