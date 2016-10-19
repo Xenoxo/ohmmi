@@ -114,13 +114,12 @@ export default class Dashboard extends Component {
       </View>
     )
   }
-
-  // static propTypes = {
-  //   title: PropTypes.string.isRequired,
-  //   routeIndex: PropTypes.number.isRequired,
-  //   onForward: PropTypes.func.isRequired,
-  //   onBack: PropTypes.func.isRequired,
-  // }
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    navigator: PropTypes.object.isRequired,
+    title: PropTypes.string.isRequired,
+    timeAmount: PropTypes.number.isRequired,
+  }
 }
 
 

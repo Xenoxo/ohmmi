@@ -115,7 +115,6 @@ export default class CountdownTimer extends Component {
     }
 
     let totalSeconds = Math.round(milliseconds / 1000);
-
     let seconds = parseInt(totalSeconds % 60, 10);
     let minutes = parseInt(totalSeconds / 60, 10) % 60;
     let hours = parseInt(totalSeconds / 3600, 10);
@@ -127,20 +126,22 @@ export default class CountdownTimer extends Component {
     return hours + ':' + minutes + ':' + seconds;
   }
 
-  pauseHandler () {
+  pauseHandler () { 
     this.shouldPause = !this.shouldPause;
-    if( !this.shouldPause ){ // when the timer is going
-      this.setState({
+    if( !this.shouldPause ){
+      this.setState({ // timer is stopped and pressing button will do...
+        isPaused: false,
         adjustTime: true,
         actionText: 'stop',
-        isPaused: false
       });
       this.tick();
-    } else { // when the timer is stopped
+      this.props.pushNotificationHandler(true, this.state.timeRemaining);
+    } else { // timer is going and pressing button will do...
+      this.props.pushNotificationHandler(false);
       this.setState({
+        isPaused: true,
         adjustTime: false,
         actionText: 'resume',
-        isPaused: true
       });
     }
   }

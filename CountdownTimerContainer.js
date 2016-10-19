@@ -19,20 +19,29 @@ export default class CountdownTimerContainer extends Component {
     });    
   }
 
-  componentDidMount(){
-    PushNotification.localNotificationSchedule({ //starts off the push notification
-      id: '1',
-      title: "Congratulations",
-      message: "You've completed the session :)",
-      date: new Date(Date.now() + (this.props.timeAmount)), // in miliseconds
-      playSound: true, // (optional) default: true
-      soundName: 'bell.wav',
-      ticker: "My Notification Ticker", // (optional)
-    });
+  componentDidMount() {
+    this.pushNotificationHandler(true, this.props.timeAmount);
   }
 
-  componentWillUnmount(){
-    PushNotification.cancelLocalNotifications({id: '1'}); //cancels push notification when screen switches
+  componentWillUnmount() {
+    this.pushNotificationHandler(false); //cancels push notification when screen switches
+  }
+
+  pushNotificationHandler(status, timeleft) {
+    if ( status ) {
+      PushNotification.localNotificationSchedule({ //starts off the push notification
+        id: '1',
+        title: "Congratulations",
+        message: "You've completed the session :)",
+        date: new Date(Date.now() + timeleft), // in miliseconds
+        playSound: true, // (optional) default: true
+        soundName: 'bell.wav',
+        largeIcon: 'ic_lotus',
+        smallIcon: 'ic_launcher',
+      });
+    } else {
+      PushNotification.cancelLocalNotifications({id: '1'});
+    }
   }
 
   playSound() {
@@ -51,13 +60,13 @@ export default class CountdownTimerContainer extends Component {
   }
 
   render() {
-    var date = Date.now();
     return (
         <CountdownTimer 
           interval={25}
-          initialTimeRemaining={this.state.userSetTime}
-          completeCallback={this.timerDone.bind(this)}
-          completedSound={this.playSound.bind(this)}
+          initialTimeRemaining={ this.state.userSetTime }
+          completeCallback={ this.timerDone.bind(this) }
+          completedSound={ this.playSound.bind(this) }
+          pushNotificationHandler={ this.pushNotificationHandler.bind(this) }
         />
     )
   }
