@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
 import { Navigator, AppRegistry } from 'react-native';
-import MeditationTimerScene from './MeditationTimerScene';
+import CountdownTimerContainer from './CountdownTimerContainer';
 import Dashboard from './Dashboard';
 
 
@@ -10,9 +10,9 @@ class ohmmi extends Component {
     switch (route.title) {
       case 'dashboard':
         return (<Dashboard navigator={navigator} title="dashboard" timeAmount={0} />);
-      case 'meditationTimer':
+      case 'countdowntimer':
         return (
-          <MeditationTimerScene
+          <CountdownTimerContainer
             navigator={navigator}
             title="meditationTimer"
             timeAmount={route.passedInTime}

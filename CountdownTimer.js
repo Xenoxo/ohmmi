@@ -188,39 +188,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
     backgroundColor:'#E1F5FE'
   },
-  ball: {
-    backgroundColor: '#DC3522',
-    width: 45,
-    height: 45,
-    borderRadius:50
-  },
-  ball2: {
-    backgroundColor: '#DC3522',
-    width: 0,
-    height: 0,
-    borderRadius:50,
-    borderWidth:50,
-    borderColor:'white',
-
-  },  
-  hand: {
-    backgroundColor: '#DC3522',
-    width: 20,
-    height: 60
-  },
-  header: {
-    color: '#ffffa8',
-    fontFamily: 'roboto',
-    fontSize: 20,
-    textAlign: 'center',
-    margin:15,
-  },
-  button: {
-    borderWidth:2,
-    borderColor:"white",
-    margin:15,
-    borderRadius:10,
-  },
   circleButton: {
     flex:1,
     justifyContent:'center',

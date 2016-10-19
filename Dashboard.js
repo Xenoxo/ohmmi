@@ -52,7 +52,7 @@ export default class Dashboard extends Component {
   handleStartButtonPress() {
     if (this.state.active && this.state.meditationDuration !== 0) {
       this.props.navigator.push({
-        title: 'meditationTimer',
+        title: 'countdowntimer',
         passedInTime: this.state.meditationDuration,
       });
     }
