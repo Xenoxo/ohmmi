@@ -3,24 +3,6 @@ import {View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Progress from 'react-native-progress';
 import TimerMixin from 'react-timer-mixin';
 
-//
-// props:
-//   - initialTimeRemaining: Number
-//       The time remaining for the countdown (in ms).
-//
-//   - interval: Number (optional -- default: 1000ms)
-//       The time between timer ticks (in ms).
-//
-//   - formatFunc(timeRemaining): Function (optional)
-//       A function that formats the timeRemaining.
-//
-//   - tickCallback(timeRemaining): Function (optional)
-//       A function to call each tick.
-//
-//   - completeCallback(): Function (optional)
-//       A function to call when the countdown completes.
-//
-
 export default class CountdownTimer extends Component {
   constructor(props) {
     super(props);
@@ -148,7 +130,6 @@ export default class CountdownTimer extends Component {
 
   render() {
     let timeRemaining = this.state.timeRemaining;
-    // used to calculate how much to increase the circle by
     let diff = this.state.originalTime - timeRemaining;
     let percentage = (diff/this.state.originalTime);
     return (
@@ -226,7 +207,6 @@ const styles = StyleSheet.create({
   }
 });
 
-
 CountdownTimer.propTypes =  {
   initialTimeRemaining: React.PropTypes.number.isRequired,
   interval: React.PropTypes.number,
@@ -242,3 +222,22 @@ CountdownTimer.defaultProps = {
   tickCallback: null,
   completeCallback: null,
 };
+
+//
+// props:
+//   - initialTimeRemaining: Number
+//       The time remaining for the countdown (in ms).
+//
+//   - interval: Number (optional -- default: 1000ms)
+//       The time between timer ticks (in ms).
+//
+//   - formatFunc(timeRemaining): Function (optional)
+//       A function that formats the timeRemaining.
+//
+//   - tickCallback(timeRemaining): Function (optional)
+//       A function to call each tick.
+//
+//   - completeCallback(): Function (optional)
+//       A function to call when the countdown completes.
+//
+

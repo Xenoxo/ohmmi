@@ -36,8 +36,8 @@ export default class CountdownTimerContainer extends Component {
         date: new Date(Date.now() + timeleft), // in miliseconds
         playSound: true, // (optional) default: true
         soundName: 'bell.wav',
-        largeIcon: 'ic_lotus',
-        smallIcon: 'ic_launcher',
+        largeIcon: 'ic_launcher',
+        smallIcon: 'old_ic_launcher',
       });
     } else {
       PushNotification.cancelLocalNotifications({id: '1'});
