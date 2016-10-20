@@ -100,17 +100,17 @@ export default class Dashboard extends Component {
         <View style={[styles.subcontainer2, {backgroundColor:'#03A9F4'}]}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
-              <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
+              <View style={styles.circleButton}>
                 <Text style={styles.buttonText}>10</Text>
               </View>
             </TouchableOpacity>          
             <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 30)}>
-              <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
+              <View style={styles.circleButton}>
                 <Text style={styles.buttonText}>30</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 60)}>
-              <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
+              <View style={styles.circleButton}>
                 <Text style={styles.buttonText}>60</Text>
               </View>
             </TouchableOpacity>
@@ -122,23 +122,16 @@ export default class Dashboard extends Component {
           <TouchableOpacity
             onPress={this.handleStartButtonPress.bind(this)}
             activeOpacity={ this.state.active ? 0.2 : 1}>
-            <View style={[styles.circleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
-              <Text style={styles.buttonText}>Start</Text>
+            <View style={[styles.circleButton, {opacity: this.state.buttonOpacity}]}>
+              <Text style={[styles.buttonText, { fontSize: 25 }]}>begin</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity>
-            <View style={[styles.smallCircleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
-              <Text style={styles.buttonText}>?</Text>
+            <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
+              <Text style={ styles.buttonText }>?</Text>
             </View>
           </TouchableOpacity>   
         </View>
-{/* Submit button         
-       {/* <View style={styles.textInputContainer}>
-        </View>
-        <Text style={styles.helpMessage}>(tap above to enter a custom amount)</Text>
-
-
-         */}
       </View>
     )
   }
@@ -219,10 +212,11 @@ const styles = StyleSheet.create({
   },
   circleButton: {
     flex: 1,
+    width: 85,
+    height: 85,    
+    backgroundColor:'#8BC34A',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 85,
-    height: 85,
     borderRadius: 50,
     margin: 16,
     elevation: 3,
@@ -234,7 +228,8 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 50,
-    margin: 16,
+    margin: 5,
+    elevation: 3,
   },
   buttonText: {
     color: 'white',
