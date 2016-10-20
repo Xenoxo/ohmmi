@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, BackAndroid } from 'react-native';
 import * as Progress from 'react-native-progress';
 import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -30,6 +30,9 @@ export default class CountdownTimer extends Component {
   componentDidMount() {
     this.isComponentMounted = true;
     this.tick();
+    BackAndroid.addEventListener('hardwareBackPress', function() {
+      this.props.completeCallback();
+    });    
   }
 
   componentWillReceiveProps(newProps) {
@@ -151,16 +154,15 @@ export default class CountdownTimer extends Component {
         <View style={ styles.buttonContainer }>
             <TouchableOpacity
               onPress={this.pauseHandler.bind(this)}
-              onLongPress={this.props.completeCallback.bind(this)}
               >
               <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
                 {this.state.isPaused ? 
-                  <Icon name="play" size={55} color="#F5F5F5" /> : 
-                  <Icon name="pause" size={55} color="#F5F5F5" />
+                  <Icon name="play" size={55} color="#F5F5F5" style={{ marginLeft: 15 }} /> : 
+                  <Icon name="pause" size={55} color="#F5F5F5" style={{ justifyContent: 'center', alignItems: 'center' }} />
                 }
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={ this.props.completeCallback.bind(this) }>
               <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
                 {/*<Text style={{ color:'white' }}>b</Text>*/}
                 <Icon name="undo" size={30} color="#F5F5F5" />
