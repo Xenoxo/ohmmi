@@ -60,57 +60,75 @@ export default class Dashboard extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.textInputContainer}>
-          <TextInput
-            style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText]}
-            multiline={true}
-            placeholder={'How long is this session?'}
-            value={this.state.textInputValue}
-            onChangeText={(text)=> {
-              this.setState({
-                textInputValue:text,
-                active:true,
-              });
-              if (text.length === 0){
+      <View style={styles.container}>  
+          <View style={[styles.subcontainer1, {backgroundColor:'green'}]}>
+            <Text style={styles.textHeader}>Choose Your Session Time</Text>
+            <TextInput
+              style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText]}
+              multiline={true}
+              // placeholder={'How long is this session?'}
+              value={this.state.textInputValue}
+              onChangeText={(text)=> {
                 this.setState({
-                  active:false,
-                  buttonOpacity:0.3,
+                  textInputValue:text,
+                  active:true,
                 });
-              }
-            }}
-            keyboardType={'numeric'}
-            blurOnSubmit={true}
-          />
-        </View>
-        <Text style={styles.helpMessage}>(tap above to enter a custom amount)</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
-            <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
-              <Text style={styles.buttonText}>10</Text>
-            </View>
-          </TouchableOpacity>          
-          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 30)}>
-            <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
-              <Text style={styles.buttonText}>30</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 60)}>
-            <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
-              <Text style={styles.buttonText}>60</Text>
-            </View>
-          </TouchableOpacity>
+                if (text.length === 0){
+                  this.setState({
+                    active:false,
+                    buttonOpacity:0.3,
+                  });
+                }
+              }}
+              keyboardType={'numeric'}
+              blurOnSubmit={true}
+            />
+          
         </View>
 
-        {/* Submit button */}
-        <TouchableOpacity
-          onPress={this.handleStartButtonPress.bind(this)}
-          activeOpacity={ this.state.active ? 0.2 : 1}
-        >
-          <View style={[styles.circleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
-            <Text style={styles.buttonText}>Start</Text>
+
+        <View style={[styles.subcontainer2, {backgroundColor:'grey'}]}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
+              <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
+                <Text style={styles.buttonText}>10</Text>
+              </View>
+            </TouchableOpacity>          
+            <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 30)}>
+              <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
+                <Text style={styles.buttonText}>30</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 60)}>
+              <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
+                <Text style={styles.buttonText}>60</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </View>
+
+
+        <View style={[styles.subcontainer3, {backgroundColor:'blue'}]}>
+          <TouchableOpacity
+            onPress={this.handleStartButtonPress.bind(this)}
+            activeOpacity={ this.state.active ? 0.2 : 1}>
+            <View style={[styles.circleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
+              <Text style={styles.buttonText}>Start</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={[styles.smallCircleButton, {backgroundColor:'#8BC34A',opacity: this.state.buttonOpacity}]}>
+              <Text style={styles.buttonText}>?</Text>
+            </View>
+          </TouchableOpacity>   
+        </View>
+{/* Submit button         
+       {/* <View style={styles.textInputContainer}>
+        </View>
+        <Text style={styles.helpMessage}>(tap above to enter a custom amount)</Text>
+
+
+         */}
       </View>
     )
   }
@@ -130,8 +148,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textInputContainer: {
-    flexDirection: 'row',
+  subcontainer1: {
+    flex:1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+  },
+  subcontainer2: {
+    flex:1,
+    alignSelf: 'stretch',
+  },
+  subcontainer3: {
+    flex:1,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+  },    
+  textHeader: {
+    color: 'white',
+    fontSize: 45,
+    fontFamily: 'roboto',
+    textAlign: 'center',
+    margin: 0,
+    padding:0,
+    // lineHeight: 50,
   },
   textInput: {
     flex: 1,
@@ -139,6 +177,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     fontSize: 20,
+    alignSelf: 'stretch',
   },
   helpMessage: {
     fontSize: 10,
@@ -165,6 +204,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 85,
     height: 85,
+    borderRadius: 50,
+    margin: 16,
+  },
+  smallCircleButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 45,
+    height: 45,
     borderRadius: 50,
     margin: 16,
   },
