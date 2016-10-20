@@ -10,14 +10,18 @@ export default class Dashboard extends Component {
       setIntervalID: null,
       buttonOpacity: 0.2,
       active: false,
-      textInputValue: null,
-      fakeTextInput: 'Choose Your Session Time',
+      textInputValue: '',
+      fakeTextInput: '',
     };
+    this._defaultText = 'Choose Your Session Time';
   }
 
   // registers when keyboard is hidden for any reason and considers the action a "time setting"
   componentDidMount() {
     Keyboard.addListener('keyboardDidHide', (e) => { this._keyboardDidHide(e); });
+    this.setState({
+      fakeTextInput: this._defaultText,
+    });
   }
 
   componentWillUnmount() {
@@ -26,19 +30,29 @@ export default class Dashboard extends Component {
 
   _keyboardDidHide() {
     this.handleTimerButtonPress(this.state.textInputValue);
+    if (this.state.textInputValue.length === 0){
+      this.setState({
+        fakeTextInput: this._defaultText,
+      });      
+    }
+    this.refs.inputField.blur();
   }
 
+  // always resets meditationDuration for 
+  // button press, submitting, or keyboardHide
+  //
   handleTimerButtonPress(time) {
-    // always resets meditationDuration for button press, submitting, or keyboardHide
     this.setState({ meditationDuration: 0 });
     if (time !== null) {
       const milisecs = time * 60 * 1000;
       if (Number.isInteger(milisecs) && time.length !== 0 && time > 0) { //&& time%1===0
+        const timeInTxt = time +'';
         this.setState({
           meditationDuration: milisecs,
           buttonOpacity: 1,
           active: true,
-          textInputValue: time+'',
+          textInputValue: timeInTxt,
+          fakeTextInput: timeInTxt,
         });
       } else {
         this.setState({
@@ -59,9 +73,9 @@ export default class Dashboard extends Component {
     }
   }
 
-  fakeTextInputHandler() {
-
-  }
+  // fakeTextInputHandler() {
+  //   this.setState({})
+  // }
 
   render() {
     return (
@@ -81,6 +95,7 @@ export default class Dashboard extends Component {
                 this.setState({
                   textInputValue:text,
                   active:true,
+                  fakeTextInput:text,
                 });
                 if (text.length === 0){
                   this.setState({
@@ -90,7 +105,7 @@ export default class Dashboard extends Component {
                 }
               }}
               keyboardType={'numeric'}
-              blurOnSubmit={true}
+              blurOnSubmit={ true }
             />
             <Text style={styles.subText}>(or tap above to enter your own)</Text>
         </View>
