@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Progress from 'react-native-progress';
 import TimerMixin from 'react-timer-mixin';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class CountdownTimer extends Component {
   constructor(props) {
@@ -153,18 +154,16 @@ export default class CountdownTimer extends Component {
               onLongPress={this.props.completeCallback.bind(this)}
               >
               <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
-                {this.state.isPaused ? (
-                  <View style={styles.resume}></View>) : (
-                  <View style={styles.pause}>
-                    <View style={{width:15, height:45, backgroundColor:'white'}}></View>
-                    <View style={{width:15}}></View>
-                    <View style={{width:15, height:45, backgroundColor:'white'}}></View>              
-                  </View>)}
+                {this.state.isPaused ? 
+                  <Icon name="play" size={55} color="#F5F5F5" /> : 
+                  <Icon name="pause" size={55} color="#F5F5F5" />
+                }
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
-                <Text style={{ color:'white' }}>b</Text>
+                {/*<Text style={{ color:'white' }}>b</Text>*/}
+                <Icon name="undo" size={30} color="#F5F5F5" />
               </View>
             </TouchableOpacity>
           </View>
