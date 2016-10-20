@@ -8,7 +8,7 @@ export default class Dashboard extends Component {
     this.state = {
       meditationDuration: 0, // in miliseconds
       setIntervalID: null,
-      buttonOpacity: 0.3,
+      buttonOpacity: 0.2,
       active: false,
       textInputValue: null,
       fakeTextInput: 'Choose Your Session Time',
@@ -36,13 +36,13 @@ export default class Dashboard extends Component {
       if (Number.isInteger(milisecs) && time.length !== 0 && time > 0) { //&& time%1===0
         this.setState({
           meditationDuration: milisecs,
-          buttonOpacity: 0.8,
+          buttonOpacity: 1,
           active: true,
           textInputValue: time+'',
         });
       } else {
         this.setState({
-          buttonOpacity: 0.3,
+          buttonOpacity: 0.2,
           active: false,
         });
         ToastAndroid.show('Please enter a whole number greater than zero.', ToastAndroid.LONG, ToastAndroid.CENTER);
@@ -59,22 +59,23 @@ export default class Dashboard extends Component {
     }
   }
 
+  fakeTextInputHandler() {
+
+  }
+
   render() {
     return (
       <View style={styles.container}>  
-          <View style={[styles.subcontainer1, {backgroundColor:'#03A9F4'}]}>
+          <View style={[ styles.subcontainer, { alignItems: 'center', justifyContent: 'space-between'}]}>
             <View style={{flex:1}}></View>
-            <Text 
+            <Text
               style={styles.textHeader}
               onPress={(event) => { this.refs.inputField.focus(); }
             }>{ this.state.fakeTextInput }</Text>
             <TextInput
               ref='inputField'
-              // style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText,
-              //   {borderWidth:3, borderColor:"#ffffff"}]}
               style={[styles.textInput, {borderWidth:3, borderColor:"#ffffff"}]}
               multiline={true}
-              // placeholder={'How long is this session?'}
               value={this.state.textInputValue}
               onChangeText={(text)=> {
                 this.setState({
@@ -92,11 +93,10 @@ export default class Dashboard extends Component {
               blurOnSubmit={true}
             />
             <Text style={styles.subText}>(or tap above to enter your own)</Text>
-          
         </View>
 
-
-        <View style={[styles.subcontainer2, {backgroundColor:'#03A9F4'}]}>
+        <View style={ styles.subcontainer }>
+          <View style={{flex:1}}></View>
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
               <View style={styles.circleButton}>
@@ -114,10 +114,10 @@ export default class Dashboard extends Component {
               </View>
             </TouchableOpacity>
           </View>
+          <View style={{flex:1}}></View>
         </View>
 
-
-        <View style={[styles.subcontainer3, {backgroundColor:'#03A9F4'}]}>
+        <View style={ styles.subcontainer }>
           <TouchableOpacity
             onPress={this.handleStartButtonPress.bind(this)}
             activeOpacity={ this.state.active ? 0.2 : 1}>
@@ -149,31 +149,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:'#03A9F4',
   },
-  subcontainer1: {
+  subcontainer: {
     flex:1,
-    alignSelf: 'stretch',
     alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  subcontainer2: {
-    flex:1,
-    alignSelf: 'stretch',
-  },
-  subcontainer3: {
-    flex:1,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-  },    
+  },  
   textHeader: {
-    // flex:1,
     color: 'white',
     fontSize: 45,
     fontFamily: 'roboto',
     textAlign: 'center',
     margin: 0,
     padding:0,
-    // lineHeight: 50,
   },
   textInput: {
     // flex: 1,
@@ -186,8 +174,6 @@ const styles = StyleSheet.create({
     paddingBottom:0,
     fontSize: 0,
     height:0,
-    // backgroundColor:'black',
-    // height:20,
     alignSelf: 'stretch',
   },
   helpMessage: {
@@ -217,7 +203,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 50,
     margin: 16,
-    elevation: 5,
+    elevation: 4,
   },
   smallCircleButton: {
     flex: 1,
@@ -227,7 +213,7 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 50,
     margin: 5,
-    elevation: 3,
+    elevation: 4,
   },
   buttonText: {
     color: 'white',
