@@ -134,31 +134,39 @@ export default class CountdownTimer extends Component {
     let percentage = (diff/this.state.originalTime);
     return (
       <View style={styles.container}>
-        <Progress.Circle 
-          progress={percentage}
-          size={200} 
-          color={'#0277BD'} 
-          thickness={30} 
-          borderWidth={0} 
-          animated={false}
-        />       
-        <Text>{this.getFormattedTime(timeRemaining)}</Text>
-        <TouchableOpacity
-          onPress={this.pauseHandler.bind(this)}
-          onLongPress={this.props.completeCallback.bind(this)}
-          >
-          <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
-            {this.state.isPaused ? (
-              <View style={styles.resume}></View>) : (
-              <View style={styles.pause}>
-                <View style={{width:15, height:45, backgroundColor:'white'}}></View>
-                <View style={{width:15}}></View>
-                <View style={{width:15, height:45, backgroundColor:'white'}}></View>              
-              </View>)}
+        <View style={styles.progressContainer}>
+          <Progress.Circle 
+            progress={percentage}
+            size={200} 
+            color={'#0277BD'} 
+            thickness={30} 
+            borderWidth={0} 
+            animated={false}
+          />
+        </View>   
+        {/*<Text>{this.getFormattedTime(timeRemaining)}</Text>*/}
+        <View style={ styles.buttonContainer }>
+            <TouchableOpacity
+              onPress={this.pauseHandler.bind(this)}
+              onLongPress={this.props.completeCallback.bind(this)}
+              >
+              <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
+                {this.state.isPaused ? (
+                  <View style={styles.resume}></View>) : (
+                  <View style={styles.pause}>
+                    <View style={{width:15, height:45, backgroundColor:'white'}}></View>
+                    <View style={{width:15}}></View>
+                    <View style={{width:15, height:45, backgroundColor:'white'}}></View>              
+                  </View>)}
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
+                <Text style={{ color:'white' }}>b</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-        <Text>Hold to go back</Text>
-      </View>
+        </View>
     );
   }
 };
@@ -168,17 +176,39 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:'center',
     alignItems:'center',
-    backgroundColor:'#E1F5FE'
+    backgroundColor:'#B3E5FC',
+  },
+  progressContainer: {
+    flex:2,
+    alignItems:'center',
+    justifyContent: 'center'
+  },
+  buttonContainer: {
+    flex:1,
+    alignItems:'center',
+    // justifyContent: 'center',
   },
   circleButton: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    width:85,
-    height:85,
-    borderRadius:50,
-    margin:16
+    flex: 1,
+    width: 85,
+    height: 85,    
+    backgroundColor:'#8BC34A',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    margin: 16,
+    elevation: 4,
   },
+  smallCircleButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 45,
+    height: 45,
+    borderRadius: 50,
+    margin:5,
+    elevation: 4,
+  },  
   pause: {
     flex:1,
     flexDirection:'row',
