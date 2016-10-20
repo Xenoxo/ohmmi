@@ -137,11 +137,13 @@ export default class CountdownTimer extends Component {
         <View style={styles.progressContainer}>
           <Progress.Circle 
             progress={percentage}
-            size={200} 
-            color={'#0277BD'} 
-            thickness={30} 
+            size={300} 
+            color={'#03A9F4'} 
+            thickness={50} 
             borderWidth={0} 
             animated={false}
+            showsText={ true }
+            formatText={ this.getFormattedTime(timeRemaining) }
           />
         </View>   
         {/*<Text>{this.getFormattedTime(timeRemaining)}</Text>*/}
@@ -176,7 +178,7 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:'center',
     alignItems:'center',
-    backgroundColor:'#B3E5FC',
+    backgroundColor:'#F5F5F5',
   },
   progressContainer: {
     flex:2,
