@@ -20,8 +20,9 @@ export default class CountdownTimerContainer extends Component {
   }
 
   componentDidMount() {
-    this.pushNotificationHandler(true, this.props.timeAmount);
+    this.pushNotificationHandler(true, this.props.timeAmount);    
   }
+  
 
   componentWillUnmount() {
     this.pushNotificationHandler(false); //cancels push notification when screen switches

@@ -3,27 +3,36 @@ import React, { Component } from 'react';
 import { Navigator, AppRegistry } from 'react-native';
 import CountdownTimerContainer from './CountdownTimerContainer';
 import Dashboard from './Dashboard';
+import Instructions from './Instructions';
 
 
 class ohmmi extends Component {
   navigatorRenderScene(route, navigator) {
     switch (route.title) {
       case 'dashboard':
-        return (<Dashboard navigator={navigator} title="dashboard" timeAmount={0} />);
+        return (
+          <Dashboard
+            navigator={ navigator }
+            title="dashboard"
+            timeAmount={0} />);
       case 'countdowntimer':
         return (
           <CountdownTimerContainer
-            navigator={navigator}
-            title="meditationTimer"
-            timeAmount={route.passedInTime}
-          />);
+            navigator={ navigator }
+            title="countdowntimer"
+            timeAmount={ route.passedInTime } />);
+      case 'instructions':
+        return (
+          <Instructions 
+            navigator={ navigator }
+            title='instructions' />);
     }
   }
   render() {
     return (
       <Navigator
         initialRoute={{ title: 'dashboard' }}
-        renderScene={this.navigatorRenderScene}
+        renderScene={ this.navigatorRenderScene }
       />
     );
   }

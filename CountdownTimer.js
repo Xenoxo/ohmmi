@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, BackAndroid } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, BackAndroid } from 'react-native';
 import * as Progress from 'react-native-progress';
 import TimerMixin from 'react-timer-mixin';
 import Icon from 'react-native-vector-icons/FontAwesome';

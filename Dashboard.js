@@ -73,6 +73,10 @@ export default class Dashboard extends Component {
     }
   }
 
+  handleSmallButtonPress() {
+    this.props.navigator.push({ title: 'instructions' });
+  }
+
   render() {
     return (
       <View style={styles.container}>  
@@ -136,7 +140,7 @@ export default class Dashboard extends Component {
               <Text style={[styles.buttonText, { fontSize: 25 }]}>begin</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={ this.handleSmallButtonPress.bind(this) }>
             <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
               <Text style={ styles.buttonText }>?</Text>
             </View>
@@ -152,8 +156,6 @@ export default class Dashboard extends Component {
     timeAmount: PropTypes.number.isRequired,
   }
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
