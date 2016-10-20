@@ -97,20 +97,20 @@ export default class Dashboard extends Component {
         </View>
 
 
-        <View style={[styles.subcontainer2, {backgroundColor:'grey'}]}>
+        <View style={[styles.subcontainer2, {backgroundColor:'#03A9F4'}]}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
-              <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
+              <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
                 <Text style={styles.buttonText}>10</Text>
               </View>
             </TouchableOpacity>          
             <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 30)}>
-              <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
+              <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
                 <Text style={styles.buttonText}>30</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 60)}>
-              <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
+              <View style={[styles.circleButton,{backgroundColor:'#8BC34A'}]}>
                 <Text style={styles.buttonText}>60</Text>
               </View>
             </TouchableOpacity>
@@ -118,7 +118,7 @@ export default class Dashboard extends Component {
         </View>
 
 
-        <View style={[styles.subcontainer3, {backgroundColor:'blue'}]}>
+        <View style={[styles.subcontainer3, {backgroundColor:'#03A9F4'}]}>
           <TouchableOpacity
             onPress={this.handleStartButtonPress.bind(this)}
             activeOpacity={ this.state.active ? 0.2 : 1}>
@@ -225,6 +225,7 @@ const styles = StyleSheet.create({
     height: 85,
     borderRadius: 50,
     margin: 16,
+    elevation: 3,
   },
   smallCircleButton: {
     flex: 1,
@@ -237,6 +238,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 40,
+    fontFamily: 'roboto',
   },
 });
