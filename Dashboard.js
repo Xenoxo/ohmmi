@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
       <View style={styles.container}>
         <View style={styles.textInputContainer}>
           <TextInput
-            style={[styles.textInput, this.state.active ? styles.hugeText : styles.normalText]}
+            style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText]}
             multiline={true}
             placeholder={'How long is this session?'}
             value={this.state.textInputValue}
@@ -83,7 +83,7 @@ export default class Dashboard extends Component {
             blurOnSubmit={true}
           />
         </View>
-      <Text style={styles.helpMessage}>(tap above to enter a custom amount)</Text>
+        <Text style={styles.helpMessage}>(tap above to enter a custom amount)</Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={this.handleTimerButtonPress.bind(this, 10)}>
             <View style={[styles.circleButton,{backgroundColor:'#FF5722'}]}>
