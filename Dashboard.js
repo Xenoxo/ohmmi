@@ -73,10 +73,6 @@ export default class Dashboard extends Component {
     }
   }
 
-  // fakeTextInputHandler() {
-  //   this.setState({})
-  // }
-
   render() {
     return (
       <View style={styles.container}>  
@@ -169,6 +165,7 @@ const styles = StyleSheet.create({
   subcontainer: {
     flex:1,
     alignItems: 'center',
+    alignSelf: 'stretch',
   },  
   textHeader: {
     color: 'white',
