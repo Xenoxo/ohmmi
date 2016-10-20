@@ -62,19 +62,17 @@ export default class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>  
-          <View style={[styles.subcontainer1, {backgroundColor:'green'}]}>
+          <View style={[styles.subcontainer1, {backgroundColor:'#03A9F4'}]}>
             <View style={{flex:1}}></View>
             <Text 
               style={styles.textHeader}
-              onPress={(event) => { 
-                this.refs.inputField.focus(); 
-              }
+              onPress={(event) => { this.refs.inputField.focus(); }
             }>{ this.state.fakeTextInput }</Text>
-            
             <TextInput
               ref='inputField'
-              style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText,
-                {borderWidth:2}]}
+              // style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText,
+              //   {borderWidth:3, borderColor:"#ffffff"}]}
+              style={[styles.textInput, {borderWidth:3, borderColor:"#ffffff"}]}
               multiline={true}
               // placeholder={'How long is this session?'}
               value={this.state.textInputValue}
@@ -93,6 +91,7 @@ export default class Dashboard extends Component {
               keyboardType={'numeric'}
               blurOnSubmit={true}
             />
+            <Text style={styles.subText}>(or tap above to enter your own)</Text>
           
         </View>
 
@@ -174,7 +173,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 0,
     padding:0,
-    borderWidth:2,
     // lineHeight: 50,
   },
   textInput: {
@@ -184,11 +182,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginTop:2,
     marginBottom:2,
-    paddingTop:1,
-    paddingBottom:1,
+    paddingTop:0,
+    paddingBottom:0,
     fontSize: 0,
-    height:2,
-    backgroundColor:'black',
+    height:0,
+    // backgroundColor:'black',
     // height:20,
     alignSelf: 'stretch',
   },
@@ -196,9 +194,9 @@ const styles = StyleSheet.create({
     fontSize: 10,
     opacity: 0.54,
   },
-  hugeText: {
-    fontSize: 90,
-    opacity: 0.87,
+  subText: {
+    color:'white',
+    opacity: 0.5,
   },
   normalText: {
     fontSize: 0,
@@ -219,7 +217,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 50,
     margin: 16,
-    elevation: 3,
+    elevation: 5,
   },
   smallCircleButton: {
     flex: 1,
