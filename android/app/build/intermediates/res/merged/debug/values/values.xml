@@ -329,7 +329,12 @@
     <!-- From: file:/Users/timwang/GitHub/ohmmi/android/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        
+
+        <!-- sets cursor color -->
+        <item name="colorControlActivated">#ffffff</item>
+        <item name="colorControlHighlight">#ffffff</item>
+        <item name="colorControlNormal">#ffffff</item>
     </style>
     <!-- From: file:/Users/timwang/GitHub/ohmmi/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values/values.xml -->
     <eat-comment/>

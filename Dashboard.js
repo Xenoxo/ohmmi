@@ -11,6 +11,7 @@ export default class Dashboard extends Component {
       buttonOpacity: 0.3,
       active: false,
       textInputValue: null,
+      fakeTextInput: 'Choose Your Session Time',
     };
   }
 
@@ -62,9 +63,18 @@ export default class Dashboard extends Component {
     return (
       <View style={styles.container}>  
           <View style={[styles.subcontainer1, {backgroundColor:'green'}]}>
-            <Text style={styles.textHeader}>Choose Your Session Time</Text>
+            <View style={{flex:1}}></View>
+            <Text 
+              style={styles.textHeader}
+              onPress={(event) => { 
+                this.refs.inputField.focus(); 
+              }
+            }>{ this.state.fakeTextInput }</Text>
+            
             <TextInput
-              style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText]}
+              ref='inputField'
+              style={[styles.textInput, this.state.active ? styles.normalText : styles.normalText,
+                {borderWidth:2}]}
               multiline={true}
               // placeholder={'How long is this session?'}
               value={this.state.textInputValue}
@@ -152,6 +162,7 @@ const styles = StyleSheet.create({
     flex:1,
     alignSelf: 'stretch',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   subcontainer2: {
     flex:1,
@@ -163,20 +174,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },    
   textHeader: {
+    // flex:1,
     color: 'white',
     fontSize: 45,
     fontFamily: 'roboto',
     textAlign: 'center',
     margin: 0,
     padding:0,
+    borderWidth:2,
     // lineHeight: 50,
   },
   textInput: {
-    flex: 1,
+    // flex: 1,
     textAlign: 'center',
     marginLeft: 20,
     marginRight: 20,
-    fontSize: 20,
+    marginTop:2,
+    marginBottom:2,
+    paddingTop:1,
+    paddingBottom:1,
+    fontSize: 0,
+    height:2,
+    backgroundColor:'black',
+    // height:20,
     alignSelf: 'stretch',
   },
   helpMessage: {
@@ -188,8 +208,7 @@ const styles = StyleSheet.create({
     opacity: 0.87,
   },
   normalText: {
-    fontSize: 25,
-    fontWeight: '700',
+    fontSize: 0,
     opacity: 0.87,
   },
   buttonContainer: {
