@@ -39,11 +39,21 @@ class ohmmi extends Component {
             title='instructions' />);
     }
   }
+
+  navigatorConfigureScene(route, routeStack){
+    switch (route.title) {
+      case 'instructions':
+        return Navigator.SceneConfigs.FloatFromLeft
+      case 'countdowntimer':
+        return Navigator.SceneConfigs.FloatFromRight
+    }
+  }
   render() {
     return (
       <Navigator
         initialRoute={{ title: 'dashboard' }}
         renderScene={ this.navigatorRenderScene }
+        configureScene={ this.navigatorConfigureScene }
       />
     );
   }
