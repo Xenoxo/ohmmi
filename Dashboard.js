@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TextInput, Keyboard } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // the dashboard scene handles all the user interaction on before the timer kicks off
 export default class Dashboard extends Component {
@@ -28,7 +29,10 @@ export default class Dashboard extends Component {
   componentWillReceiveProps() {
     if (this.props.navigator.getCurrentRoutes().length === 1) {
       this.setState({
+        textInputValue: '',
         fakeTextInput: this._defaultText,
+        buttonOpacity: 0.2,
+        active: false,
       });      
     } 
   }
@@ -79,9 +83,6 @@ export default class Dashboard extends Component {
         title: 'countdowntimer',
         passedInTime: this.state.meditationDuration,
       });
-      // this.setState({
-      //   fakeTextInput: this._defaultText,
-      // })
     }
   }
 
@@ -144,20 +145,26 @@ export default class Dashboard extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{flex:1}}></View>
+          <View style={{flex:1}}>
+            { this.state.active ? 
+              (<Text style={{ fontSize: 15, color: 'white', opacity: 0.8, fontWeight: '400'}}>
+                <Icon name="bell" size={15} color="white" /> Be sure your volume is up :) <Icon name="bell" size={15} color="white" />
+              </Text>) : <Text></Text>
+            }
+          </View>
         </View>
-
         <View style={ styles.subcontainer }>
           <TouchableOpacity
             onPress={this.handleStartButtonPress.bind(this)}
             activeOpacity={ this.state.active ? 0.2 : 1}>
             <View style={[styles.circleButton, {opacity: this.state.buttonOpacity}]}>
-              <Text style={[styles.buttonText, { fontSize: 25 }]}>begin</Text>
+              <Text style={[styles.buttonText, { fontSize: 28, fontWeight: '900' }]}>start</Text>
             </View>
+
           </TouchableOpacity>
           <TouchableOpacity onPress={ this.handleSmallButtonPress.bind(this) }>
             <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
-              <Text style={ styles.buttonText }>?</Text>
+              <Icon name="question" size={30} color="white" />
             </View>
           </TouchableOpacity>   
         </View>

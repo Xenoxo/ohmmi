@@ -22,7 +22,7 @@ export default class Instructions extends Component {
             You can sit in a chair, on a cushion, or just on the ground. The idea is to be comfortable but not enough where you are falling asleep.
             </Text>
             
-            <Text style={ styles.header }>Keep a your back straight.</Text>
+            <Text style={ styles.header }>Keep your back straight.</Text>
             <Text style={ styles.text }>
             Inhale, roll the shoulders up to your ears. Exhale, roll them back and down. This positions the head atop your neck while floating the shoulders over the hips.{"\n"}{"\n"}
             Consider this a neutral, tall spine. When you feel yourself hunching or slumping, reset your position with this method.
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 50,
     marginTop:15,
-    marginBottom: 20,
+    marginBottom: 22,
     elevation: 4,
   },
   header: { 

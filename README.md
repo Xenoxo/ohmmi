@@ -1,5 +1,5 @@
 #Summary
-Ohmmi is a no frills meditation timer that gives the users a pleasant experience.
+Ohmmi is a no frills meditation timer that gives the users a pleasant and simple experience for beginning meditation.
 
 #Technology
 Ohmmi is a React-Native app built for Android.
