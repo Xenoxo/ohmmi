@@ -29,10 +29,7 @@ export default class CountdownTimer extends Component {
 
   componentDidMount() {
     this.isComponentMounted = true;
-    this.tick();
-    BackAndroid.addEventListener('hardwareBackPress', function() {
-      this.props.completeCallback();
-    });    
+    this.tick(); 
   }
 
   componentWillReceiveProps(newProps) {

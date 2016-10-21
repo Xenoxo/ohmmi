@@ -1,13 +1,24 @@
 import * as firebase from 'firebase';
 import React, { Component } from 'react';
-import { Navigator, AppRegistry } from 'react-native';
+import { Navigator, AppRegistry, BackAndroid } from 'react-native';
 import CountdownTimerContainer from './CountdownTimerContainer';
 import Dashboard from './Dashboard';
 import Instructions from './Instructions';
 
+var _navigator;
 
 class ohmmi extends Component {
+  componentDidMount() {
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      if (_navigator.getCurrentRoutes().length === 1  ) {
+         return false;
+      }
+      _navigator.pop();
+      return true;
+    });    
+  }
   navigatorRenderScene(route, navigator) {
+    _navigator = navigator;
     switch (route.title) {
       case 'dashboard':
         return (

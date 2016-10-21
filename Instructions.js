@@ -7,14 +7,6 @@ export default class Instructions extends Component {
     this._popit = this.popit.bind(this);
   }
 
-  componentDidMount() {
-      BackAndroid.addEventListener('hardwareBackPress', this._popit);
-  }
-
-  componentWillUnmount() {
-      BackAndroid.removeEventListener('hardwareBackPress', this._popit);
-  }  
-
   popit() {
     return this.props.navigator.pop();
   };
@@ -42,9 +34,6 @@ class InstructionsHelper extends Component {
   }
 
   componentDidMount() {
-    BackAndroid.addEventListener('hardwareBackPress', function() {
-      this.props.backHandler(); 
-    });
   }
 
   render() {

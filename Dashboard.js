@@ -24,6 +24,15 @@ export default class Dashboard extends Component {
     });
   }
 
+  // resets default text when navigation comes back
+  componentWillReceiveProps() {
+    if (this.props.navigator.getCurrentRoutes().length === 1) {
+      this.setState({
+        fakeTextInput: this._defaultText,
+      });      
+    } 
+  }
+
   componentWillUnmount() {
     Keyboard.removeListener('keyboardDidHide', (e) => { this._keyboardDidHide(e); });
   }
@@ -33,7 +42,7 @@ export default class Dashboard extends Component {
     if (this.state.textInputValue.length === 0){
       this.setState({
         fakeTextInput: this._defaultText,
-      });      
+      });   
     }
     this.refs.inputField.blur();
   }
@@ -70,6 +79,9 @@ export default class Dashboard extends Component {
         title: 'countdowntimer',
         passedInTime: this.state.meditationDuration,
       });
+      // this.setState({
+      //   fakeTextInput: this._defaultText,
+      // })
     }
   }
 
@@ -82,10 +94,13 @@ export default class Dashboard extends Component {
       <View style={styles.container}>  
           <View style={[ styles.subcontainer, { alignItems: 'center', justifyContent: 'space-between'}]}>
             <View style={{flex:1}}></View>
-            <Text
-              style={styles.textHeader}
-              onPress={(event) => { this.refs.inputField.focus(); }
-            }>{ this.state.fakeTextInput }</Text>
+            
+              <Text
+                style={ styles.textHeader }
+                onPress={(event) => { this.refs.inputField.focus(); }}>
+                { this.state.fakeTextInput }
+              </Text>
+            
             <TextInput
               ref='inputField'
               style={[styles.textInput, {borderWidth:3, borderColor:"#ffffff"}]}
@@ -107,7 +122,7 @@ export default class Dashboard extends Component {
               keyboardType={'numeric'}
               blurOnSubmit={ true }
             />
-            <Text style={styles.subText}>(or tap above to enter your own)</Text>
+            <Text style={styles.subText}>(or tap on text above to enter your own)</Text>
         </View>
 
         <View style={ styles.subcontainer }>
