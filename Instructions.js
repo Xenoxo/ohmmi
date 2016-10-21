@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, BackAndroid } from 'react-native';
+import { StyleSheet, TouchableOpacity, ScrollView, View, Text, BackAndroid } from 'react-native';
 
 export default class Instructions extends Component {
   constructor(props) {
@@ -14,32 +14,86 @@ export default class Instructions extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/*<InstructionsHelper backHandler={ this.poop.bind(this) } />*/}
-        <View style={ styles.subcontainer }>
+        <ScrollView contentContainerStyle={{borderWidth:1}}>
+            <Text>
+            1. Find a comfortable seated position that's not too comfortable.
+            You can sit in a chair, on a cushion, or just on the ground. The idea is to be comfortable but not enough where you are falling asleep.
+            </Text>
+            <Text>
+            2. Keep a tall spine.
+            Inhale, roll the shoulders up to your ears. Exhale, roll them bad boys back and down. This stacks the head atop your neck while floating the shoulders over hips. Consider this a neutral, tall spine.
+            When you feel yourself hunching or slumping, reset your position with this method.
+            </Text>
+            
+            <Text>
+            3. Gently close the eyes.
+            </Text>
+            
+            <Text>
+            4. Maintain a simple breath.
+            Try for a steady deep breath. Nasal breathing makes it easier to find a smooth, even pace.</Text>
+            <Text>
+            5. Focus on your breathing.
+            Focus solely on the feeling of the air entering and exiting your nostrils.
+            </Text>
+            <Text>
+            6. Maintain focus.
+            Your mind will naturally wander and thoughts will bubble into your conciousness. This is expected. When you realize awareness has drifted, acknowledge the thoughts, let them pass as you gently guide your focus back to the breath.
+            </Text>
+            <Text>
+            7. Give it time.
+            Meditation takes practice and at times can be frustrating in maintaining focus. However, this is natural and expected. A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consitently.
+            </Text>
+            <Text>
+            7. Give it time.
+            Meditation takes practice and at times can be frustrating in maintaining focus. However, this is natural and expected. A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consitently.
+            </Text>
+            <Text>
+            7. Give it time.
+            Meditation takes practice and at times can be frustrating in maintaining focus. However, this is natural and expected. A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consitently.
+            </Text>          
+            <Text>
+            7. Give it time.
+            Meditation takes practice and at times can be frustrating in maintaining focus. However, this is natural and expected. A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consitently.
+            </Text>
+            <Text>
+            7. Give it time.
+            Meditation takes practice and at times can be frustrating in maintaining focus. However, this is natural and expected. A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consitently.
+            </Text>
+            <Text>
+            7. Give it time.
+            Meditation takes practice and at times can be frustrating in maintaining focus. However, this is natural and expected. A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consitently.
+            </Text>
+          {/*<InstructionsHelper backHandler={ this.poop.bind(this) } />*/}
+
+        </ScrollView>
           <TouchableOpacity onPress={ this.popit.bind(this) }>
-            <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
-              <Text style={ styles.buttonText }>?</Text>
-            </View>
-          </TouchableOpacity>   
-        </View>
+              <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
+                <Text style={ styles.buttonText }>?</Text>
+              </View>
+            </TouchableOpacity>           
+        <Text>asdf</Text>
+{/*        <View style={ styles.subcontainer }>
+            
+          </View>*/}
       </View>
     )
   }
 }
 
-class InstructionsHelper extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
+// class InstructionsHelper extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {}
+//   }
 
-  componentDidMount() {
-  }
+//   componentDidMount() {
+//   }
 
-  render() {
-    return <Text>Test</Text>
-  }
-}
+//   render() {
+//     return <Text>Test</Text>
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
