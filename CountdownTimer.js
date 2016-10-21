@@ -161,7 +161,6 @@ export default class CountdownTimer extends Component {
             </TouchableOpacity>
             <TouchableOpacity onPress={ this.props.completeCallback.bind(this) }>
               <View style={[styles.smallCircleButton, { backgroundColor:'#F8BBD0'}]}>
-                {/*<Text style={{ color:'white' }}>b</Text>*/}
                 <Icon name="undo" size={30} color="#F5F5F5" />
               </View>
             </TouchableOpacity>
@@ -208,33 +207,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     margin:5,
     elevation: 4,
-  },  
-  pause: {
-    flex:1,
-    flexDirection:'row',
-    justifyContent:'center',
-    alignItems:'center',
-    width:45,
-    height:45,
-    opacity: .8
   },
-  resume: {
-    width: 0,
-    height: 0,
-    backgroundColor: 'transparent',
-    borderStyle: 'solid',
-    borderLeftWidth: 25,
-    borderRightWidth: 25,
-    borderBottomWidth: 40,
-    marginLeft:15,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: 'white',
-    opacity: .8,
-    transform: [
-      {rotate: '90deg'}
-    ]
-  }
 });
 
 CountdownTimer.propTypes =  {

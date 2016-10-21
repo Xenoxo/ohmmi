@@ -193,7 +193,6 @@ const styles = StyleSheet.create({
     padding:0,
   },
   textInput: {
-    // flex: 1,
     textAlign: 'center',
     marginLeft: 20,
     marginRight: 20,
