@@ -39,13 +39,13 @@ export default class Instructions extends Component {
             
             <Text style={ styles.header }>Maintain focus.</Text>
             <Text style={ styles.text }>
-              Your mind will naturally wander and thoughts will bubble into your conciousness. This is expected.{"\n"}{"\n"}
+              Your mind will naturally wander and thoughts will bubble into your consciousness. This is expected.{"\n"}{"\n"}
               When you realize awareness has drifted, acknowledge the thoughts, let them pass as you gently guide your focus back to the breath.
             </Text>
             <Text style={ styles.header }>Give it time.</Text>
             <Text style={ styles.text }>
             Meditation takes practice and at times can be frustrating trying to maintain focus. However continual practice will substantially help in this regard.{"\n"}{"\n"}
-            A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consitently.
+            A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consistently.
             </Text>
             <Text style={ styles.text, {marginTop:15, marginBottom:15, textAlign:'center', fontWeight:'900'} }>You can do it!</Text>
         </ScrollView>

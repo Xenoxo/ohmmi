@@ -681,7 +681,6 @@ int layout select_dialog_singlechoice_material 0x7f040027
 int layout support_simple_spinner_dropdown_item 0x7f040028
 int mipmap ic_launcher 0x7f030000
 int mipmap old_ic_launcher 0x7f030001
-int mipmap oldic_launcher 0x7f030002
 int raw bell 0x7f070000
 int string abc_action_bar_home_description 0x7f080000
 int string abc_action_bar_home_description_format 0x7f080001

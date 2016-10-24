@@ -16,7 +16,7 @@ export default class CountdownTimerContainer extends Component {
             console.log( 'NOTIFICATION:', notification );
         },
         popInitialNotification: true
-    });    
+    });
   }
 
   componentDidMount() {
@@ -37,7 +37,6 @@ export default class CountdownTimerContainer extends Component {
         date: new Date(Date.now() + timeleft), // in miliseconds
         playSound: true, // (optional) default: true
         soundName: 'bell.wav',
-        largeIcon: 'ic_launcher',
         smallIcon: 'old_ic_launcher',
       });
     } else {
