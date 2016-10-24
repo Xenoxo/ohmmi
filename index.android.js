@@ -10,12 +10,12 @@ var _navigator;
 class ohmmi extends Component {
   componentDidMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
-      if (_navigator.getCurrentRoutes().length === 1  ) {
-         return false;
+      if (_navigator.getCurrentRoutes().length === 1) {
+        return false;
       }
       _navigator.pop();
       return true;
-    });    
+    });
   }
   navigatorRenderScene(route, navigator) {
     _navigator = navigator;
@@ -23,37 +23,40 @@ class ohmmi extends Component {
       case 'dashboard':
         return (
           <Dashboard
-            navigator={ navigator }
+            navigator={navigator}
             title="dashboard"
-            timeAmount={0} />);
+            timeAmount={0}
+          />);
       case 'countdowntimer':
         return (
           <CountdownTimerContainer
-            navigator={ navigator }
+            navigator={navigator}
             title="countdowntimer"
-            timeAmount={ route.passedInTime } />);
+            timeAmount={route.passedInTime}
+          />);
       case 'instructions':
         return (
-          <Instructions 
-            navigator={ navigator }
-            title='instructions' />);
+          <Instructions
+            navigator={navigator}
+            title="instructions"
+          />);
     }
   }
 
-  navigatorConfigureScene(route, routeStack){
+  navigatorConfigureScene(route, routeStack) {
     switch (route.title) {
       case 'instructions':
-        return Navigator.SceneConfigs.FloatFromLeft
+        return Navigator.SceneConfigs.FloatFromLeft;
       case 'countdowntimer':
-        return Navigator.SceneConfigs.FloatFromRight
+        return Navigator.SceneConfigs.FloatFromRight;
     }
   }
   render() {
     return (
       <Navigator
         initialRoute={{ title: 'dashboard' }}
-        renderScene={ this.navigatorRenderScene }
-        configureScene={ this.navigatorConfigureScene }
+        renderScene={this.navigatorRenderScene}
+        configureScene={this.navigatorConfigureScene}
       />
     );
   }
