@@ -77,6 +77,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 40,
     fontFamily: 'roboto',
+    textAlign: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -187,6 +189,7 @@ export default class Dashboard extends Component {
             style={[styles.textInput, { borderWidth: 3, borderColor: '#ffffff' }]}
             multiline={true}
             value={this.state.textInputValue}
+            maxLength={3}
             onChangeText={(text) => {
               this.setState({
                 textInputValue: text,
