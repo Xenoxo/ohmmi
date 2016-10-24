@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "postinstall": "rndebugger-open"
+    "postinstall": "rndebugger-open",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-react-native"
   },
   "dependencies": {
     "firebase": "^3.4.1",
@@ -18,6 +22,12 @@
     "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
-    "react-native-debugger-open": "^0.3.1"
+    "babel-jest": "^16.0.0",
+    "babel-preset-react-native": "^1.9.0",
+    "jest": "^16.0.2",
+    "jest-react-native": "^16.0.0",
+    "react": "^15.3.2",
+    "react-native-debugger-open": "^0.3.1",
+    "react-test-renderer": "^15.3.2"
   }
 }

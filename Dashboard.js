@@ -90,6 +90,10 @@ export default class Dashboard extends Component {
     this.props.navigator.push({ title: 'instructions' });
   }
 
+  tester() {
+    return true;
+  }
+
   render() {
     return (
       <View style={styles.container}>  

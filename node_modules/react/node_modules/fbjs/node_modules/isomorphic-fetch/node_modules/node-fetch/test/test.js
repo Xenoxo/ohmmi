@@ -441,6 +441,16 @@ describe('node-fetch', function() {
 		});
 	});
 
+	it('should return empty object on no-content response', function() {
+		url = base + '/no-content';
+		return fetch(url).then(function(res) {
+			return res.json().then(function(result) {
+				expect(result).to.be.an('object');
+				expect(result).to.be.empty;
+			});
+		});
+	});
+
 	it('should handle no content response with gzip encoding', function() {
 		url = base + '/no-content/gzip';
 		return fetch(url).then(function(res) {
@@ -1380,7 +1390,7 @@ describe('node-fetch', function() {
 		return req.text().then(function(result) {
 			expect(result).to.equal('a=1');
 		});
-	}); 
+	});
 
 	it('should support json() method in Request constructor', function() {
 		url = base;
@@ -1391,7 +1401,7 @@ describe('node-fetch', function() {
 		return req.json().then(function(result) {
 			expect(result.a).to.equal(1);
 		});
-	}); 
+	});
 
 	it('should support buffer() method in Request constructor', function() {
 		url = base;
@@ -1402,7 +1412,7 @@ describe('node-fetch', function() {
 		return req.buffer().then(function(result) {
 			expect(result.toString()).to.equal('a=1');
 		});
-	}); 
+	});
 
 	it('should support arbitrary url in Request constructor', function() {
 		url = 'anything';
@@ -1449,7 +1459,7 @@ describe('node-fetch', function() {
 		expect(body).to.have.property('text');
 		expect(body).to.have.property('json');
 		expect(body).to.have.property('buffer');
-	}); 
+	});
 
 	it('should create custom FetchError', function() {
 		var systemError = new Error('system');
@@ -1463,7 +1473,7 @@ describe('node-fetch', function() {
 		expect(err.type).to.equal('test-error');
 		expect(err.code).to.equal('ESOMEERROR');
 		expect(err.errno).to.equal('ESOMEERROR');
-	}); 
+	});
 
 	it('should support https request', function() {
 		this.timeout(5000);
