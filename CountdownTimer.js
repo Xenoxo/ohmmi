@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, InteractionManager, Image } from 'react-native';
 import * as Progress from 'react-native-progress';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -54,6 +54,7 @@ export default class CountdownTimer extends Component {
       adjustTime: true, // determines whether to account for delay, used to 'pause'
       stoptimerId: null, // used by the stop button
       isPaused: false,
+      renderPlaceholderOnly: true,
     };
     this.displayName = 'CountdownTimer';
     this.getFormattedTime = this.getFormattedTime.bind(this);
@@ -70,6 +71,9 @@ export default class CountdownTimer extends Component {
   componentDidMount() {
     this.isComponentMounted = true;
     this.tick();
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({renderPlaceholderOnly: false});
+    });    
   }
 
   componentWillReceiveProps(newProps) {
@@ -171,8 +175,19 @@ export default class CountdownTimer extends Component {
       });
     }
   }
+  _renderPlaceholderView() {
+    return (
+      <View style={styles.container}>
+        <Text style={{ marginBottom:10, fontSize: 20 }}>Preparing...</Text>
+        <Image source={require('./ohmmi_60.png')} />
+      </View>
+    );
+  }    
 
   render() {
+    if (this.state.renderPlaceholderOnly) {
+      return this._renderPlaceholderView();
+    }
     let timeRemaining = this.state.timeRemaining;
     let diff = this.state.originalTime - timeRemaining;
     let percentage = (diff / this.state.originalTime);
