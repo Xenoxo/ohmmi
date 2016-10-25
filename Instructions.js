@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, TouchableOpacity, ScrollView, View, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, ScrollView, View, Text, LayoutAnimation, UIManager } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import update from 'immutability-helper';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -43,11 +43,54 @@ const styles = StyleSheet.create({
 export default class Instructions extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      t: {
+        text0: 0,
+        text1: 0,
+        text2: 0,
+      },
+      h: [0,0,0]
+    }
     this.popit = this.popit.bind(this);
+    UIManager.setLayoutAnimationEnabledExperimental && 
+    UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
+  componentWillMount() {
+    // Animate creation
+    LayoutAnimation.spring();
   }
 
   popit() {
     return this.props.navigator.pop();
+  }
+
+  onPressAnimation(index) {
+    LayoutAnimation.spring();
+    // console.log(this.state.t[0])
+    // let newarr = this.state.h.slice()
+    // console.log("this is newarr "+newarr)
+    
+    // newarr[index] = ((this.state.h[index] - 50) * -1);
+    // newarr[index] = 50;
+
+    // console.log("this is new newarr "+newarr)
+    // this.setState({ h:newarr });
+    // console.log("this is new h "+this.state.h)
+    if (index !== -1) {
+      // let newArray = this.state.h.slice();
+      // let num =  this.state.h[index];
+      
+      // newArray[index] = ((num - 50) * -1);
+      // this.setState({ h:newArray });
+
+      // const collection = this.state.h.splice()
+      const newCollection = update(this.state.h, {0: {$set:50} });
+
+      console.log("this is new h "+this.state.h);
+      console.log(newCollection)
+      this.setState({h:newCollection})
+    }
   }
 
   render() {
@@ -55,8 +98,12 @@ export default class Instructions extends Component {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ marginLeft: 16, marginRight: 16 }}>
           <Text style={[styles.header, { fontSize: 40, color: '#8BC34A' }]}>How to Meditate</Text>
-          <Text style={styles.header}>Find a comfortable seated position.</Text>
-          <Text style={styles.text}>
+
+          <Text
+            style={styles.header}
+            onPress={this.onPressAnimation.bind(this)}
+          >Find a comfortable seated position.</Text>
+          <Text style={[styles.text, { height: this.state.h[0] }]}>
           You can sit in a chair, on a cushion, or just on the ground. The idea is to be comfortable but not enough where you are falling asleep.
           </Text>
           
