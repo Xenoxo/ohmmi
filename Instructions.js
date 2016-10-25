@@ -57,6 +57,7 @@ export default class Instructions extends Component {
   }
 
   componentWillMount() {
+    console.log("on will mount "+this.state.h)
     // Animate creation
     LayoutAnimation.spring();
   }
@@ -85,11 +86,17 @@ export default class Instructions extends Component {
       // this.setState({ h:newArray });
 
       // const collection = this.state.h.splice()
-      const newCollection = update(this.state.h, {0: {$set:50} });
+      console.log("what is here at index 0? " + this.state.h[index]);
+      
+      // let num = (this.state.h[index] - 50) * -1;
+      
+      // console.log("num " + num)
 
-      console.log("this is new h "+this.state.h);
-      console.log(newCollection)
+      const newCollection = update(this.state.h, {0: { $set: (this.state.h[0] - 50) * -1 } });
+      
       this.setState({h:newCollection})
+      
+      console.log(this.state.h)
     }
   }
 
