@@ -91,8 +91,10 @@ export default class Instructions extends Component {
       // let num = (this.state.h[index] - 50) * -1;
       
       // console.log("num " + num)
+      let updateQuery = {}
+      updateQuery[index] = { $set: (this.state.h[0] + 1) * -1 };
 
-      const newCollection = update(this.state.h, {0: { $set: (this.state.h[0] - 50) * -1 } });
+      const newCollection = update(this.state.h, updateQuery);
       
       this.setState({h:newCollection})
       
@@ -108,7 +110,7 @@ export default class Instructions extends Component {
 
           <Text
             style={styles.header}
-            onPress={this.onPressAnimation.bind(this)}
+            onPress={this.onPressAnimation.bind(this, 0)}
           >Find a comfortable seated position.</Text>
           <Text style={[styles.text, { height: this.state.h[0] }]}>
           You can sit in a chair, on a cushion, or just on the ground. The idea is to be comfortable but not enough where you are falling asleep.
