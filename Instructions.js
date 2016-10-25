@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5F5F5',
+
   },
   buttonContainer: {
     flex: 1,
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 15,
     marginBottom: 10,
-    marginLeft: 8,
+    marginLeft: 16,
     color: '#424242',
     opacity: 0.75,
   },
@@ -72,13 +73,15 @@ export default class Instructions extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{ marginLeft: 16, marginRight: 16 }}>
-          <Text style={[styles.header, { fontSize: 40, color: '#8BC34A' }]}>How to Meditate</Text>
+        <ScrollView contentContainerStyle={{ marginLeft: 16, marginRight: 16}}>
+          <Text style={[styles.header, { fontSize: 40, color: '#8BC34A',}]}>How to Meditate</Text>
           
           <TouchableOpacity onPress={this.onPressAnimation.bind(this, 0)}>
-            <Text style={styles.header}>Find a comfortable seated position.</Text>
+
+            <Text style={styles.header}>Find comfortable seating.</Text>
             <Text style={[styles.text, { height: this.state.h[0] }]}>
-              You can sit in a chair, on a cushion, or just on the ground. The idea is to be comfortable but not enough where you are falling asleep.
+              You can sit in a chair, on a cushion, or just on the ground.{"\n"}{"\n"}
+              The idea is to be comfortable but not enough where you are falling asleep.
             </Text>
           </TouchableOpacity>
           
@@ -106,7 +109,7 @@ export default class Instructions extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity onPress={this.onPressAnimation.bind(this, 5)}>           
-            <Text style={styles.header}>Maintain focus.</Text>
+            <Text style={styles.header}>When distracted, refocus.</Text>
             <Text style={[styles.text, { height: this.state.h[5] }]}>
               Your mind will naturally wander and thoughts will bubble into your consciousness. This is expected.{"\n"}{"\n"}
               When you realize awareness has drifted, acknowledge the thoughts, let them pass as you gently guide your focus back to the breath.
@@ -116,12 +119,10 @@ export default class Instructions extends Component {
           <TouchableOpacity onPress={this.onPressAnimation.bind(this, 6)}>
             <Text style={styles.header}>Give it time.</Text>
             <Text style={[styles.text, { height: this.state.h[6] }]}>
-              Meditation takes practice and at times can be frustrating trying to maintain focus. However continual practice will substantially help in this regard.{"\n"}{"\n"}
+              Meditation takes practice and at times can be frustrating trying to maintain focus. However, continual practice will substantially help in this regard.{"\n"}{"\n"}
               A session of 10 minutes a day has shown to improve many facets of mental and physical well being when done consistently.
             </Text>
           </TouchableOpacity>
-
-          <Text style={[styles.text, { marginTop: 15, marginBottom: 15, textAlign: 'center', fontWeight: '900' }]}>You can do it!</Text>
         </ScrollView>
 
         <View style={{ backgroundColor: '#F5F5F5', alignSelf: 'stretch', alignItems: 'center', justifyContent: 'center', borderTopWidth: 1, borderColor: '#E0E0E0' }}>

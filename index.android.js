@@ -54,7 +54,7 @@ class ohmmi extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ title: 'instructions' }}
+        initialRoute={{ title: 'dashboard' }}
         renderScene={this.navigatorRenderScene}
         configureScene={this.navigatorConfigureScene}
       />
