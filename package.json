@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "firebase": "^3.4.1",
-    "react": "15.3.1",
+    "react": "15.3.2",
     "react-mixin": "^2.0.2",
     "react-native": "^0.35.0",
     "react-native-idle-timer": "^2.1.1",
@@ -23,12 +23,13 @@
     "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
-    "babel-jest": "^16.0.0",
-    "babel-preset-react-native": "^1.9.0",
-    "jest": "^16.0.2",
-    "jest-react-native": "^16.0.0",
+    "babel-jest": "16.0.0",
+    "babel-preset-react-native": "1.9.0",
+    "jest": "16.0.2",
+    "jest-react-native": "16.0.0",
     "react": "^15.3.2",
+    "react-countdown-timer": "^1.0.3",
     "react-native-debugger-open": "^0.3.1",
-    "react-test-renderer": "^15.3.2"
+    "react-test-renderer": "15.3.2"
   }
 }
