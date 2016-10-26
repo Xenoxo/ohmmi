@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, TouchableOpacity, ScrollView, View, Text, LayoutAnimation, UIManager, Touc } from 'react-native';
+import InstructionStep from './InstructionStep.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import update from 'immutability-helper';
 const styles = StyleSheet.create({
@@ -81,17 +82,11 @@ export default class Instructions extends Component {
             <Text style={{ fontSize: 10, color: '#424242', opacity: 0.9, }}>(tap on the headers for more information)</Text>
           </View>
 
-          
-          <TouchableOpacity onPress={this.onPressAnimation.bind(this, 0)}>
-            <View style={{ flex:1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginRight:16 }}>
-              <Text style={styles.header}>Find comfortable seating</Text>
-              <Icon style={{ color: '#424242', transform:[{ rotate: (this.state.h[0] * -90) + ' deg' }]}} name="chevron-right" size={20} />
-            </View>
-          </TouchableOpacity>  
-            <Text style={[styles.text, { height: this.state.h[0] }]}>
-              You can sit in a chair, on a cushion, or just on the ground.{"\n"}{"\n"}
-              The idea is to be comfortable but not enough where you are falling asleep.
-            </Text>
+          <InstructionStep 
+            onPressHandler={this.onPressAnimation.bind(this, 0)}
+            iconStyle={{ color: '#424242', transform:[{ rotate: (this.state.h[0] * -90) + ' deg' }]}}
+            textStyle={[styles.text, { height: this.state.h[0] }]}
+          />
           
           
           <TouchableOpacity onPress={this.onPressAnimation.bind(this, 1)}>
