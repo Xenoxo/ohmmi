@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
   },
 });
 
+var thing = 0;
+
 export default class Instructions extends Component {
   constructor(props) {
     super(props);
@@ -50,6 +52,7 @@ export default class Instructions extends Component {
     this.popit = this.popit.bind(this);
     UIManager.setLayoutAnimationEnabledExperimental && 
     UIManager.setLayoutAnimationEnabledExperimental(true);
+    
   }
 
   componentWillMount() {
@@ -67,18 +70,26 @@ export default class Instructions extends Component {
       updateQuery[index] = { $set: (this.state.h[index] + 1) * -1 };
       const newCollection = update(this.state.h, updateQuery);
       this.setState({h:newCollection})
+      thing = (thing - 90 ) * -1;
     }
   }
 
   render() {
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={{ marginLeft: 16, marginRight: 16}}>
-          <Text style={[styles.header, { fontSize: 40, color: '#8BC34A',}]}>How to Meditate</Text>
+          <View style={{ marginBottom: 10, }}>
+            <Text style={[styles.header, { fontSize: 40, color: '#8BC34A', marginBottom: 0, }]}>How to Meditate</Text>
+            <Text style={{ fontSize: 10, color: '#424242', opacity: 0.9, }}>(tap on the headers for more information)</Text>
+          </View>
+
           
           <TouchableOpacity onPress={this.onPressAnimation.bind(this, 0)}>
-
-            <Text style={styles.header}>Find comfortable seating.</Text>
+            <View style={{ flex:1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+              <Text style={styles.header}>Find comfortable seating</Text>
+              <Icon style={{ color: '#424242', transform:[{ rotate: thing + ' deg' }]}} name="arrow-circle-o-right" size={20} />
+            </View>
             <Text style={[styles.text, { height: this.state.h[0] }]}>
               You can sit in a chair, on a cushion, or just on the ground.{"\n"}{"\n"}
               The idea is to be comfortable but not enough where you are falling asleep.

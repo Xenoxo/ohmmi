@@ -179,7 +179,7 @@ export default class CountdownTimer extends Component {
     return (
       <View style={styles.container}>
         <Text style={{ marginBottom:10, fontSize: 20 }}>Preparing...</Text>
-        <Image source={require('./ohmmi_60.png')} />
+        <Image source={require('./ohmmi_96.png')} />
       </View>
     );
   }    
