@@ -1,0 +1,8 @@
+
+.buckconfig
+.flowconfig
+.watchmanconfig
+designs/
+ohmmi-app.keystore
+.gradle/
+android/.gradle/fileSnapshots.bin
