@@ -43,3 +43,4 @@ android/keystores/debug.keystore
 #custom
 *.keystore
 android/gradle.properties
+androi/*.properties
