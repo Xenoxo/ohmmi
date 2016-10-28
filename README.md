@@ -16,6 +16,6 @@ You can find the live version of the app **[ on the Google Play Store](https://w
 * [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
 
 #Purpose
-This project was an answer to me forgetting the log password of a current meditation app that I use.
+This project was my answer to having forgotten the login password of a meditation app that I used at the time. Wanting to create a simple experience that gets right to the point, I set out to build an android app that I would enjoy using.
 
-Additionally, it was means for me to practice with both React-Native, Android development, as well as going through the process of publishing an app on the Play Store.
+This was also a great deep dive with React-Native, Android development, and the Play Store publishing process.
