@@ -3,7 +3,7 @@ Ohmmi is a no frills meditation timer that gives the users a pleasant and simple
 
 
 
-You can find the live version of the app **[ on the Google Play Store](https://www.google.com)**
+You can find the live version of the app **[ on the Google Play Store](https://play.google.com/store/apps/details?id=com.ohmmi&hl=en)**
 
 #Technology
 ###Ohmmi is a React-Native app built for Android.
