@@ -240,7 +240,7 @@ export default class Dashboard extends Component {
 
         {/* for the nav buttons */}
         <View style={[styles.subcontainer, {justifyContent:'center',}]}>
-        <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+          <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
             <TouchableOpacity onPress={this.handleSmallButtonPress.bind(this, 'instructions')}>
               <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
                 <Icon name="question" size={30} color="white" />
@@ -262,6 +262,12 @@ export default class Dashboard extends Component {
               </View>
             </TouchableOpacity>
           </View>
+            {/*<TouchableOpacity onPress={this.handleSmallButtonPress.bind(this, 'stats')}>
+              <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
+                <Icon name="signal" size={25} color="white" />
+              </View>
+            </TouchableOpacity>*/}
+          
         </View>
       </View>
     );

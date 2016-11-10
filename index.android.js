@@ -55,7 +55,7 @@ class ohmmi extends Component {
       case 'instructions':
         return Navigator.SceneConfigs.FloatFromLeft;
       case 'countdowntimer':
-        return Navigator.SceneConfigs.FloatFromRight;
+        return Navigator.SceneConfigs.FloatFromBottom;
       case 'stats':
         return Navigator.SceneConfigs.FloatFromRight;        
     }
@@ -63,7 +63,7 @@ class ohmmi extends Component {
   render() {
     return (
       <Navigator
-        initialRoute={{ title: 'dashboard' }}
+        initialRoute={{ title: 'stats' }}
         renderScene={this.navigatorRenderScene}
         configureScene={this.navigatorConfigureScene}
       />

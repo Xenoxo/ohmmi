@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   smallCircleButton: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: 45,
@@ -48,6 +47,11 @@ const styles = StyleSheet.create({
     color: '#424242',
     opacity: 0.75,
   },
+  statsText: {
+    fontSize: 50,
+    fontWeight: '600',
+    color:'#616161',
+  },
 });
 
 export default class Stats extends Component {
@@ -56,7 +60,7 @@ export default class Stats extends Component {
     this.state = {
       // h: [0,0,0,0,0,0,0]
     }
-    // this.popit = this.popit.bind(this);
+    this.popit = this.popit.bind(this);
     // UIManager.setLayoutAnimationEnabledExperimental && 
     // UIManager.setLayoutAnimationEnabledExperimental(true);
   }
@@ -83,8 +87,21 @@ export default class Stats extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>This is the stats page</Text>
+        <View style={[styles.subcontainer, {flex:2,}]}>
+          <Text style={styles.statsText}>Current Streak</Text>
+          <Text style={styles.statsText}>Total Time</Text>
+          <Text style={styles.statsText}>Longest Session</Text>
+        </View>
+
+        <View style={{ backgroundColor: '#F5F5F5', alignSelf: 'stretch', alignItems: 'center', justifyContent: 'center', borderTopWidth: 1, borderColor: '#E0E0E0' }}>
+          <TouchableOpacity onPress={this.popit} >
+            <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
+              <Icon name="undo" size={30} color="#F5F5F5" />
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
+
     );
   }
 }
