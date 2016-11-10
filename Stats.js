@@ -12,6 +12,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
 
   },
+  subcontainer: {
+    flex: 1,
+    alignItems: 'center',
+    alignSelf: 'stretch',
+    justifyContent: 'space-between',
+    marginLeft: 15,
+    marginRight: 10,
+  },  
   buttonContainer: {
     flex: 1,
     alignItems: 'center',
@@ -47,11 +55,37 @@ const styles = StyleSheet.create({
     color: '#424242',
     opacity: 0.75,
   },
+  textBlockContainer: {
+    flex:1,
+    flexDirection:'row',
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   statsText: {
-    fontSize: 50,
-    fontWeight: '600',
+    flex:1,
+    fontSize: 27,
+    fontWeight: '500',
     color:'#616161',
   },
+  statsNumber: {
+    flex:1,
+    fontSize: 75,
+    textAlign: 'right',
+    color:'#8BC34A',
+    // borderWidth: 1,
+  },
+  postFix: {
+    // borderWidth:1,
+    fontSize: 15,
+    width: 65,
+    textAlign: 'left',
+    marginTop: 40,
+    marginLeft: 5,
+    fontWeight: '500',
+  
+    // alignItems: 'center',
+  }  
 });
 
 export default class Stats extends Component {
@@ -87,10 +121,26 @@ export default class Stats extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={[styles.subcontainer, {flex:2,}]}>
-          <Text style={styles.statsText}>Current Streak</Text>
-          <Text style={styles.statsText}>Total Time</Text>
-          <Text style={styles.statsText}>Longest Session</Text>
+        <View style={[styles.subcontainer, {flex:2}]}>
+          
+          <View style={styles.textBlockContainer}>
+            <Text style={styles.statsText}>Current Streak</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>256</Text>
+            <Text style={[styles.postFix]}>days</Text>
+            
+          </View>
+
+          <View style={styles.textBlockContainer}>
+            <Text style={styles.statsText}>Total {'\n'}Time</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>156</Text>
+            <Text style={[styles.postFix]}>hours</Text>
+          </View>
+          
+          <View style={styles.textBlockContainer}>
+            <Text style={styles.statsText}>Longest Session</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>90</Text>
+            <Text style={[styles.postFix]}>minutes</Text>
+          </View>
         </View>
 
         <View style={{ backgroundColor: '#F5F5F5', alignSelf: 'stretch', alignItems: 'center', justifyContent: 'center', borderTopWidth: 1, borderColor: '#E0E0E0' }}>
