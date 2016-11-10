@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   smallCircleButton: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: 45,
@@ -168,8 +167,9 @@ export default class Dashboard extends Component {
     }
   }
 
-  handleSmallButtonPress() {
-    this.props.navigator.push({ title: 'instructions' });
+  handleSmallButtonPress(sceneName) {
+    var tsceneName = 'instructions';
+    this.props.navigator.push({ title: sceneName });
   }
 
   render() {
@@ -208,6 +208,8 @@ export default class Dashboard extends Component {
           <Text style={styles.subText}>(or tap on text above to enter your own)</Text>
         </View>
 
+
+        {/*Default timer buttons*/}
         <View style={styles.subcontainer}>
           <View style={{ flex: 1 }} />
           <View style={styles.buttonContainer}>
@@ -235,20 +237,31 @@ export default class Dashboard extends Component {
             }
           </View>
         </View>
-        <View style={styles.subcontainer}>
-          <TouchableOpacity
-            onPress={this.handleStartButtonPress.bind(this)}
-            activeOpacity={this.state.active ? 0.2 : 1}
-          >
-            <View style={[styles.circleButton, { opacity: this.state.buttonOpacity }]}>
-              <Text style={[styles.buttonText, { fontSize: 28, fontWeight: '900' }]}>start</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={this.handleSmallButtonPress.bind(this)}>
-            <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
-              <Icon name="question" size={30} color="white" />
-            </View>
-          </TouchableOpacity>
+
+        {/* for the nav buttons */}
+        <View style={[styles.subcontainer, {justifyContent:'center',}]}>
+        <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+            <TouchableOpacity onPress={this.handleSmallButtonPress.bind(this, 'instructions')}>
+              <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
+                <Icon name="question" size={30} color="white" />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this.handleStartButtonPress.bind(this)}
+              activeOpacity={this.state.active ? 0.2 : 1}
+            >
+              <View style={[styles.circleButton, { opacity: this.state.buttonOpacity }]}>
+                <Text style={[styles.buttonText, { fontSize: 28, fontWeight: '900' }]}>start</Text>
+              </View>
+            </TouchableOpacity>
+    
+            <TouchableOpacity onPress={this.handleSmallButtonPress.bind(this, 'stats')}>
+              <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
+                <Icon name="signal" size={25} color="white" />
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );

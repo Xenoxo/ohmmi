@@ -4,6 +4,7 @@ import { Navigator, AppRegistry, BackAndroid } from 'react-native';
 import CountdownTimerContainer from './CountdownTimerContainer';
 import Dashboard from './Dashboard';
 import Instructions from './Instructions';
+import Stats from './Stats';
 
 var _navigator;
 
@@ -40,6 +41,12 @@ class ohmmi extends Component {
             navigator={navigator}
             title="instructions"
           />);
+      case 'stats':
+        return (
+          <Stats
+            navigator={navigator}
+            title='stats'
+          />);
     }
   }
 
@@ -49,6 +56,8 @@ class ohmmi extends Component {
         return Navigator.SceneConfigs.FloatFromLeft;
       case 'countdowntimer':
         return Navigator.SceneConfigs.FloatFromRight;
+      case 'stats':
+        return Navigator.SceneConfigs.FloatFromRight;        
     }
   }
   render() {
