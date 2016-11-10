@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { StyleSheet, TouchableOpacity, ScrollView, View, Text, LayoutAnimation, UIManager } from 'react-native';
+import { StyleSheet, TouchableOpacity, ScrollView, View, Text, LayoutAnimation, UIManager, AsyncStorage } from 'react-native';
 import InstructionStep from './InstructionStep.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import update from 'immutability-helper';
@@ -92,15 +92,22 @@ export default class Stats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // h: [0,0,0,0,0,0,0]
+      currentStreak:'',
+      totalTime:'',
+      longestSession:'',
     }
     this.popit = this.popit.bind(this);
     // UIManager.setLayoutAnimationEnabledExperimental && 
     // UIManager.setLayoutAnimationEnabledExperimental(true);
+    AsyncStorage.setItem("longestSession", "20").then().done();    
   }
 
   componentWillMount() {
-    LayoutAnimation.spring();
+    // LayoutAnimation.spring();
+    AsyncStorage.getItem("longestSession").then((value) => {
+        // let num = value
+        this.setState({longestSession: value});
+    }).done();
   }
 
   popit() {
@@ -138,7 +145,7 @@ export default class Stats extends Component {
           
           <View style={styles.textBlockContainer}>
             <Text style={styles.statsText}>Longest Session</Text>
-            <Text style={[styles.statsText, styles.statsNumber]}>90</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>{this.state.longestSession}</Text>
             <Text style={[styles.postFix]}>minutes</Text>
           </View>
         </View>
