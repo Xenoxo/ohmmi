@@ -99,14 +99,20 @@ export default class Stats extends Component {
     this.popit = this.popit.bind(this);
     // UIManager.setLayoutAnimationEnabledExperimental && 
     // UIManager.setLayoutAnimationEnabledExperimental(true);
-    AsyncStorage.setItem("longestSession", "20").then().done();    
+    AsyncStorage.setItem("currentStreak", "221").then().done();
+    AsyncStorage.setItem("totalTime", "50").then().done();
+    AsyncStorage.setItem("longestSession", "20").then().done();
   }
 
   componentWillMount() {
-    // LayoutAnimation.spring();
-    AsyncStorage.getItem("longestSession").then((value) => {
-        // let num = value
-        this.setState({longestSession: value});
+    AsyncStorage.multiGet(['currentStreak', 'totalTime', 'longestSession'], (err, stores) => {
+     stores.map((result, i, store) => {
+       let key = store[i][0];
+       let value = store[i][1];
+       let pair = {};
+       pair[key] = value;
+       this.setState(pair);
+      });
     }).done();
   }
 
@@ -132,14 +138,14 @@ export default class Stats extends Component {
           
           <View style={styles.textBlockContainer}>
             <Text style={styles.statsText}>Current Streak</Text>
-            <Text style={[styles.statsText, styles.statsNumber]}>256</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>{this.state.currentStreak}</Text>
             <Text style={[styles.postFix]}>days</Text>
             
           </View>
 
           <View style={styles.textBlockContainer}>
             <Text style={styles.statsText}>Total {'\n'}Time</Text>
-            <Text style={[styles.statsText, styles.statsNumber]}>156</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>{this.state.totalTime}</Text>
             <Text style={[styles.postFix]}>hours</Text>
           </View>
           
