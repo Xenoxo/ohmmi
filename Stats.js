@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, ScrollView, View, Text, LayoutAnimation, 
 import InstructionStep from './InstructionStep.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import update from 'immutability-helper';
+import AnimateNumber from 'react-native-animate-number'
 
 const styles = StyleSheet.create({
   container: {
@@ -130,28 +131,35 @@ export default class Stats extends Component {
     }
   }
 
-  render() {
+  number
 
+  render() {
     return (
       <View style={styles.container}>
         <View style={[styles.subcontainer, {flex:2}]}>
           
           <View style={styles.textBlockContainer}>
             <Text style={styles.statsText}>Current Streak</Text>
-            <Text style={[styles.statsText, styles.statsNumber]}>{this.state.currentStreak}</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>
+              <AnimateNumber value={this.state.currentStreak} timing="linear" countBy={1}/>
+            </Text>
             <Text style={[styles.postFix]}>days</Text>
             
           </View>
 
           <View style={styles.textBlockContainer}>
             <Text style={styles.statsText}>Total {'\n'}Time</Text>
-            <Text style={[styles.statsText, styles.statsNumber]}>{this.state.totalTime}</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>
+              <AnimateNumber value={this.state.totalTime} timing="linear" countBy={1}/>
+            </Text>
             <Text style={[styles.postFix]}>hours</Text>
           </View>
           
           <View style={styles.textBlockContainer}>
             <Text style={styles.statsText}>Longest Session</Text>
-            <Text style={[styles.statsText, styles.statsNumber]}>{this.state.longestSession}</Text>
+            <Text style={[styles.statsText, styles.statsNumber]}>
+              <AnimateNumber value={this.state.longestSession} timing="linear" countBy={1}/>
+            </Text>
             <Text style={[styles.postFix]}>minutes</Text>
           </View>
         </View>
