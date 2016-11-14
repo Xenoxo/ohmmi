@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes, AsyncStorage } from 'react';
 import PushNotification from 'react-native-push-notification';
 import CountdownTimer from './CountdownTimer';
 
@@ -10,6 +10,8 @@ export default class CountdownTimerContainer extends Component {
     this.state = {
       userSetTime: this.props.timeAmount,
     };
+    this.timerDone = this.timerDone.bind(this);
+    this.pushNotificationHandler = this.pushNotificationHandler.bind(this);
 
     // configures push notification
     PushNotification.configure({
@@ -18,8 +20,6 @@ export default class CountdownTimerContainer extends Component {
       },
       popInitialNotification: true,
     });
-    this.timerDone = this.timerDone.bind(this);
-    this.pushNotificationHandler = this.pushNotificationHandler.bind(this);
   }
 
   componentDidMount() {
@@ -47,6 +47,7 @@ export default class CountdownTimerContainer extends Component {
   }
 
   timerDone() {
+    // AsyncStorage.setItem("longestSession", this.state.userSetTime).done();
     this.props.navigator.pop();
   }
 

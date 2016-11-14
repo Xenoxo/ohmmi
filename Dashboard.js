@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TextInput, Keyboard } from 'react-native';
+import { AsyncStorage, ToastAndroid, StyleSheet, TouchableOpacity, View, Text, TextInput, Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
@@ -94,6 +94,16 @@ export default class Dashboard extends Component {
       fakeTextInput: '',
     };
     this.defaultText = 'Choose Your Session Time';
+    AsyncStorage.multiGet(['currentStreak', 'totalTime', 'longestSession',], (err, stores) => {
+     stores.map((result, i, store) => {
+       let key = store[i][0];
+       let value = store[i][1];
+       if (value === null){
+        AsyncStorage.setItem(key, '0');
+       }
+      });
+    }).done();
+
   }
 
   componentWillMount() {
@@ -136,7 +146,17 @@ export default class Dashboard extends Component {
   // button press, submitting, or keyboardHide
   //
   handleTimerButtonPress(time) {
-    this.setState({ meditationDuration: 0 });
+    let tempt = time;
+    AsyncStorage.getItem("longestSession").then(
+      function(val) {
+        let temp = val;
+        if (parseInt(val) < time) {
+          AsyncStorage.setItem("longestSession", time.toString()).done();
+        }
+      }
+    ).done();
+    
+    // console.log(value);
     if (time !== null) {
       const milisecs = time * 60 * 1000;
       if (Number.isInteger(milisecs) && time.length !== 0 && time > 0 && time % 1 === 0) { //

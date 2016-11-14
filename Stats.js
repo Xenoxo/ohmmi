@@ -93,16 +93,23 @@ export default class Stats extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentStreak:'',
-      totalTime:'',
-      longestSession:'',
+      currentStreak:'0',
+      totalTime:'0',
+      longestSession:'0',
+      nest:'40',
     }
     this.popit = this.popit.bind(this);
     // UIManager.setLayoutAnimationEnabledExperimental && 
     // UIManager.setLayoutAnimationEnabledExperimental(true);
-    AsyncStorage.setItem("currentStreak", "221").then().done();
-    AsyncStorage.setItem("totalTime", "50").then().done();
-    AsyncStorage.setItem("longestSession", "20").then().done();
+    
+// AsyncStorage.setItem("currentStreak", "21").then().done();
+//     AsyncStorage.setItem("totalTime", "120").then().done();
+
+
+    // AsyncStorage.setItem("nest", "0").then().done();
+    // if ( AsyncStorage.getItem('nest').done() === null) {
+    //       AsyncStorage.setItem('nest', '0').done();
+    // }
   }
 
   componentWillMount() {
