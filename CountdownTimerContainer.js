@@ -11,7 +11,6 @@ export default class CountdownTimerContainer extends Component {
       userSetTime: this.props.timeAmount,
     };
     this.timerDone = this.timerDone.bind(this);
-    this.backOut = this.backOut.bind(this);
     this.pushNotificationHandler = this.pushNotificationHandler.bind(this);
 
     // configures push notification
@@ -46,7 +45,7 @@ export default class CountdownTimerContainer extends Component {
       PushNotification.cancelLocalNotifications({ id: '1' });
     }
   }
-  
+
   timerDone() {
     this.props.navigator.pop();
   }
@@ -57,7 +56,6 @@ export default class CountdownTimerContainer extends Component {
           interval={25}
           initialTimeRemaining={this.state.userSetTime}
           completeCallback={this.timerDone}
-          backOut={this.backOut}
           pushNotificationHandler={this.pushNotificationHandler}
         />
     );
