@@ -217,7 +217,7 @@ export default class CountdownTimer extends Component {
               }
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.props.completeCallback}>
+          <TouchableOpacity onPress={this.props.backOut}>
             <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
               <Icon name="undo" size={30} color="#F5F5F5" />
             </View>
@@ -233,6 +233,7 @@ CountdownTimer.propTypes = {
   interval: React.PropTypes.number,
   formatFunc: React.PropTypes.func,
   tickCallback: React.PropTypes.func,
+  backOut: React.PropTypes.func,
   completeCallback: React.PropTypes.func,
   pushNotificationHandler: React.PropTypes.func,
 };

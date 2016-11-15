@@ -11,6 +11,7 @@ export default class CountdownTimerContainer extends Component {
       userSetTime: this.props.timeAmount,
     };
     this.timerDone = this.timerDone.bind(this);
+    this.backOut = this.backOut.bind(this);
     this.pushNotificationHandler = this.pushNotificationHandler.bind(this);
 
     // configures push notification
@@ -46,9 +47,23 @@ export default class CountdownTimerContainer extends Component {
     }
   }
 
-  timerDone() {
-    // AsyncStorage.setItem("longestSession", this.state.userSetTime).done();
+  backOut() { // for when the user just clicks on "back"
     this.props.navigator.pop();
+  }
+
+  timerDone() {
+    // let usertime = this.state.userSetTime;
+    // AsyncStorage.getItem("longestSession").then(
+    //   function(val) {
+    //     let temp = val;
+    //     if (parseInt(val) < usertime) {
+    //       AsyncStorage.setItem("longestSession", usertime.toString()).done();
+    //       console.log("longestSession updated adn is: "+ usertime );
+    //     }
+
+    //   }
+    // ).done();
+    this.backOut();
   }
 
   render() {
@@ -57,6 +72,7 @@ export default class CountdownTimerContainer extends Component {
           interval={25}
           initialTimeRemaining={this.state.userSetTime}
           completeCallback={this.timerDone}
+          backOut={this.backOut}
           pushNotificationHandler={this.pushNotificationHandler}
         />
     );

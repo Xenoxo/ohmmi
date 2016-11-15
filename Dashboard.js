@@ -146,20 +146,10 @@ export default class Dashboard extends Component {
   // button press, submitting, or keyboardHide
   //
   handleTimerButtonPress(time) {
-    let tempt = time;
-    AsyncStorage.getItem("longestSession").then(
-      function(val) {
-        let temp = val;
-        if (parseInt(val) < time) {
-          AsyncStorage.setItem("longestSession", time.toString()).done();
-        }
-      }
-    ).done();
-    
-    // console.log(value);
+  
     if (time !== null) {
       const milisecs = time * 60 * 1000;
-      if (Number.isInteger(milisecs) && time.length !== 0 && time > 0 && time % 1 === 0) { //
+      if (Number.isInteger(milisecs) && time.length !== 0 && time > 0) { //  && time % 1 === 0
         const timeInTxt = time.toString();
         this.setState({
           meditationDuration: milisecs,
