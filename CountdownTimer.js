@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, InteractionManager, Image } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text, InteractionManager, Image, AsyncStorage } from 'react-native';
 import * as Progress from 'react-native-progress';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -126,7 +126,16 @@ export default class CountdownTimer extends Component {
         });
       }
 
+      // fires off when countdown is done
       if (countdownComplete) {
+        let usertime = this.state.originalTime;
+        AsyncStorage.getItem("longestSession").then(
+          function(result) {
+            if (parseInt(result) < usertime) {
+              AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
+            }
+          }
+        ).done();        
         if (this.props.completeCallback) {
           this.props.completeCallback();
         }
@@ -175,6 +184,8 @@ export default class CountdownTimer extends Component {
       });
     }
   }
+
+  // The loading screen
   _renderPlaceholderView() {
     return (
       <View style={styles.container}>
@@ -205,7 +216,7 @@ export default class CountdownTimer extends Component {
             formatText={this.getFormattedTime(timeRemaining)}
           />
         </View>
-        {/* <Text>{this.getFormattedTime(timeRemaining)}</Text> */}
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={this.pauseHandler}
@@ -217,7 +228,7 @@ export default class CountdownTimer extends Component {
               }
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.props.backOut}>
+          <TouchableOpacity onPress={this.props.completeCallback}>
             <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
               <Icon name="undo" size={30} color="#F5F5F5" />
             </View>

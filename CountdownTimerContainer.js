@@ -46,24 +46,9 @@ export default class CountdownTimerContainer extends Component {
       PushNotification.cancelLocalNotifications({ id: '1' });
     }
   }
-
-  backOut() { // for when the user just clicks on "back"
-    this.props.navigator.pop();
-  }
-
+  
   timerDone() {
-    // let usertime = this.state.userSetTime;
-    // AsyncStorage.getItem("longestSession").then(
-    //   function(val) {
-    //     let temp = val;
-    //     if (parseInt(val) < usertime) {
-    //       AsyncStorage.setItem("longestSession", usertime.toString()).done();
-    //       console.log("longestSession updated adn is: "+ usertime );
-    //     }
-
-    //   }
-    // ).done();
-    this.backOut();
+    this.props.navigator.pop();
   }
 
   render() {
@@ -80,7 +65,6 @@ export default class CountdownTimerContainer extends Component {
 }
 
 CountdownTimerContainer.propTypes = {
-  // title: PropTypes.string.isRequired,
   timeAmount: PropTypes.number.isRequired,
   navigator: PropTypes.object.isRequired,
 };

@@ -146,7 +146,6 @@ export default class Dashboard extends Component {
   // button press, submitting, or keyboardHide
   //
   handleTimerButtonPress(time) {
-  
     if (time !== null) {
       const milisecs = time * 60 * 1000;
       if (Number.isInteger(milisecs) && time.length !== 0 && time > 0) { //  && time % 1 === 0

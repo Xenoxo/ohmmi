@@ -118,6 +118,9 @@ export default class Stats extends Component {
        let key = store[i][0];
        let value = store[i][1];
        let pair = {};
+       if (key === 'longestSession'){
+        value = value/60000;
+       }
        pair[key] = value;
        this.setState(pair);
       });
@@ -137,8 +140,6 @@ export default class Stats extends Component {
       this.setState({h:newCollection})
     }
   }
-
-  number
 
   render() {
     return (
