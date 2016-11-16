@@ -94,7 +94,7 @@ export default class Dashboard extends Component {
       fakeTextInput: '',
     };
     this.defaultText = 'Choose Your Session Time';
-    AsyncStorage.multiGet(['currentStreak', 'totalTime', 'longestSession',], (err, stores) => {
+    AsyncStorage.multiGet(['currentStreak', 'totalTime', 'longestSession', ], (err, stores) => {
      stores.map((result, i, store) => {
        let key = store[i][0];
        let value = store[i][1];

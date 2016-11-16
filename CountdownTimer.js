@@ -144,13 +144,13 @@ export default class CountdownTimer extends Component {
            if (key === 'longestSession' && parseInt(value) < usertime){
               AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
            } else if (key === 'totalTime'){
-              let calculation = (usertime/3600000);
-              let newtotal = parseInt(value) + calculation;
-              AsyncStorage.setItem("totalTime", "13.5746").then().done();
-              // AsyncStorage.setItem("totalTime", newtotal.toString()).then().done();
-              console.log("newtotal "+newtotal);
-           } else {
-              console.log("key is "+key+"value is "+value);
+              let decHours = (usertime/3600000);
+              let newtotal = parseFloat(value) + decHours;
+              AsyncStorage.setItem("totalTime", newtotal.toString()).then().done();
+           } else if (key === 'currentStreak') {
+              if (value === '0'){
+                AsyncStorage.setItem("currentStreak", '1-'+Date.now().toString()).then().done();
+              }
            }
           });
         }).done();

@@ -123,6 +123,9 @@ export default class Stats extends Component {
         value = value/60000;
        } else if (key === 'totalTime'){
         value = Math.round( parseFloat(value) * 10 ) / 10;
+       } else if (key === 'currentStreak'){
+        let tempArray = value.split('-');
+        value = tempArray[0];
        }
        pair[key] = value;
        this.setState(pair);
