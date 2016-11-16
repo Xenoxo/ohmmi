@@ -135,14 +135,13 @@ export default class CountdownTimer extends Component {
            let key = store[i][0];
            let value = store[i][1];
            // if the new time sets the record
-           if (key === 'longestSession' && parseInt(value) < usertime){ 
-              AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
-
+           if (key === 'longestSession' && parseInt(value) < usertime){
+              value = usertime.toString();
+              // AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
            } else if (key === 'totalTime'){ //adds the total time and stores in decminal hours
               let decHours = (usertime/3600000);
-              let newtotal = parseFloat(value) + decHours;
-              AsyncStorage.setItem("totalTime", newtotal.toString()).then().done();
-
+              value = (parseFloat(value) + decHours).toString();
+              // AsyncStorage.setItem("totalTime", newtotal.toString()).then().done();
            } else if (key === 'currentStreak') {
               let tempArray = value.split('-');
               let counter = parseInt(tempArray[0]);
@@ -152,9 +151,10 @@ export default class CountdownTimer extends Component {
               } else if (sinceLast > 115200000) {
                 counter=0;
               }
-              let combined = counter + '-' + Date.now();
-              AsyncStorage.setItem("currentStreak", combined).then().done();
+              value = counter + '-' + Date.now();
+              // AsyncStorage.setItem("currentStreak", combined).then().done();
            }
+           AsyncStorage.setItem(key, value);
           });
         }).done();
 
