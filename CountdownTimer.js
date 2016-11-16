@@ -129,13 +129,33 @@ export default class CountdownTimer extends Component {
       // fires off when countdown is done
       if (countdownComplete) {
         let usertime = this.state.originalTime;
-        AsyncStorage.getItem("longestSession").then(
-          function(result) {
-            if (parseInt(result) < usertime) {
+        // AsyncStorage.getItem("longestSession").then(
+        //   function(result) {
+        //     if (parseInt(result) < usertime) {
+        //       AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
+        //     }
+        //   }
+        // ).done();
+
+        AsyncStorage.multiGet(['currentStreak', 'totalTime', 'longestSession'], (err, stores) => {
+         stores.map((result, i, store) => {
+           let key = store[i][0];
+           let value = store[i][1];
+           if (key === 'longestSession' && parseInt(value) < usertime){
               AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
-            }
-          }
-        ).done();        
+           } else if (key === 'totalTime'){
+              let calculation = (usertime/3600000);
+              let newtotal = parseInt(value) + calculation;
+              AsyncStorage.setItem("totalTime", "13.5746").then().done();
+              // AsyncStorage.setItem("totalTime", newtotal.toString()).then().done();
+              console.log("newtotal "+newtotal);
+           } else {
+              console.log("key is "+key+"value is "+value);
+           }
+          });
+        }).done();
+
+
         if (this.props.completeCallback) {
           this.props.completeCallback();
         }

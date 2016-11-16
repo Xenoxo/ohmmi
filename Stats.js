@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   statsText: {
-    flex:1,
+    // flex:1,
     fontSize: 27,
     fontWeight: '500',
     color:'#616161',
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
   },
   postFix: {
     // borderWidth:1,
-    fontSize: 15,
-    width: 65,
+    fontSize: 12,
+    width: 60,
     textAlign: 'left',
     marginTop: 40,
     marginLeft: 5,
@@ -99,6 +99,7 @@ export default class Stats extends Component {
       nest:'40',
     }
     this.popit = this.popit.bind(this);
+    this.eraseLocalData = this.eraseLocalData.bind(this);
     // UIManager.setLayoutAnimationEnabledExperimental && 
     // UIManager.setLayoutAnimationEnabledExperimental(true);
     
@@ -120,6 +121,8 @@ export default class Stats extends Component {
        let pair = {};
        if (key === 'longestSession'){
         value = value/60000;
+       } else if (key === 'totalTime'){
+        value = Math.round( parseFloat(value) * 10 ) / 10;
        }
        pair[key] = value;
        this.setState(pair);
@@ -129,6 +132,10 @@ export default class Stats extends Component {
 
   popit() {
     return this.props.navigator.pop();
+  }
+
+  eraseLocalData() {
+    AsyncStorage.multiSet([['currentStreak','0'],['totalTime','0'],['longestSession','0']]).done();
   }
 
   onPressAnimation(index) {
@@ -147,7 +154,7 @@ export default class Stats extends Component {
         <View style={[styles.subcontainer, {flex:2}]}>
           
           <View style={styles.textBlockContainer}>
-            <Text style={styles.statsText}>Current Streak</Text>
+            <Text style={styles.statsText}>Current{'\n'}Streak</Text>
             <Text style={[styles.statsText, styles.statsNumber]}>
               <AnimateNumber value={this.state.currentStreak} timing="linear" countBy={1}/>
             </Text>
@@ -156,7 +163,7 @@ export default class Stats extends Component {
           </View>
 
           <View style={styles.textBlockContainer}>
-            <Text style={styles.statsText}>Total {'\n'}Time</Text>
+            <Text style={styles.statsText}>Total{'\n'}Time</Text>
             <Text style={[styles.statsText, styles.statsNumber]}>
               <AnimateNumber value={this.state.totalTime} timing="linear" countBy={1}/>
             </Text>
@@ -164,7 +171,7 @@ export default class Stats extends Component {
           </View>
           
           <View style={styles.textBlockContainer}>
-            <Text style={styles.statsText}>Longest Session</Text>
+            <Text style={styles.statsText}>Longest{'\n'}Session</Text>
             <Text style={[styles.statsText, styles.statsNumber]}>
               <AnimateNumber value={this.state.longestSession} timing="linear" countBy={1}/>
             </Text>
@@ -176,6 +183,11 @@ export default class Stats extends Component {
           <TouchableOpacity onPress={this.popit} >
             <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
               <Icon name="undo" size={30} color="#F5F5F5" />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={this.eraseLocalData} >
+            <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
+              <Icon name="times" size={30} color="#F5F5F5" />
             </View>
           </TouchableOpacity>
         </View>
