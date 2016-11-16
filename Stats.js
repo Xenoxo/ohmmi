@@ -20,10 +20,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: 15,
     marginRight: 10,
-  },  
-  buttonContainer: {
-    flex: 1,
-    alignItems: 'center',
   },
   smallCircleButton: {
     justifyContent: 'center',
@@ -34,27 +30,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 22,
     elevation: 4,
-  },
-  headerContainer: {
-    flex:1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginRight:16,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: '900',
-    marginBottom: 5,
-    opacity: 1,
-    color: '#424242',
-  },
-  text: {
-    fontSize: 15,
-    marginBottom: 10,
-    marginLeft: 16,
-    color: '#424242',
-    opacity: 0.75,
   },
   textBlockContainer: {
     flex:1,
@@ -84,8 +59,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 5,
     fontWeight: '500',
-  
-    // alignItems: 'center',
   }  
 });
 
@@ -99,7 +72,7 @@ export default class Stats extends Component {
       nest:'40',
     }
     this.popit = this.popit.bind(this);
-    this.eraseLocalData = this.eraseLocalData.bind(this);
+    // this.eraseLocalData = this.eraseLocalData.bind(this);
   }
 
   componentWillMount() {
@@ -132,9 +105,9 @@ export default class Stats extends Component {
     return this.props.navigator.pop();
   }
 
-  eraseLocalData() {
-    AsyncStorage.multiSet([['currentStreak',null],['totalTime',null],['longestSession',null]]).done();
-  }
+  // eraseLocalData() {
+  //   AsyncStorage.multiSet([['currentStreak',null],['totalTime',null],['longestSession',null]]).done();
+  // }
 
   onPressAnimation(index) {
     LayoutAnimation.spring();
@@ -183,11 +156,12 @@ export default class Stats extends Component {
               <Icon name="undo" size={30} color="#F5F5F5" />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.eraseLocalData} >
+          
+          {/*<TouchableOpacity onPress={this.eraseLocalData} >
             <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
               <Icon name="times" size={30} color="#F5F5F5" />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity>*/}
         </View>
       </View>
 
