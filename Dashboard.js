@@ -98,12 +98,13 @@ export default class Dashboard extends Component {
      stores.map((result, i, store) => {
        let key = store[i][0];
        let value = store[i][1];
-       if (value === null){
+       if (value === null && key ==='currentStreak'){ // special case, if longer than 32 hrs since last usage OR 1st usage, set to default
+        AsyncStorage.setItem(key, '0-'+Date.now());
+       } else if (value === null){
         AsyncStorage.setItem(key, '0');
        }
       });
     }).done();
-
   }
 
   componentWillMount() {

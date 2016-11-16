@@ -100,17 +100,6 @@ export default class Stats extends Component {
     }
     this.popit = this.popit.bind(this);
     this.eraseLocalData = this.eraseLocalData.bind(this);
-    // UIManager.setLayoutAnimationEnabledExperimental && 
-    // UIManager.setLayoutAnimationEnabledExperimental(true);
-    
-// AsyncStorage.setItem("currentStreak", "21").then().done();
-//     AsyncStorage.setItem("totalTime", "120").then().done();
-
-
-    // AsyncStorage.setItem("nest", "0").then().done();
-    // if ( AsyncStorage.getItem('nest').done() === null) {
-    //       AsyncStorage.setItem('nest', '0').done();
-    // }
   }
 
   componentWillMount() {
@@ -125,10 +114,16 @@ export default class Stats extends Component {
         value = Math.round( parseFloat(value) * 10 ) / 10;
        } else if (key === 'currentStreak'){
         let tempArray = value.split('-');
-        value = tempArray[0];
+        let sinceLast = Date.now() - parseInt(tempArray[1]);
+        if (sinceLast > 115200000) {
+         value = 0;
+        } else {
+          let tempArray = value.split('-');
+          value = tempArray[0];
+        }
        }
        pair[key] = value;
-       this.setState(pair);
+       this.setState(pair); // sets the state of the current key
       });
     }).done();
   }
@@ -138,7 +133,7 @@ export default class Stats extends Component {
   }
 
   eraseLocalData() {
-    AsyncStorage.multiSet([['currentStreak','0'],['totalTime','0'],['longestSession','0']]).done();
+    AsyncStorage.multiSet([['currentStreak',null],['totalTime',null],['longestSession',null]]).done();
   }
 
   onPressAnimation(index) {

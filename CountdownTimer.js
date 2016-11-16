@@ -127,30 +127,33 @@ export default class CountdownTimer extends Component {
       }
 
       // fires off when countdown is done
+      // updates all th stats as needed
       if (countdownComplete) {
         let usertime = this.state.originalTime;
-        // AsyncStorage.getItem("longestSession").then(
-        //   function(result) {
-        //     if (parseInt(result) < usertime) {
-        //       AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
-        //     }
-        //   }
-        // ).done();
-
         AsyncStorage.multiGet(['currentStreak', 'totalTime', 'longestSession'], (err, stores) => {
          stores.map((result, i, store) => {
            let key = store[i][0];
            let value = store[i][1];
-           if (key === 'longestSession' && parseInt(value) < usertime){
+           // if the new time sets the record
+           if (key === 'longestSession' && parseInt(value) < usertime){ 
               AsyncStorage.setItem("longestSession", usertime.toString()).then().done();
-           } else if (key === 'totalTime'){
+
+           } else if (key === 'totalTime'){ //adds the total time and stores in decminal hours
               let decHours = (usertime/3600000);
               let newtotal = parseFloat(value) + decHours;
               AsyncStorage.setItem("totalTime", newtotal.toString()).then().done();
+
            } else if (key === 'currentStreak') {
-              if (value === '0'){
-                AsyncStorage.setItem("currentStreak", '1-'+Date.now().toString()).then().done();
+              let tempArray = value.split('-');
+              let counter = parseInt(tempArray[0]);
+              let sinceLast = Date.now() - parseInt(tempArray[1]);
+              if (counter === 0 || (sinceLast > 57600000 && sinceLast < 115200000)){
+                counter+=1;
+              } else if (sinceLast > 115200000) {
+                counter=0;
               }
+              let combined = counter + '-' + Date.now();
+              AsyncStorage.setItem("currentStreak", combined).then().done();
            }
           });
         }).done();
