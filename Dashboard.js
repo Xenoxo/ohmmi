@@ -149,7 +149,7 @@ export default class Dashboard extends Component {
   handleTimerButtonPress(time) {
     if (time !== null) {
       const milisecs = time * 60 * 1000;
-      if (Number.isInteger(milisecs) && time.length !== 0 && time > 0) { //  && time % 1 === 0
+      if (Number.isInteger(milisecs) && time.length !== 0 && time > 0 && time % 1 === 0) { //  
         const timeInTxt = time.toString();
         this.setState({
           meditationDuration: milisecs,
@@ -219,7 +219,7 @@ export default class Dashboard extends Component {
         </View>
 
 
-        {/*Default timer buttons*/}
+        {/* Default timer buttons - refactor into stateless components in future */}
         <View style={styles.subcontainer}>
           <View style={{ flex: 1 }} />
           <View style={styles.buttonContainer}>
@@ -248,7 +248,7 @@ export default class Dashboard extends Component {
           </View>
         </View>
 
-        {/* for the nav buttons */}
+        {/* for the nav buttons - refactor into stateless components in future */}
         <View style={[styles.subcontainer, {justifyContent:'center',}]}>
           <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
             <TouchableOpacity onPress={this.handleSmallButtonPress.bind(this, 'instructions')}>
@@ -272,12 +272,6 @@ export default class Dashboard extends Component {
               </View>
             </TouchableOpacity>
           </View>
-            {/*<TouchableOpacity onPress={this.handleSmallButtonPress.bind(this, 'stats')}>
-              <View style={[styles.smallCircleButton, { backgroundColor: '#F8BBD0' }]}>
-                <Icon name="signal" size={25} color="white" />
-              </View>
-            </TouchableOpacity>*/}
-          
         </View>
       </View>
     );
@@ -285,6 +279,5 @@ export default class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  // title: PropTypes.string.isRequired,
   navigator: PropTypes.object.isRequired,
 };
